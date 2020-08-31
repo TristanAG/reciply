@@ -12,26 +12,21 @@ export default function Home({ allPostsData }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
-        <p>frontend developer / musician living in monterey, california</p>
-        <Link href="/about"><a>about</a></Link> <Link href="https://www.instagram.com/tristangruener"><a>instagram</a></Link> <Link href="https://www.linkedin.com/in/tristan-gruener/"><a>linkedin</a></Link>
-      </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href="/posts/[id]" as={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <main>
+        <section class="section">
+          <div class="container">
+            <p class="subtitle">
+              Full featured social / lifestyle recipe app MVP
+            </p>
+            <ul>
+              <li>Find Recipes</li>
+              <li>Post Recipes</li>
+              <li>Assign Recipes to calendar to generate a meal plan (react drag'n'drop)</li>
+              <li>Automatically generated shopping lists</li>
+            </ul>
+          </div>
+        </section>
+      </main>
     </Layout>
   )
 }
