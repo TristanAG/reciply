@@ -1,6 +1,7 @@
-
+import Link from 'next/link'
 
 export default function Header({ title }) {
+  
   return (
     <header>
       <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -19,10 +20,6 @@ export default function Header({ title }) {
 
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a class="navbar-item">
-              Browse
-            </a>
-
             <a class="navbar-item">
               Browse
             </a>
@@ -53,9 +50,9 @@ export default function Header({ title }) {
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
+                <Link href="/login" morty="hey its me morty">
+                  <a class="button is-primary"><strong>Sign up</strong></a>
+                </Link>
                 <a class="button is-light">
                   Log in
                 </a>
