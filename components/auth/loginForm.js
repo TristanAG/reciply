@@ -1,4 +1,5 @@
 import useFormValidation from './useFormValidation'
+import validateLogin from './validateLogin'
 
 const INITIAL_STATE = {
   name: '',
@@ -8,7 +9,10 @@ const INITIAL_STATE = {
 
 export default function LoginForm() {
   // const { handleSubmit, handleChange, values } = useFormValidation(INITIAL_STATE)
-  const { handleChange, handleSubmit, values } = useFormValidation(INITIAL_STATE)
+  const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(
+    INITIAL_STATE,
+    validateLogin
+  )
   const [login, setLogin] = React.useState(true)
 
   return (
@@ -24,6 +28,7 @@ export default function LoginForm() {
                 <>
                   <input
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     name="name"
                     value={values.name}
                     type="text"
@@ -36,24 +41,37 @@ export default function LoginForm() {
               }
               <input
                 onChange={handleChange}
+                onBlur={handleBlur}
                 name="email"
                 type="email"
                 value={values.email}
                 placeholder="Your email"
                 autocomplete="off"
-                className="input"
+                className={errors.email ? "input is-danger" : "input"}
               />
+              {errors.email && <p className="help is-danger">{errors.email}</p>}
               <input
                 onChange={handleChange}
+                onBlur={handleBlur}
                 name="password"
                 type="password"
                 value={values.password}
                 placeholder="Choose a secure password"
                 autocomplete="off"
-                className="input"
+                className={errors.password ? "input is-danger" : "input"}
               />
+              {errors.password && <p className="help is-danger">{errors.password}</p>}
               <div>
-                <button type="submit" className="button test">submit</button><br />
+                <button
+                  type="submit"
+
+                  className={ isSubmitting ? 'button is-primary is-light' : 'button is-primary'}
+                  disabled={isSubmitting}
+                  
+                >
+                  submit
+                </button>
+                <br />
                 <button type="button" className="button" onClick={() => setLogin(prevLogin => !prevLogin)}> {login ? "need to create an account?" : "already have an account?"}</button>
               </div>
             </div>
