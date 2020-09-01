@@ -22,8 +22,8 @@ export default function LoginForm() {
             <h2>{login ? "login page" : "create account"}</h2>
           </div>
 
-          <div class="columns">
-            <div class="column is-three-fifths">
+          <div className="columns">
+            <div className="column is-three-fifths">
               {!login &&
                 <>
                   <input
@@ -33,7 +33,7 @@ export default function LoginForm() {
                     value={values.name}
                     type="text"
                     placeholder="Your name"
-                    autocomplete="off"
+                    autoComplete="off"
                     className="input"
                   />
                   <br />
@@ -46,7 +46,7 @@ export default function LoginForm() {
                 type="email"
                 value={values.email}
                 placeholder="Your email"
-                autocomplete="off"
+                autoComplete="off"
                 className={errors.email ? "input is-danger" : "input"}
               />
               {errors.email && <p className="help is-danger">{errors.email}</p>}
@@ -57,7 +57,7 @@ export default function LoginForm() {
                 type="password"
                 value={values.password}
                 placeholder="Choose a secure password"
-                autocomplete="off"
+                autoComplete="off"
                 className={errors.password ? "input is-danger" : "input"}
               />
               {errors.password && <p className="help is-danger">{errors.password}</p>}
@@ -67,7 +67,7 @@ export default function LoginForm() {
 
                   className={ isSubmitting ? 'button is-primary is-light' : 'button is-primary'}
                   disabled={isSubmitting}
-                  
+
                 >
                   submit
                 </button>
