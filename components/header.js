@@ -6,9 +6,11 @@ export default function Header({ title }) {
     <header>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
-            <b>{title} 🥑</b>
-          </a>
+          <Link href="/">
+            <a className="navbar-item">
+              <b className="has-text-success">{title} 🥑</b>
+            </a>
+          </Link>
 
           <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
@@ -60,6 +62,14 @@ export default function Header({ title }) {
           </div>
         </div>
       </nav>
+
+
+      <style jsx>{`
+        .logo {
+          color: #568203;
+        }
+      `}</style>
+
     </header>
   )
 }

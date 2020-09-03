@@ -1,5 +1,7 @@
 import useFormValidation from './useFormValidation'
 import validateLogin from './validateLogin'
+import firebase from '../../firebase'
+import { useRouter } from 'next/router'
 
 const INITIAL_STATE = {
   name: '',
@@ -8,16 +10,37 @@ const INITIAL_STATE = {
 }
 
 export default function LoginForm() {
-  // const { handleSubmit, handleChange, values } = useFormValidation(INITIAL_STATE)
-  const { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting } = useFormValidation(
-    INITIAL_STATE,
-    validateLogin
-  )
+  const router = useRouter()
+  const {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    isSubmitting
+  } = useFormValidation(INITIAL_STATE, validateLogin, authenticateUser)
+
   const [login, setLogin] = React.useState(true)
+  const [firebaseError, setFirebaseError] = React.useState(null)
+
+  async function authenticateUser() {
+    const { name, email, password} = values
+    try {
+      login
+        ? await firebase.login(email, password)
+        : await firebase.register(name, email, password)
+        router.push('/')
+    } catch(err) {
+      console.error('Authentication Error', err)
+      setFirebaseError('[' + err.code + '] ' + err.message)
+    }
+
+  }
 
   return (
       <div>
         <form onSubmit={handleSubmit}>
+
           <div className="content">
             <h2>{login ? "login page" : "create account"}</h2>
           </div>
@@ -61,6 +84,7 @@ export default function LoginForm() {
                 className={errors.password ? "input is-danger" : "input"}
               />
               {errors.password && <p className="help is-danger">{errors.password}</p>}
+              {firebaseError &&  <p className="help is-danger">{firebaseError}</p>}
               <div>
                 <button
                   type="submit"
