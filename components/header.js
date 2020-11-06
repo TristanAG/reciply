@@ -1,6 +1,10 @@
 import Link from 'next/link'
+import { FirebaseContext } from '../firebase'
 
 export default function Header({ title }) {
+
+  const { user, firebase } = React.useContext(FirebaseContext)
+  console.log(user)
 
   return (
     <header>
@@ -31,12 +35,10 @@ export default function Header({ title }) {
               </a>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item">
-                  My Recipes
-                </a>
-                <a className="navbar-item">
-                  Add Recipe
-                </a>
+                <a className="navbar-item">My Recipes</a>
+                <Link href="create-recipe">
+                  <a className="navbar-item">Add Recipe</a>
+                </Link>
                 <a className="navbar-item">
                   Contact
                 </a>
@@ -50,14 +52,23 @@ export default function Header({ title }) {
 
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons">
-                <Link href="/login">
-                  <a className="button is-primary"><strong>Sign up</strong></a>
-                </Link>
-                <a className="button is-light">
-                  Log in
-                </a>
-              </div>
+              {user ? (
+                <>
+                  <span className="greeting">hey 👋&nbsp; {user.displayName}</span>
+                  <a className="button is-light" onClick={() => firebase.logout()}>
+                    Log Out
+                  </a>
+                </>
+              ) : (
+                <div className="buttons">
+                  <Link href="/login">
+                    <a className="button is-primary"><strong>Sign up</strong></a>
+                  </Link>
+                  <a className="button is-light">
+                    Log in
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -67,6 +78,9 @@ export default function Header({ title }) {
       <style jsx>{`
         .logo {
           color: #568203;
+        }
+        .greeting {
+          margin-right: 12px;
         }
       `}</style>
 

@@ -5,7 +5,7 @@ import firebase, { FirebaseContext } from '../firebase'
 
 export default function App({ Component, pageProps }) {
   const user = useAuth()
-  console.log({ user })
+  // console.log({ user })
   return (
     <FirebaseContext.Provider value={{ user, firebase }}>
       <Component {...pageProps} />

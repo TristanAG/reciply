@@ -2,6 +2,7 @@ import useFormValidation from './useFormValidation'
 import validateLogin from './validateLogin'
 import firebase from '../../firebase'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const INITIAL_STATE = {
   name: '',
@@ -29,7 +30,7 @@ export default function LoginForm() {
       login
         ? await firebase.login(email, password)
         : await firebase.register(name, email, password)
-        router.push('/')
+      router.push('/')
     } catch(err) {
       console.error('Authentication Error', err)
       setFirebaseError('[' + err.code + '] ' + err.message)
@@ -101,6 +102,10 @@ export default function LoginForm() {
             </div>
           </div>
         </form>
+
+        <div>
+          <Link href="/forgot-password"><a>Forgot Password?</a></Link>
+        </div>
 
         <style jsx>{`
           .input, button {
