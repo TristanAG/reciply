@@ -35,13 +35,9 @@ export default function Header({ title }) {
               </a>
 
               <div className="navbar-dropdown">
-                <a className="navbar-item">My Recipes</a>
-                <Link href="create-recipe">
-                  <a className="navbar-item">Add Recipe</a>
-                </Link>
-                <a className="navbar-item">
-                  Contact
-                </a>
+                <Link href="my-recipes"><a className="navbar-item">My Recipes</a></Link>
+                <Link href="create-recipe"><a className="navbar-item">Add Recipe</a></Link>
+                {/* <a className="navbar-item">Contact</a> */}
                 <hr className="navbar-divider" />
                 <a className="navbar-item">
                   Report an issue
