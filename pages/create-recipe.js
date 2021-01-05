@@ -20,15 +20,19 @@ export default function CreateRecipe(props) {
 
   function handleCreateRecipe() {
 
+    
+
     const { name, steps } = values
     const newRecipe = {
       name,
       steps,
+      ingredients,
       postedBy: {
         id: user.uid,
         name: user.displayName
       },
       likes: [],
+
       created: Date.now()
     }
     firebase.db.collection('recipes').add(newRecipe)
