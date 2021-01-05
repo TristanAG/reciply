@@ -3,6 +3,7 @@ import useFormValidation from '../components/auth/useFormValidation'
 import validateCreateRecipe from '../components/auth/validateCreateRecipe'
 import { FirebaseContext } from '../firebase'
 import { useRouter } from 'next/router'
+import Ingredient from '../components/Ingredient'
 
 const INITIAL_STATE = {
   name: "",
@@ -18,10 +19,7 @@ export default function CreateRecipe(props) {
   const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
 
   function handleCreateRecipe() {
-    // console.log('recipe created')
-    // if (!user) {
-    //   window.location.href = '/login';
-    // }
+
     const { name, steps } = values
     const newRecipe = {
       name,
@@ -36,6 +34,10 @@ export default function CreateRecipe(props) {
     firebase.db.collection('recipes').add(newRecipe)
     // window.location.href = '/login';
     router.push('/')
+  }
+
+  function handleAddIngredient() {
+    console.log('handle add ingredient')
   }
 
   return (
@@ -72,13 +74,34 @@ export default function CreateRecipe(props) {
               />
               {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
 
-              <div>
+              <br />
+              <div className="content">
+                <h4>Add Ingredients</h4>
+              </div>
+
+              <div className="button add-ingredient-button" onClick={handleAddIngredient}>Add Ingredient</div>
+
+              <Ingredient />
+
+              <hr />
+
+              <div className="add-button">
                 <button className="button">Add Recipe</button>
               </div>
             </form>
           }
         </div>
       </div>
+
+      <style jsx>{`
+        .add-button {
+          margin-top: 20px;
+        }
+        .add-ingredient-button {
+          margin-top: 12px;
+          margin-bottom: 12px;
+        }
+      `}</style>
     </Layout>
   )
 }

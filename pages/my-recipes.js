@@ -14,29 +14,21 @@ export default function MyRecipes(props) {
   const { firebase, user } = React.useContext(FirebaseContext)
   const router = useRouter()
 
-  console.log(user)
-
-  // const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
-
-  // function handleCreateRecipe() {
-  //   // console.log('recipe created')
-  //   // if (!user) {
-  //   //   window.location.href = '/login';
-  //   // }
-  //   const { name, steps } = values
-  //   const newRecipe = {
-  //     name,
-  //     steps,
-  //     postedBy: {
-  //       id: user.uid,
-  //       name: user.displayName
-  //     },
-  //     likes: [],
-  //     created: Date.now()
-  //   }
-  //   firebase.db.collection('recipes').add(newRecipe)
-  //   // window.location.href = '/login';
-  //   router.push('/')
+  // console.log(user)
+  //
+  // React.useEffect(() => {
+  //   getRecipes()
+  // },[])
+  //
+  // function getRecipes() {
+  //   firebase.db.collection('recipes').onSnapshot(handleSnapshot)
+  // }
+  //
+  // function handleSnapshot(snapshot) {
+  //   const recipes = snapshot.docs.map(doc => {
+  //     return { id: doc.id, ...doc.data()}
+  //   })
+  //   console.log({ recipes })
   // }
 
   return (

@@ -12,7 +12,7 @@ export default function Header({ title }) {
         <div className="navbar-brand">
           <Link href="/">
             <a className="navbar-item">
-              <b className="has-text-success">{title} 🥑</b>
+              <b >{title} 🍴</b>
             </a>
           </Link>
 

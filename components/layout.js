@@ -4,8 +4,8 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import Header from './header'
 
-const name = 'chill.recipes'
-export const siteTitle = 'chill.recipes'
+const name = 'reciply'
+export const siteTitle = 'reciply'
 
 export default function Layout({ children, home }) {
   return (
@@ -27,15 +27,7 @@ export default function Layout({ children, home }) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
-
-
       <Header title={siteTitle}/>
-
-
-
-
-
-
 
       <main>{children}</main>
 
