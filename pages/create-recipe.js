@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react'
 
 const INITIAL_STATE = {
   name: "",
-  steps: ""
+  steps: "",
+  ingredientFields: []
 }
 
 export default function CreateRecipe(props) {
@@ -72,7 +73,7 @@ export default function CreateRecipe(props) {
     const newRecipe = {
       name,
       steps,
-      ingredients,
+      ingredients: ingredientFields,
       postedBy: {
         id: user.uid,
         name: user.displayName
@@ -96,7 +97,7 @@ export default function CreateRecipe(props) {
         <div className="column is-three-fifths">
 
           <div className="content">
-            <h3>create recipe page</h3>
+            <h1>New Recipe</h1>
           </div>
           {!user && <p className="has-text-danger">must be logged in to post a recipe</p>}
           {user &&
@@ -138,7 +139,7 @@ export default function CreateRecipe(props) {
               {/* ingredient section */}
 
 
-              <form onSubmit={handleIngredientSubmit}>
+              {/* <form onSubmit={handleIngredientSubmit}> */}
                 <div className="form-row">
                   {ingredientFields.map((ingredientField, index) => (
                     <div key={`${ingredientField}~${index}`} >
@@ -172,7 +173,7 @@ export default function CreateRecipe(props) {
                           <div className="column is-two-fifths">
                             <input
                               className="input"
-                              placeholder="Amount / Quantity of ingredient"
+                              placeholder="Ingredient"
                               id="ingredientName"
                               name="ingredientName"
                               value={ingredientField.ingredientName}
@@ -182,7 +183,7 @@ export default function CreateRecipe(props) {
                           <div className="column">
                             <input
                               className="input"
-                              placeholder="Ingredient"
+                              placeholder="Amount / Quantity"
                               type="text"
                               id="ingredientQuantity"
                               name="ingredientQuantity"
@@ -191,7 +192,7 @@ export default function CreateRecipe(props) {
 
                             />
                             <div className="has-text-right">
-                              <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}>remove ingredient</a>
+                              <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}><b>x</b></a>
                             </div>
                           </div>
                         </div>
@@ -218,8 +219,10 @@ export default function CreateRecipe(props) {
                     </div>
                   ))}
                 </div>
-                <div className="button add-ingredient-button" onClick={() => handleAddIngredientFields()}>Add Ingredient</div>
-                <div className="submit-button">
+                <div className="has-text-right">
+                <div className="button add-ingredient-button is-primary" onClick={() => handleAddIngredientFields()}>Add Ingredient</div>
+                </div>
+                {/* <div className="submit-button">
                   <button
                     className="btn btn-primary mr-2"
                     type="submit"
@@ -227,12 +230,12 @@ export default function CreateRecipe(props) {
                   >
                     Save
                   </button>
-                </div>
+                </div> */}
                 <br/>
                 {/* <pre>
                   {JSON.stringify(ingredientFields, null, 2)}
                 </pre> */}
-              </form>
+              {/* </form> */}
 
 
 
