@@ -54,20 +54,7 @@ export default function CreateRecipe(props) {
     console.log("ingredientFields", ingredientFields);
   };
 
-
-
-
-
-
-
-
-
-
-
-
   function handleCreateRecipe() {
-
-
 
     const { name, steps } = values
     const newRecipe = {
@@ -99,10 +86,11 @@ export default function CreateRecipe(props) {
           <div className="content">
             <h1>New Recipe</h1>
           </div>
+
           {!user && <p className="has-text-danger">must be logged in to post a recipe</p>}
+
           {user &&
             <form onSubmit={handleSubmit}>
-
               <input
                 onChange={handleChange}
                 value={values.name}
@@ -130,126 +118,46 @@ export default function CreateRecipe(props) {
                 <h4>Add Ingredients</h4>
               </div>
 
-              {/* <div className="button add-ingredient-button" onClick={handleAddIngredient}>Add Ingredient</div> */}
 
-              {/* <Ingredient /> */}
-
-
-
-              {/* ingredient section */}
-
-
-              {/* <form onSubmit={handleIngredientSubmit}> */}
-                <div className="form-row">
-                  {ingredientFields.map((ingredientField, index) => (
-                    <div key={`${ingredientField}~${index}`} >
-                      {/* <div className="form-group col-sm-6">
-                        <label htmlFor="ingredientName">Ingredient Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="ingredientName"
-                          name="ingredientName"
-                          value={ingredientField.ingredientName}
-                          onChange={event => handleIngredientChange(index, event)}
-                        />
-                      </div>
-                      <div className="form-group col-sm-4">
-                        <label htmlFor="ingredientQunatity">Ingredient Quantity</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="ingredientQuantity"
-                          name="ingredientQuantity"
-                          value={ingredientField.ingredientQuantity}
-                          onChange={event => handleIngredientChange(index, event)}
-                        />
-                      </div> */}
-
-
-
-                      <div className="ingredient-item">
-                        <div className="columns">
-                          <div className="column is-two-fifths">
-                            <input
-                              className="input"
-                              placeholder="Ingredient"
-                              id="ingredientName"
-                              name="ingredientName"
-                              value={ingredientField.ingredientName}
-                              onChange={event => handleIngredientChange(index, event)}
-                            />
-                          </div>
-                          <div className="column">
-                            <input
-                              className="input"
-                              placeholder="Amount / Quantity"
-                              type="text"
-                              id="ingredientQuantity"
-                              name="ingredientQuantity"
-                              value={ingredientField.ingredientQuantity}
-                              onChange={event => handleIngredientChange(index, event)}
-
-                            />
-                            <div className="has-text-right">
-                              <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}><b>x</b></a>
-                            </div>
+              <div>
+                {ingredientFields.map((ingredientField, index) => (
+                  <div key={`${ingredientField}~${index}`} >
+                    <div className="ingredient-item">
+                      <div className="columns">
+                        <div className="column is-two-fifths">
+                          <input
+                            className="input"
+                            placeholder="Ingredient"
+                            id="ingredientName"
+                            name="ingredientName"
+                            value={ingredientField.ingredientName}
+                            onChange={event => handleIngredientChange(index, event)}
+                          />
+                        </div>
+                        <div className="column">
+                          <input
+                            className="input"
+                            placeholder="Amount / Quantity"
+                            type="text"
+                            id="ingredientQuantity"
+                            name="ingredientQuantity"
+                            value={ingredientField.ingredientQuantity}
+                            onChange={event => handleIngredientChange(index, event)}
+                          />
+                          <div className="has-text-right">
+                            <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}><b>x</b></a>
                           </div>
                         </div>
-
-
-
-
-
                       </div>
-
-
-
-
-
-                        {/* <button
-                          className="btn btn-link"
-                          type="button"
-                          onClick={() => handleAddIngredientFields()}
-                        >
-                          +
-                        </button> */}
-                        {/* <div className="button add-ingredient-button" onClick={() => handleAddIngredientFields()}>Add Ingredient</div> */}
-
                     </div>
-                  ))}
-                </div>
-                <div className="has-text-right">
+                  </div>
+                ))}
+              </div>
+              <div className="has-text-right">
                 <div className="button add-ingredient-button is-primary" onClick={() => handleAddIngredientFields()}>Add Ingredient</div>
-                </div>
-                {/* <div className="submit-button">
-                  <button
-                    className="btn btn-primary mr-2"
-                    type="submit"
-                    onSubmit={handleIngredientSubmit}
-                  >
-                    Save
-                  </button>
-                </div> */}
-                <br/>
-                {/* <pre>
-                  {JSON.stringify(ingredientFields, null, 2)}
-                </pre> */}
-              {/* </form> */}
+              </div>
 
-
-
-              {/* end ingredient section */}
-
-
-
-
-
-
-
-
-
-
+              <br/>
 
               <hr />
 
