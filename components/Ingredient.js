@@ -3,22 +3,28 @@ import { useEffect, useState } from 'react'
 
 function Ingredient(props) {
 
+  //define the fields
   const [inputFields, setInputFields] = useState([
     { firstName: '', lastName: '' }
   ]);
 
+  //handleAddFields will place the new entries on to the values array, at index
   const handleAddFields = () => {
     const values = [...inputFields];
     values.push({ firstName: '', lastName: '' });
     setInputFields(values);
   };
 
+  //just like handleAdd, it will delete at index... so it is attached to the button, and whenever you need to delete a single ingredient it's super easy to do so
   const handleRemoveFields = index => {
     const values = [...inputFields];
     values.splice(index, 1);
     setInputFields(values);
   };
 
+  //makes it a controlled field, basically, at the specific index (the field you are on) it will edit that one, this one accounts for only 2 fields
+  //i bet this can be refined.... there is this syntax that just takes the name of the field and lets you use it event.target.name]: event.target.value
+  //well im not certain, this is fine for now...
   const handleInputChange = (index, event) => {
     const values = [...inputFields];
     if (event.target.name === "firstName") {
@@ -27,9 +33,11 @@ function Ingredient(props) {
       values[index].lastName = event.target.value;
     }
 
+    //use the hook to update the value
     setInputFields(values);
   };
 
+  // just does a console out now
   const handleSubmit = e => {
     e.preventDefault();
     console.log("inputFields", inputFields);
@@ -72,18 +80,18 @@ function Ingredient(props) {
                   >
                     -
                   </button>
-                  <button
+                  {/* <button
                     className="btn btn-link"
                     type="button"
                     onClick={() => handleAddFields()}
                   >
                     +
-                  </button>
+                  </button> */}
                 </div>
               </div>
             ))}
           </div>
-          <div className="submit-button">
+          {/* <div className="submit-button">
             <button
               className="btn btn-primary mr-2"
               type="submit"
@@ -91,7 +99,7 @@ function Ingredient(props) {
             >
               Save
             </button>
-          </div>
+          </div> */}
           <br/>
           <pre>
             {JSON.stringify(inputFields, null, 2)}
