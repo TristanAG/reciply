@@ -229,9 +229,9 @@ export default function CreateRecipe(props) {
                   </button>
                 </div>
                 <br/>
-                <pre>
+                {/* <pre>
                   {JSON.stringify(ingredientFields, null, 2)}
-                </pre>
+                </pre> */}
               </form>
 
 
@@ -255,6 +255,11 @@ export default function CreateRecipe(props) {
               </div>
             </form>
           }
+        </div>
+        <div className="column">
+          <pre>
+            {JSON.stringify(ingredientFields, null, 2)}
+          </pre>
         </div>
       </div>
 
