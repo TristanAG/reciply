@@ -114,8 +114,10 @@ export default function CreateRecipe(props) {
               {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
 
               <br />
+              <br />
+
               <div className="content">
-                <h4>Add Ingredients</h4>
+                <h4>Ingredients</h4>
               </div>
 
 

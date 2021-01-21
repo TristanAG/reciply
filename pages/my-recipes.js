@@ -5,6 +5,7 @@ import { FirebaseContext } from '../firebase'
 import { useRouter } from 'next/router'
 import RecipeList from '../components/recipeList'
 
+
 const INITIAL_STATE = {
   name: "",
   steps: ""
