@@ -2,11 +2,12 @@ import Layout from '../../components/layout'
 import Firebase from '../../firebase/firebase'
 
 
-export default function Recipe(props) {
+export default function Recipe({ recipe }) {
   // const { firebase, user } = React.useContext(FirebaseContext)
   return (
     <Layout>
-      <h1>{props.recipe.name}</h1>
+      <h1>{recipe.name}</h1>
+      <p>{recipe.steps}</p>
     </Layout>
   )
 }
