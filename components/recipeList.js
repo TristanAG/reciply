@@ -39,16 +39,19 @@ export default function RecipeList(props) {
   return (
     <div>
       {recipes && recipes.map((recipe, index) => (
-        <Link href="/recipes/[recipe.name]" as={'/recipes/' + recipe.name.split(' ').join('-').toLowerCase()}>
-          <a>
-            <RecipeItem
-              key={recipe.id}
-              showCount={true}
-              recipe={recipe}
-              index={index + 1}
-            />
-          </a>
-        </Link>
+        <>
+          <Link href="/recipes/[recipe.name]" as={'/recipes/' + recipe.name.split(' ').join('-').toLowerCase()}>
+            <a>
+              <RecipeItem
+                key={recipe.id}
+                showCount={true}
+                recipe={recipe}
+                index={index + 1}
+              />
+            </a>
+          </Link>
+          <p>test</p>
+        </>
       ))}
 
     </div>

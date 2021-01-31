@@ -1,9 +1,18 @@
+import React from 'react'
 import Layout from '../../components/layout'
 import Firebase from '../../firebase/firebase'
+import RecipeContext from '../../components/RecipeContext'
 
 
 export default function Recipe({ recipe }) {
   // const { firebase, user } = React.useContext(FirebaseContext)
+  const { fartSound, doSomething } = React.useContext(RecipeContext)
+
+
+  const test = doSomething
+  console.log(test)
+
+
   return (
     <Layout>
       <h1>{recipe.name}</h1>
@@ -16,10 +25,13 @@ export default function Recipe({ recipe }) {
 export const getStaticPaths = async () => {
   const recipes = await Firebase.db.collection('recipes').get()
   const paths = recipes.docs.map(recipe => ({
+
     params: {
       slug: recipe.data().slug
     }
   }));
+
+  console.log(paths)
 
   return {
     paths,
@@ -45,53 +57,3 @@ export const getStaticProps = async (context) => {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export async function getStaticProps(context) {
-//
-//   const recipesCollection = Firebase.db.collection('recipes')
-//   const query = recipesCollection.where("href", "==", context.params.name).get().then(function(querySnapshot) {
-//
-//     const snapshot = querySnapshot.docs[0];
-//     const data = snapshot.data();
-//     console.log('data')
-//     console.log(data)
-//
-//     return {
-//       props: {
-//         name: data.name
-//       }  // will be passed to the page component as props
-//     }
-//   })
-// }
-//
-//
-// export async function getStaticPaths() {
-//   return {
-//     paths: [
-//       { params: {name: 'href'} }
-//     ],
-//     fallback: true
-//   }
-// }
-//
