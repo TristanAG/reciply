@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from '../../components/layout'
 import Firebase from '../../firebase/firebase'
 import RecipeContext from '../../components/RecipeContext'
+import Link from 'next/link'
 
 
 export default function Recipe({ recipe }) {
@@ -23,6 +24,9 @@ export default function Recipe({ recipe }) {
       <h1>{recipe.name}</h1>
       <h3>context: {recipeContext.name}</h3>
       <p>{recipe.steps}</p>
+      <Link href="/edit-recipe" as={'/edit-recipe/' + recipe.name.split(' ').join('-').toLowerCase()}>
+        <a>edit</a>
+      </Link>
     </Layout>
   )
 }
