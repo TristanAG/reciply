@@ -2,7 +2,7 @@ import '../styles/global.css'
 import 'bulma/css/bulma.min.css'
 import useAuth from '../components/auth/useAuth'
 import firebase, { FirebaseContext } from '../firebase'
-import RecipeContext, { doSomething } from '../components/RecipeContext'
+import { RecipeProvider } from '../components/RecipeContext'
 
 // function doSomething() {
 //   return 'doin thangs'
@@ -15,9 +15,9 @@ export default function App({ Component, pageProps }) {
   // console.log({ user })
   return (
     <FirebaseContext.Provider value={{ user, firebase }}>
-      <RecipeContext.Provider value={{ doSomething, fartSound }}>
+      <RecipeProvider>
         <Component {...pageProps} />
-      </RecipeContext.Provider>
+      </RecipeProvider>
     </FirebaseContext.Provider>
   )
 }

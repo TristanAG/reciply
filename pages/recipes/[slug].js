@@ -6,16 +6,22 @@ import RecipeContext from '../../components/RecipeContext'
 
 export default function Recipe({ recipe }) {
   // const { firebase, user } = React.useContext(FirebaseContext)
-  const { fartSound, doSomething } = React.useContext(RecipeContext)
+  // const { fartSound, doSomething } = React.useContext(RecipeContext)
+  const recipeContext = React.useContext(RecipeContext);
 
 
-  const test = doSomething
-  console.log(test)
+  console.log(recipeContext.setName('tilf'))
+  console.log('look')
+  console.log(recipeContext.name)
+
+
+
 
 
   return (
     <Layout>
       <h1>{recipe.name}</h1>
+      <h3>context: {recipeContext.name}</h3>
       <p>{recipe.steps}</p>
     </Layout>
   )
