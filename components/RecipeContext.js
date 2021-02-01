@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react'
 const RecipeContext = createContext()
 
 export const RecipeProvider = ({ children }) => {
-  const [name, setName] = useState("William");
+  const [name, setName] = useState('');
   // const [location, setLocation] = useState("Mars");
 
   return (

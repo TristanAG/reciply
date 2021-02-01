@@ -10,7 +10,7 @@ export default function Recipe({ recipe }) {
   const recipeContext = React.useContext(RecipeContext);
 
 
-  console.log(recipeContext.setName('tilf'))
+  recipeContext.setName(recipe.name)
   console.log('look')
   console.log(recipeContext.name)
 

@@ -5,6 +5,7 @@ import { FirebaseContext } from '../firebase'
 import { useRouter } from 'next/router'
 import Ingredient from '../components/Ingredient'
 import { useEffect, useState } from 'react'
+import RecipeContext from '../components/RecipeContext'
 
 const INITIAL_STATE = {
   name: "",
@@ -13,6 +14,10 @@ const INITIAL_STATE = {
 }
 
 export default function CreateRecipe(props) {
+
+  const recipeContext = React.useContext(RecipeContext);
+
+
   const { firebase, user } = React.useContext(FirebaseContext)
   const router = useRouter()
 
@@ -81,9 +86,11 @@ export default function CreateRecipe(props) {
   return (
     <Layout>
       <div className="columns">
+
         <div className="column is-three-fifths">
 
           <div className="content">
+            <p>recipe context name: <b>{recipeContext.name}</b></p>
             <h1>New Recipe</h1>
           </div>
 
