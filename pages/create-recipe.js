@@ -13,16 +13,12 @@ const INITIAL_STATE = {
   ingredientFields: []
 }
 
-export default function CreateRecipe(props) {
+export default function CreateRecipe() {
 
   const recipeContext = React.useContext(RecipeContext);
-
-
   const { firebase, user } = React.useContext(FirebaseContext)
+
   const router = useRouter()
-
-  console.log(user)
-
   const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
 
   //define the fields
@@ -75,7 +71,6 @@ export default function CreateRecipe(props) {
       created: Date.now()
     }
     firebase.db.collection('recipes').add(newRecipe)
-    // window.location.href = '/login';
     router.push('/')
   }
 
@@ -86,9 +81,7 @@ export default function CreateRecipe(props) {
   return (
     <Layout>
       <div className="columns">
-
         <div className="column is-three-fifths">
-
           <div className="content">
             <p>recipe context name: <b>{recipeContext.name}</b></p>
             <h1>New Recipe</h1>
