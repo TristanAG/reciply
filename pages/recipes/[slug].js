@@ -7,13 +7,13 @@ import Link from 'next/link'
 
 export default function Recipe({ recipe }) {
   // const { firebase, user } = React.useContext(FirebaseContext)
-  // const { fartSound, doSomething } = React.useContext(RecipeContext)
+
   const recipeContext = React.useContext(RecipeContext);
 
 
-  recipeContext.setName(recipe.name)
+  recipeContext.setRecipe(recipe)
   console.log('look')
-  console.log(recipeContext.name)
+  console.log(recipeContext.recipe)
 
 
 

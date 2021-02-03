@@ -3,14 +3,16 @@ import React, { createContext, useState } from 'react'
 const RecipeContext = createContext()
 
 export const RecipeProvider = ({ children }) => {
-  const [name, setName] = useState('');
-  // const [location, setLocation] = useState("Mars");
+  const [name, setName] = useState('')
+  const [slug, setSlug] = useState('')
+
+  const [recipe, setRecipe] = useState({})
 
   return (
     <RecipeContext.Provider
       value={{
-        name,
-        setName
+        recipe,
+        setRecipe
       }}
     >
       {children}
@@ -18,8 +20,4 @@ export const RecipeProvider = ({ children }) => {
   );
 };
 
-function doSomething(word) {
-
-}
-
-export { RecipeContext as default, doSomething }
+export { RecipeContext as default }

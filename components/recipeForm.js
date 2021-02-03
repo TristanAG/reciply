@@ -1,4 +1,3 @@
-// import Layout from '../components/layout'
 import useFormValidation from '../components/auth/useFormValidation'
 import validateCreateRecipe from '../components/auth/validateCreateRecipe'
 import { FirebaseContext } from '../firebase'
@@ -22,9 +21,21 @@ export default function RecipeForm({ mode }) {
   const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
 
   //define the fields
-  const [ingredientFields, setIngredientFields] = useState([
-    { ingredientName: '', ingredientQuantity: '' }
-  ])
+  const [ingredientFields, setIngredientFields] = useState([{ ingredientName: '', ingredientQuantity: '' }])
+
+  useEffect(() => {
+    if (mode === 'edit') {
+      values.name = recipeContext.recipe.name
+      values.steps = recipeContext.recipe.steps
+      setIngredientFields(recipeContext.recipe.ingredients)
+    }
+  }, [mode])
+
+  // if (mode === 'edit') {
+  //   values.name = recipeContext.recipe.name
+  //   values.steps = recipeContext.recipe.steps
+  //   // setIngredientFields(recipeContext.recipe.ingredients)
+  // }
 
   const handleAddIngredientFields = () => {
     const values = [...ingredientFields];
@@ -49,14 +60,7 @@ export default function RecipeForm({ mode }) {
     setIngredientFields(values);
   };
 
-  // just does a console out now temporary function!!!
-  const handleIngredientSubmit = e => {
-    e.preventDefault();
-    console.log("ingredientFields", ingredientFields);
-  };
-
   function handleCreateRecipe() {
-
     const { name, steps } = values
     const newRecipe = {
       name,
@@ -67,15 +71,11 @@ export default function RecipeForm({ mode }) {
         name: user.displayName
       },
       likes: [],
-
+      slug: name.split(' ').join('-').toLowerCase(),
       created: Date.now()
     }
     firebase.db.collection('recipes').add(newRecipe)
     router.push('/')
-  }
-
-  function handleAddIngredient() {
-    console.log('handle add ingredient')
   }
 
   return (
@@ -84,8 +84,10 @@ export default function RecipeForm({ mode }) {
         <div className="column is-three-fifths">
           <div className="content">
             <p>MODE /// <b className="has-text-success">{mode}</b></p>
-            <p>recipe context /// <b className="has-text-success">{recipeContext.name}</b></p>
+            <p>recipe context /// <b className="has-text-success">{recipeContext.recipe.name}</b></p>
+            <p>S L U G /// <b className="has-text-success">{recipeContext.recipe.slug}</b></p>
             {mode === 'edit' ? <h1>Edit Recipe</h1> : <h1>New Recipe</h1>}
+            <small><i>recipe url:</i> reciply.com/recipes/{values.name.split(' ').join('-').toLowerCase()}</small>
           </div>
 
           {!user && <p className="has-text-danger">must be logged in to post a recipe</p>}

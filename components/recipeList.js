@@ -10,24 +10,11 @@ export default function RecipeList(props) {
 
   React.useEffect(() => {
     getRecipes()
-    // console.log('test')
-    // getSingleRecipe()
   }, [])
 
   function getRecipes() {
     const theRecipes = firebase.db.collection('recipes').onSnapshot(handleSnapshot)
   }
-
-  // function getSingleRecipe() {
-  //   const recipe = firebase.db.collection('recipes')
-  //   const query = recipe.where("name", "==", "new recipe").get().then(function(querySnapshot) {
-  //       querySnapshot.forEach(function(doc) {
-  //           // doc.data() is never undefined for query doc snapshots
-  //           console.log(doc.id, " => ", doc.data());
-  //       });
-  //   })
-  //
-  // }
 
   function handleSnapshot(snapshot) {
     const recipes = snapshot.docs.map(doc => {
@@ -35,6 +22,8 @@ export default function RecipeList(props) {
     })
     setRecipes(recipes)
   }
+
+
 
   return (
     <div>
