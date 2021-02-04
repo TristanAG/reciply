@@ -23,23 +23,21 @@ export default function RecipeList(props) {
     setRecipes(recipes)
   }
 
-
-
   return (
     <div>
       {recipes && recipes.map((recipe, index) => (
         <>
-          <Link href="/recipes/[recipe.name]" as={'/recipes/' + recipe.name.split(' ').join('-').toLowerCase()}>
-            <a>
+          {/* <Link href="/recipes/[recipe.name]" as={'/recipes/' + recipe.name.split(' ').join('-').toLowerCase()}> */}
+            {/* <a> */}
               <RecipeItem
                 key={recipe.id}
                 showCount={true}
                 recipe={recipe}
                 index={index + 1}
               />
-            </a>
-          </Link>
-          <p>test</p>
+            {/* </a> */}
+          {/* </Link> */}
+          {/* <p className="has-text-primary" onClick={() => updateRecipeContext()}>edit</p> */}
         </>
       ))}
 

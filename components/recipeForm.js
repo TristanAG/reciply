@@ -81,11 +81,25 @@ export default function RecipeForm({ mode }) {
   return (
     <>
       <div className="columns">
+        <div className="column">
+          <div className="card has-background-info-light">
+            <div className="card-content">
+              <div className="content">
+                <b className="has-text-info">Recipe Context Info</b>
+                <ul>
+                  <li>MODE /// <b className="has-text-success">{mode}</b></li>
+                  <li>recipe context /// <b className="has-text-success">{recipeContext.recipe.name}</b></li>
+                  <li>S L U G /// <b className="has-text-success">{recipeContext.recipe.slug}</b></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="columns">
         <div className="column is-three-fifths">
           <div className="content">
-            <p>MODE /// <b className="has-text-success">{mode}</b></p>
-            <p>recipe context /// <b className="has-text-success">{recipeContext.recipe.name}</b></p>
-            <p>S L U G /// <b className="has-text-success">{recipeContext.recipe.slug}</b></p>
             {mode === 'edit' ? <h1>Edit Recipe</h1> : <h1>New Recipe</h1>}
             <small><i>recipe url:</i> reciply.com/recipes/{values.name.split(' ').join('-').toLowerCase()}</small>
           </div>

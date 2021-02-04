@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
 const RecipeContext = createContext()
 
@@ -7,6 +7,11 @@ export const RecipeProvider = ({ children }) => {
   const [slug, setSlug] = useState('')
 
   const [recipe, setRecipe] = useState({})
+
+  useEffect(() => {
+    console.log('recipe derpidy dooo!!')
+    console.log(recipe.name)
+  },[recipe])
 
   return (
     <RecipeContext.Provider
