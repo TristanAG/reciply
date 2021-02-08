@@ -10,14 +10,9 @@ export default function Recipe({ recipe }) {
 
   const recipeContext = React.useContext(RecipeContext);
 
-
   recipeContext.setRecipe(recipe)
   console.log('look')
   console.log(recipeContext.recipe)
-
-
-
-
 
   return (
     <Layout>

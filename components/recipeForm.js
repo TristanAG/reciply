@@ -18,6 +18,7 @@ export default function RecipeForm({ mode }) {
   const { firebase, user } = React.useContext(FirebaseContext)
 
   const router = useRouter()
+
   const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
 
   //define the fields
@@ -30,12 +31,6 @@ export default function RecipeForm({ mode }) {
       setIngredientFields(recipeContext.recipe.ingredients)
     }
   }, [mode])
-
-  // if (mode === 'edit') {
-  //   values.name = recipeContext.recipe.name
-  //   values.steps = recipeContext.recipe.steps
-  //   // setIngredientFields(recipeContext.recipe.ingredients)
-  // }
 
   const handleAddIngredientFields = () => {
     const values = [...ingredientFields];
@@ -62,7 +57,9 @@ export default function RecipeForm({ mode }) {
 
   function handleCreateRecipe() {
     const { name, steps } = values
-    const newRecipe = {
+
+
+    const recipe = {
       name,
       steps,
       ingredients: ingredientFields,
@@ -74,7 +71,26 @@ export default function RecipeForm({ mode }) {
       slug: name.split(' ').join('-').toLowerCase(),
       created: Date.now()
     }
-    firebase.db.collection('recipes').add(newRecipe)
+
+    if (mode === 'add') {
+      AddNewRecipe(recipe)
+    } else {
+      UpdateRecipe(recipe)
+    }
+
+  }
+
+  function AddNewRecipe(recipe) {
+    alert('Add New Recipe')
+    // firebase.db.collection('recipes').add(recipe)
+    // router.push('/')
+  }
+
+  function UpdateRecipe(recipe) {
+    alert(recipeContext.recipe.id)
+    //I don't have the doc ref ... i need to locate it, im sure i can, because im interacting with it
+    //it's a matter of passing it to this function
+    firebase.db.collection('recipes').doc(recipeContext.recipe.id).update(recipe);
     router.push('/')
   }
 
@@ -181,7 +197,7 @@ export default function RecipeForm({ mode }) {
               <hr />
 
               <div className="add-button">
-                <button className="button">Add Recipe</button>
+                {mode === 'edit' ? <button className="button">Edit Recipe</button> : <button className="button">Add Recipe</button>}
               </div>
             </form>
           }
