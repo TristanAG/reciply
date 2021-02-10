@@ -34,6 +34,7 @@ export default function RecipeList(props) {
                 showCount={true}
                 recipe={recipe}
                 index={index + 1}
+                firebase={firebase}
               />
             {/* </a> */}
           {/* </Link> */}

@@ -2,12 +2,14 @@ import React from 'react'
 import format from 'date-fns/format'
 import Link from 'next/link'
 import RecipeContext from '../components/RecipeContext'
+// import { FirebaseContext } from '../firebase'
 
 import { useRouter } from 'next/router'
 
 
-function RecipeItem({ recipe, index, showCount }) {
+function RecipeItem({ recipe, index, showCount, firebase }) {
   const router = useRouter()
+  // const { firebase } = React.useContext(FirebaseContext)
 
   const recipeContext = React.useContext(RecipeContext);
 
@@ -17,7 +19,17 @@ function RecipeItem({ recipe, index, showCount }) {
 
 
     const href = '/edit-recipe/' + recipe.name.split(' ').join('-').toLowerCase()
-    router.push('/edit-recipe/')
+    // router.push()
+    // router.push('/edit-recipe/', href)
+    router.push('/edit-recipe/', href)
+  }
+
+  function deleteRecipe(recipe) {
+    firebase.db.collection('recipes').doc(recipe.id).delete().then(() => {
+      console.log("Document successfully deleted!");
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    });
   }
 
   return(
@@ -31,6 +43,8 @@ function RecipeItem({ recipe, index, showCount }) {
         </Link>
         &nbsp;|&nbsp;
         <span className="has-text-link edit-button" onClick={() => updateRecipeContext(recipe)}>edit</span>
+        &nbsp;|&nbsp;
+        <span className="has-text-danger edit-button" onClick={() => deleteRecipe(recipe)}>delete</span>
       </p>
       <style jsx>{`
         .edit-button:hover {
