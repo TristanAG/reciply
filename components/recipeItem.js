@@ -42,7 +42,10 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
           <a className="has-text-primary">view</a>
         </Link>
         &nbsp;|&nbsp;
-        <span className="has-text-link edit-button" onClick={() => updateRecipeContext(recipe)}>edit</span>
+        {/* <span className="has-text-link edit-button" onClick={() => updateRecipeContext(recipe)}>edit</span> */}
+        <Link href={'/' + recipe.slug + '/edit'}>
+          <a className="has-text-primary">edit</a>
+        </Link>
         &nbsp;|&nbsp;
         <span className="has-text-danger edit-button" onClick={() => deleteRecipe(recipe)}>delete</span>
       </p>

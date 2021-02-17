@@ -4,6 +4,7 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import useAuth from '../components/auth/useAuth'
+import RecipeList from '../components/recipeList'
 
 import Date from '../components/date'
 
@@ -21,6 +22,7 @@ export default function Home({ allPostsData }) {
             <p class="subtitle">
               all recipes show here, this is the main page
             </p>
+            <RecipeList />
             {/* <ul>
               <li>Find great recipes that fit your preferences</li>
               <li>Create, store, and share your own recipes</li> */}
