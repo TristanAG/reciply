@@ -19,17 +19,17 @@ export default function Home({ allPostsData }) {
         <section class="section">
           <div class="container">
             <p class="subtitle">
-              Full featured social / lifestyle recipe app MVP
+              all recipes show here, this is the main page
             </p>
-            <ul>
+            {/* <ul>
               <li>Find great recipes that fit your preferences</li>
-              <li>Create, store, and share your own recipes</li>
+              <li>Create, store, and share your own recipes</li> */}
               {/* i just thought of something
                   this could be a little tool for people to pass recipes around. you could login, and you can generate a custom recipe url to share with friends
                 */}
-              <li>Assign recipes to days of the week to generate a meal plan (react drag'n'drop)</li>
+              {/* <li>Assign recipes to days of the week to generate a meal plan (react drag'n'drop)</li>
               <li>Automatically generated shopping lists to easily buy the groceries you need for your meal plan</li>
-            </ul>
+            </ul> */}
           </div>
         </section>
       </main>

@@ -1,27 +1,28 @@
 import React from 'react'
 import Layout from '../../components/layout'
 import Firebase from '../../firebase/firebase'
-import RecipeContext from '../../components/RecipeContext'
+// import RecipeContext from '../../components/RecipeContext'
 import Link from 'next/link'
 
 
-export default function Recipe({ recipe }) {
+export default function Edit({ recipe }) {
   // const { firebase, user } = React.useContext(FirebaseContext)
 
-  const recipeContext = React.useContext(RecipeContext);
+  // const recipeContext = React.useContext(RecipeContext);
 
-  recipeContext.setRecipe(recipe)
-  console.log('look')
-  console.log(recipeContext.recipe)
+  // recipeContext.setRecipe(recipe)
+  // console.log('look')
+  // console.log(recipeContext.recipe)
 
   return (
     <Layout>
-      <h1>{recipe.name}</h1>
+      {/* <h1>{recipe.name}</h1>
       <h3>context: {recipeContext.name}</h3>
       <p>{recipe.steps}</p>
       <Link href="/edit-recipe" as={'/edit-recipe/' + recipe.name.split(' ').join('-').toLowerCase()}>
         <a>edit</a>
-      </Link>
+      </Link> */}
+      <p>edit {recipe.name}</p>
     </Layout>
   )
 }
@@ -36,7 +37,7 @@ export const getStaticPaths = async () => {
     }
   }));
 
-  console.log(paths)
+
 
   return {
     paths,
