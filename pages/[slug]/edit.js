@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from '../../components/layout'
 import Firebase from '../../firebase/firebase'
 // import RecipeContext from '../../components/RecipeContext'
+import RecipeForm from '../../components/recipeForm'
 import Link from 'next/link'
 
 
@@ -23,6 +24,7 @@ export default function Edit({ recipe }) {
         <a>edit</a>
       </Link> */}
       <p>edit {recipe.name}</p>
+      <RecipeForm mode="edit" recipe={recipe} />
     </Layout>
   )
 }

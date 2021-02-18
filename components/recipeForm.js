@@ -12,9 +12,9 @@ const INITIAL_STATE = {
   ingredientFields: []
 }
 
-export default function RecipeForm({ mode }) {
+export default function RecipeForm({ mode, recipe }) {
 
-  const recipeContext = React.useContext(RecipeContext);
+  // const recipeContext = React.useContext(RecipeContext);
   const { firebase, user } = React.useContext(FirebaseContext)
 
   const router = useRouter()
@@ -26,9 +26,9 @@ export default function RecipeForm({ mode }) {
 
   useEffect(() => {
     if (mode === 'edit') {
-      values.name = recipeContext.recipe.name
-      values.steps = recipeContext.recipe.steps
-      setIngredientFields(recipeContext.recipe.ingredients)
+      values.name = recipe.name
+      values.steps = recipe.steps
+      setIngredientFields(recipe.ingredients)
     }
   }, [mode])
 
@@ -87,10 +87,11 @@ export default function RecipeForm({ mode }) {
   }
 
   function UpdateRecipe(recipe) {
-    alert(recipeContext.recipe.id)
+    // alert(recipeContext.recipe.id)
     //I don't have the doc ref ... i need to locate it, im sure i can, because im interacting with it
     //it's a matter of passing it to this function
-    firebase.db.collection('recipes').doc(recipeContext.recipe.id).update(recipe);
+
+    firebase.db.collection('recipes').doc(recipe.id).update(recipe);
     router.push('/')
   }
 
@@ -104,8 +105,7 @@ export default function RecipeForm({ mode }) {
                 <b className="has-text-info">Recipe Context Info</b>
                 <ul>
                   <li>MODE /// <b className="has-text-success">{mode}</b></li>
-                  <li>recipe context /// <b className="has-text-success">{recipeContext.recipe.name}</b></li>
-                  <li>S L U G /// <b className="has-text-success">{recipeContext.recipe.slug}</b></li>
+                  <li>S L U G /// <b className="has-text-success">{recipe.slug}</b></li>
                 </ul>
               </div>
             </div>
@@ -117,7 +117,7 @@ export default function RecipeForm({ mode }) {
         <div className="column is-three-fifths">
           <div className="content">
             {mode === 'edit' ? <h1>Edit Recipe</h1> : <h1>New Recipe</h1>}
-            <small><i>recipe url:</i> reciply.com/recipes/{values.name.split(' ').join('-').toLowerCase()}</small>
+            <small><i>recipe url:</i> reciply.app/{values.name.split(' ').join('-').toLowerCase()}</small>
           </div>
 
           {!user && <p className="has-text-danger">must be logged in to post a recipe</p>}

@@ -38,7 +38,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
       <p>{recipe.name} | {recipe.steps}</p>
       <small>{format(recipe.created, 'MMMM Mo yyyy')}</small>
       <p>
-        <Link href="/recipes/[recipe.name]" as={'/recipes/' + recipe.name.split(' ').join('-').toLowerCase()}>
+        <Link href={'/' + recipe.slug} >
           <a className="has-text-primary">view</a>
         </Link>
         &nbsp;|&nbsp;
