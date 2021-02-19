@@ -2,9 +2,7 @@ import useFormValidation from '../components/auth/useFormValidation'
 import validateCreateRecipe from '../components/auth/validateCreateRecipe'
 import { FirebaseContext } from '../firebase'
 import { useRouter } from 'next/router'
-import Ingredient from '../components/Ingredient'
 import { useEffect, useState } from 'react'
-import RecipeContext from '../components/RecipeContext'
 
 const INITIAL_STATE = {
   name: "",
@@ -14,7 +12,6 @@ const INITIAL_STATE = {
 
 export default function RecipeForm({ mode, recipe, id }) {
 
-  // const recipeContext = React.useContext(RecipeContext);
   const { firebase, user } = React.useContext(FirebaseContext)
 
   const router = useRouter()
@@ -58,7 +55,6 @@ export default function RecipeForm({ mode, recipe, id }) {
   function handleCreateRecipe() {
     const { name, steps } = values
 
-
     const recipe = {
       name,
       steps,
@@ -81,16 +77,11 @@ export default function RecipeForm({ mode, recipe, id }) {
   }
 
   function AddNewRecipe(recipe) {
-    alert('Add New Recipe')
     firebase.db.collection('recipes').add(recipe)
     router.push('/')
   }
 
   function UpdateRecipe(recipe) {
-    // alert(recipeContext.recipe.id)
-    //I don't have the doc ref ... i need to locate it, im sure i can, because im interacting with it
-    //it's a matter of passing it to this function
-
     firebase.db.collection('recipes').doc(id).update(recipe);
     router.push('/')
   }
@@ -153,7 +144,6 @@ export default function RecipeForm({ mode, recipe, id }) {
               <div className="content">
                 <h4>Ingredients</h4>
               </div>
-
 
               <div>
                 {ingredientFields.map((ingredientField, index) => (

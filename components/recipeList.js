@@ -26,48 +26,14 @@ export default function RecipeList(props) {
   return (
     <div>
       {recipes && recipes.map((recipe, index) => (
-        <>
-          {/* <Link href="/recipes/[recipe.name]" as={'/recipes/' + recipe.name.split(' ').join('-').toLowerCase()}> */}
-            {/* <a> */}
-              <RecipeItem
-                key={recipe.id}
-                showCount={true}
-                recipe={recipe}
-                index={index + 1}
-                firebase={firebase}
-              />
-            {/* </a> */}
-          {/* </Link> */}
-          {/* <p className="has-text-primary" onClick={() => updateRecipeContext()}>edit</p> */}
-        </>
+        <RecipeItem
+          key={recipe.id}
+          showCount={true}
+          recipe={recipe}
+          index={index + 1}
+          firebase={firebase}
+        />
       ))}
-
     </div>
   )
-}
-
-// export async function getStaticPaths() {
-//
-//   const paths = [
-//     {
-//       params: {
-//         name: 'fart fart fart'
-//       }
-//     }
-//   ]
-//
-//   return {
-//     paths,
-//     fallback: false
-//   }
-// }
-
-export async function getStaticProps(name) {
-  console.log(name)
-  // const postData = getPostData(params.id)
-  // return {
-  //   props: {
-  //     postData
-  //   }
-  // }
 }

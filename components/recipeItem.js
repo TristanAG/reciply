@@ -1,28 +1,12 @@
 import React from 'react'
 import format from 'date-fns/format'
 import Link from 'next/link'
-import RecipeContext from '../components/RecipeContext'
-// import { FirebaseContext } from '../firebase'
 
 import { useRouter } from 'next/router'
 
 
 function RecipeItem({ recipe, index, showCount, firebase }) {
   const router = useRouter()
-  // const { firebase } = React.useContext(FirebaseContext)
-
-  const recipeContext = React.useContext(RecipeContext);
-
-  function updateRecipeContext(recipe) {
-
-    recipeContext.setRecipe(recipe)
-
-
-    const href = '/edit-recipe/' + recipe.name.split(' ').join('-').toLowerCase()
-    // router.push()
-    // router.push('/edit-recipe/', href)
-    router.push('/edit-recipe/', href)
-  }
 
   function deleteRecipe(recipe) {
     firebase.db.collection('recipes').doc(recipe.id).delete().then(() => {
@@ -42,7 +26,6 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
           <a className="has-text-primary">view</a>
         </Link>
         &nbsp;|&nbsp;
-        {/* <span className="has-text-link edit-button" onClick={() => updateRecipeContext(recipe)}>edit</span> */}
         <Link href={'/' + recipe.slug + '/edit'}>
           <a className="has-text-primary">edit</a>
         </Link>
