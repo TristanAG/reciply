@@ -1,5 +1,5 @@
 import Layout from '../components/layout'
-import RecipeForm from '../components/RecipeForm'
+import RecipeForm from '../components/recipeForm'
 
 export default function CreateRecipe() {
 
