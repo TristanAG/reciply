@@ -5,7 +5,7 @@ export default function CreateRecipe() {
 
   return (
     <Layout>
-      <RecipeForm mode="add" />
+      <RecipeForm mode="add" recipe={null} id={null}/>
     </Layout>
   )
 }

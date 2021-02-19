@@ -82,8 +82,8 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   function AddNewRecipe(recipe) {
     alert('Add New Recipe')
-    // firebase.db.collection('recipes').add(recipe)
-    // router.push('/')
+    firebase.db.collection('recipes').add(recipe)
+    router.push('/')
   }
 
   function UpdateRecipe(recipe) {
@@ -104,8 +104,8 @@ export default function RecipeForm({ mode, recipe, id }) {
               <div className="content">
                 <b className="has-text-info">Recipe Context Info</b>
                 <ul>
-                  <li>MODE /// <b className="has-text-success">{mode}</b></li>
-                  <li>S L U G /// <b className="has-text-success">{recipe.slug}</b></li>
+                  <li>MODE /// {mode && <b className="has-text-success">{mode}</b>}</li>
+                  <li>S L U G /// {recipe && <b className="has-text-success">{recipe.slug}</b>}</li>
                   <li>ID /// <b className="has-text-success">{id}</b></li>
                 </ul>
               </div>
