@@ -12,7 +12,7 @@ const INITIAL_STATE = {
   ingredientFields: []
 }
 
-export default function RecipeForm({ mode, recipe }) {
+export default function RecipeForm({ mode, recipe, id }) {
 
   // const recipeContext = React.useContext(RecipeContext);
   const { firebase, user } = React.useContext(FirebaseContext)
@@ -91,7 +91,7 @@ export default function RecipeForm({ mode, recipe }) {
     //I don't have the doc ref ... i need to locate it, im sure i can, because im interacting with it
     //it's a matter of passing it to this function
 
-    firebase.db.collection('recipes').doc(recipe.id).update(recipe);
+    firebase.db.collection('recipes').doc(id).update(recipe);
     router.push('/')
   }
 
@@ -106,6 +106,7 @@ export default function RecipeForm({ mode, recipe }) {
                 <ul>
                   <li>MODE /// <b className="has-text-success">{mode}</b></li>
                   <li>S L U G /// <b className="has-text-success">{recipe.slug}</b></li>
+                  <li>ID /// <b className="has-text-success">{id}</b></li>
                 </ul>
               </div>
             </div>
