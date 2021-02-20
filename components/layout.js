@@ -4,8 +4,8 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import Header from './header'
 
-const name = 'reciply'
-export const siteTitle = 'reciply'
+const name = 'Reciply'
+export const siteTitle = 'Reciply'
 
 export default function Layout({ children, home }) {
   return (
@@ -25,6 +25,13 @@ export default function Layout({ children, home }) {
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
+
+        <noscript>
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap"
+            />
+        </noscript>
       </Head>
 
       <Header title={siteTitle}/>

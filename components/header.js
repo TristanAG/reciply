@@ -9,22 +9,25 @@ export default function Header({ title }) {
   return (
     <header>
       <nav className="navbar" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand">
-          <Link href="/">
-            <a className="navbar-item">
-              <b >{title} 🍴</b>
-            </a>
-          </Link>
+        <div className="content">
+          <div className="navbar-brand">
+              <Link href="/">
+                <a className="navbar-item">
+                  <h2 className="logo has-text-grey">{title} 🍴</h2>
+                </a>
+              </Link>
 
-          <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
+
+            <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
         </div>
 
         <div id="navbarBasicExample" className="navbar-menu">
-          <div className="navbar-start">
+          {/* <div className="navbar-start">
             <a className="navbar-item">
               Browse
             </a>
@@ -43,7 +46,7 @@ export default function Header({ title }) {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="navbar-end">
             <div className="navbar-item">
@@ -72,10 +75,15 @@ export default function Header({ title }) {
 
       <style jsx>{`
         .logo {
-          color: #568203;
+          
+          padding-top: 37px;
+          padding-left: 10px;
         }
         .greeting {
           margin-right: 12px;
+        }
+        .navbar-brand {
+          height: 20px;
         }
       `}</style>
 

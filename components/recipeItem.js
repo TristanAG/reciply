@@ -19,7 +19,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
   return(
     <div>
       <hr />
-      <p>{recipe.name} | {recipe.steps}</p>
+      <p><b>{recipe.name}</b> by <span className="has-text-dark">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</span></p>
       <small>{format(recipe.created, 'MMMM Mo yyyy')}</small>
       <p>
         <Link href={'/' + recipe.slug} >
