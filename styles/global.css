@@ -5,3 +5,26 @@
 .input, button {
   margin-bottom: 8px;
 }
+
+
+.inner {
+  padding-top: 24px;
+}
+.inner a {
+
+  display: inline;
+}
+
+@media(max-width: 1024px) {
+  .inner {
+    text-align: right;
+    margin-top: -20px;
+    padding-top: 0px;
+  }
+
+  .inner a {
+
+    display: block;
+  }
+
+}

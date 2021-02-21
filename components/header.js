@@ -33,38 +33,33 @@ export default function Header({ title }) {
           </div>
 
           <center>
-            <br />
-            <div className="inner">
-              <Link href="/create-recipe">
-                <a className="navbar-item has-text-grey center-mod">
-                  {/* Browse */}
-                  ➕&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>New Recipe</span>
+              <div className="inner">
+                <Link href="/create-recipe">
+                  <a className="navbar-item has-text-grey">
+                    ➕&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>New Recipe</span>
+                  </a>
+                </Link>
+                <a className="navbar-item has-text-grey">
+                  👨‍🍳&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
                 </a>
-              </Link>
-              <a className="navbar-item has-text-grey center-mod">
-                👨‍🍳&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
-              </a>
-              <a className="navbar-item has-text-grey center-mod">
-                📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
-              </a>
-              <a className="navbar-item has-text-grey center-mod">
-                🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
-              </a>
-            </div>
+                <a className="navbar-item has-text-grey">
+                  📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
+                </a>
+                <a className="navbar-item has-text-grey">
+                  🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
+                </a>
+              </div>
           </center>
 
           <div className="navbar-end end-mod">
             <div className="navbar-item">
               {user ? (
                 <>
-                  {/* <span className="greeting">hey 👋&nbsp; {user.displayName}</span> */}
-
                   <a className="button is-light" onClick={() => firebase.logout()}>
                     {/* Log Out */}{'@ ' + user.displayName.split(' ').join('').toLowerCase()}
                   </a>
                 </>
               ) : (
-
                   <span className="login-button">
                     <Link href="/login">
                       <a className="button is-primary"><strong>Sign up</strong></a>
@@ -73,7 +68,6 @@ export default function Header({ title }) {
                       Log in
                     </a>
                   </span>
-
               )}
             </div>
           </div>
@@ -92,10 +86,7 @@ export default function Header({ title }) {
         .navbar-brand {
           height: 20px;
         }
-        .center-mod {
 
-          display: inline;
-        }
         .inner {
           margin-top:4px;
         }
@@ -106,6 +97,9 @@ export default function Header({ title }) {
           display: block;
         }
 
+        .login-button {
+          text-align: right;
+        }
 
       `}</style>
 
