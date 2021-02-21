@@ -1,10 +1,13 @@
 import Link from 'next/link'
 import { FirebaseContext } from '../firebase'
+import { useState } from 'react'
 
 export default function Header({ title }) {
 
   const { user, firebase } = React.useContext(FirebaseContext)
   console.log(user)
+
+  const [dropDownState, setDropdownState] = useState(false)
 
   return (
     <header>
@@ -13,39 +16,20 @@ export default function Header({ title }) {
           <div className="navbar-brand">
               <Link href="/">
                 <a className="navbar-item">
-                  <p className="logo has-text-grey">👨‍🍳👩‍🍳 {title}</p>
+                  <p className="logo has-text-grey">{title}</p>
                 </a>
               </Link>
-
-
-            <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </a>
+              <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={() => setDropdownState(!dropDownState)}>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
           </div>
         </div>
 
-        <div id="navbarBasicExample" className="navbar-menu">
+        <div id="navbarBasicExample" className={dropDownState === true ? "navbar-menu is-active" : "navbar-menu"}>
           <div className="navbar-start">
-            {/* <a className="navbar-item">
-              ➕
-            </a> */}
 
-            {/* <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">
-                Recipes
-              </a>
-
-              <div className="navbar-dropdown">
-                <Link href="my-recipes"><a className="navbar-item">My Recipes</a></Link>
-                <Link href="create-recipe"><a className="navbar-item">Add Recipe</a></Link>
-                <hr className="navbar-divider" />
-                <a className="navbar-item">
-                  Report an issue
-                </a>
-              </div>
-            </div> */}
           </div>
 
           <center>
@@ -58,14 +42,13 @@ export default function Header({ title }) {
                 </a>
               </Link>
               <a className="navbar-item has-text-grey center-mod">
-                🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
+                👨‍🍳&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
+              </a>
+              <a className="navbar-item has-text-grey center-mod">
+                📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
               </a>
               <a className="navbar-item has-text-grey center-mod">
                 🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
-              </a>
-
-              <a className="navbar-item has-text-grey center-mod">
-                📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
               </a>
             </div>
           </center>
@@ -97,7 +80,6 @@ export default function Header({ title }) {
         </div>
       </nav>
 
-
       <style jsx>{`
         .logo {
           font-size: 28px;
@@ -119,6 +101,9 @@ export default function Header({ title }) {
         }
         .end-mod {
           padding-top: 4px;
+        }
+        .mobile-mod {
+          display: block;
         }
 
 
