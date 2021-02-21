@@ -13,7 +13,7 @@ export default function Header({ title }) {
           <div className="navbar-brand">
               <Link href="/">
                 <a className="navbar-item">
-                  <p className="logo has-text-grey">{title} 👨‍🍳👩‍🍳</p>
+                  <p className="logo has-text-grey">👨‍🍳👩‍🍳 {title}</p>
                 </a>
               </Link>
 
@@ -50,22 +50,27 @@ export default function Header({ title }) {
 
           <center>
             <br />
-            <Link href="/create-recipe">
-              <a className="navbar-item center-mod">
-                {/* Browse */}
-                ➕&nbsp;&nbsp;New Recipe
+            <div className="inner">
+              <Link href="/create-recipe">
+                <a className="navbar-item has-text-grey center-mod">
+                  {/* Browse */}
+                  ➕&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>New Recipe</span>
+                </a>
+              </Link>
+              <a className="navbar-item has-text-grey center-mod">
+                🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
               </a>
-            </Link>
-            <a className="navbar-item center-mod">
-              🗒️&nbsp;&nbsp;Shopping List
-            </a>
+              <a className="navbar-item has-text-grey center-mod">
+                🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
+              </a>
 
-            <a className="navbar-item center-mod">
-              📆️&nbsp;&nbsp;Meal Planner
-            </a>
+              <a className="navbar-item has-text-grey center-mod">
+                📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
+              </a>
+            </div>
           </center>
 
-          <div className="navbar-end">
+          <div className="navbar-end end-mod">
             <div className="navbar-item">
               {user ? (
                 <>
@@ -76,14 +81,16 @@ export default function Header({ title }) {
                   </a>
                 </>
               ) : (
-                <div className="buttons">
-                  <Link href="/login">
-                    <a className="button is-primary"><strong>Sign up</strong></a>
-                  </Link>
-                  <a className="button is-light">
-                    Log in
-                  </a>
-                </div>
+
+                  <span className="login-button">
+                    <Link href="/login">
+                      <a className="button is-primary"><strong>Sign up</strong></a>
+                    </Link>
+                    <a className="button is-light">
+                      Log in
+                    </a>
+                  </span>
+
               )}
             </div>
           </div>
@@ -94,7 +101,7 @@ export default function Header({ title }) {
       <style jsx>{`
         .logo {
           font-size: 28px;
-          padding-top: 37px;
+          padding-top: 21px;
           padding-left: 10px;
         }
         .greeting {
@@ -107,6 +114,13 @@ export default function Header({ title }) {
 
           display: inline;
         }
+        .inner {
+          margin-top:4px;
+        }
+        .end-mod {
+          padding-top: 4px;
+        }
+
 
       `}</style>
 
