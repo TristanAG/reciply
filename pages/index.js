@@ -20,7 +20,7 @@ export default function Home({ allPostsData }) {
         <section class="section">
           <div class="container">
             <p class="subtitle">
-              all recipes show here, this is the main page
+              All Recipes
             </p>
             <RecipeList />
           </div>

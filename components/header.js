@@ -19,7 +19,8 @@ export default function Header({ title }) {
                   <p className="logo has-text-grey">{title}</p>
                 </a>
               </Link>
-              <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={() => setDropdownState(!dropDownState)}>
+
+              <a role="button" className={dropDownState === true ? "navbar-burger burger is-active" : "navbar-burger burger"} aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={() => setDropdownState(!dropDownState)}>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -86,7 +87,9 @@ export default function Header({ title }) {
         .navbar-brand {
           height: 20px;
         }
-
+        .navbar-item {
+          text-align: right;
+        }
         .inner {
           margin-top:4px;
         }

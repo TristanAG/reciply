@@ -24,18 +24,22 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
       <small>{format(recipe.created, 'MMMM Mo yyyy')}</small>
       <p>
         <Link href={'/' + recipe.slug} >
-          <a className="has-text-primary">view</a>
+          <a className="has-text-grey link">view</a>
         </Link>
         &nbsp;|&nbsp;
         <Link href={'/' + recipe.slug + '/edit'}>
-          <a className="has-text-primary">edit</a>
+          <a className="has-text-grey link">edit</a>
         </Link>
         &nbsp;|&nbsp;
-        <span className="has-text-danger edit-button" onClick={() => deleteRecipe(recipe)}>delete</span>
+        <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
       </p>
       <style jsx>{`
         .edit-button:hover {
           cursor: pointer;
+        }
+
+        .link {
+          text-decoration: underline;
         }
       `}</style>
     </div>
