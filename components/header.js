@@ -13,7 +13,7 @@ export default function Header({ title }) {
           <div className="navbar-brand">
               <Link href="/">
                 <a className="navbar-item">
-                  <h2 className="logo has-text-grey">{title} 🍴</h2>
+                  <p className="logo has-text-grey">{title} 👨‍🍳👩‍🍳</p>
                 </a>
               </Link>
 
@@ -27,12 +27,12 @@ export default function Header({ title }) {
         </div>
 
         <div id="navbarBasicExample" className="navbar-menu">
-          {/* <div className="navbar-start">
-            <a className="navbar-item">
-              Browse
-            </a>
+          <div className="navbar-start">
+            {/* <a className="navbar-item">
+              ➕
+            </a> */}
 
-            <div className="navbar-item has-dropdown is-hoverable">
+            {/* <div className="navbar-item has-dropdown is-hoverable">
               <a className="navbar-link">
                 Recipes
               </a>
@@ -45,16 +45,34 @@ export default function Header({ title }) {
                   Report an issue
                 </a>
               </div>
-            </div>
-          </div> */}
+            </div> */}
+          </div>
+
+          <center>
+            <br />
+            <Link href="/create-recipe">
+              <a className="navbar-item center-mod">
+                {/* Browse */}
+                ➕&nbsp;&nbsp;New Recipe
+              </a>
+            </Link>
+            <a className="navbar-item center-mod">
+              🗒️&nbsp;&nbsp;Shopping List
+            </a>
+
+            <a className="navbar-item center-mod">
+              📆️&nbsp;&nbsp;Meal Planner
+            </a>
+          </center>
 
           <div className="navbar-end">
             <div className="navbar-item">
               {user ? (
                 <>
-                  <span className="greeting">hey 👋&nbsp; {user.displayName}</span>
+                  {/* <span className="greeting">hey 👋&nbsp; {user.displayName}</span> */}
+
                   <a className="button is-light" onClick={() => firebase.logout()}>
-                    Log Out
+                    {/* Log Out */}{'@ ' + user.displayName.split(' ').join('').toLowerCase()}
                   </a>
                 </>
               ) : (
@@ -75,7 +93,7 @@ export default function Header({ title }) {
 
       <style jsx>{`
         .logo {
-          
+          font-size: 28px;
           padding-top: 37px;
           padding-left: 10px;
         }
@@ -85,6 +103,11 @@ export default function Header({ title }) {
         .navbar-brand {
           height: 20px;
         }
+        .center-mod {
+
+          display: inline;
+        }
+
       `}</style>
 
     </header>
