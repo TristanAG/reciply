@@ -26,13 +26,15 @@ export default function RecipeList(props) {
   return (
     <div>
       {recipes && recipes.map((recipe, index) => (
-        <RecipeItem
-          key={recipe.id}
-          showCount={true}
-          recipe={recipe}
-          index={index + 1}
-          firebase={firebase}
-        />
+        
+          <RecipeItem
+            key={recipe.id}
+            showCount={true}
+            recipe={recipe}
+            index={index + 1}
+            firebase={firebase}
+          />
+
       ))}
     </div>
   )
