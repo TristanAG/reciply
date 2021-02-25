@@ -1,53 +1,58 @@
 import Layout from '../../components/layout'
-import useFormValidation from '../../components/auth/useFormValidation'
-import validateCreateRecipe from '../../components/auth/validateCreateRecipe'
 import { FirebaseContext } from '../../firebase'
-import { useRouter } from 'next/router'
-import RecipeList from '../../components/recipeList'
+import MyRecipeList from '../../components/myRecipeList'
+import Firebase from '../../firebase/firebase'
+import Link from 'next/link'
 
+export default function MyRecipes() {
 
-const INITIAL_STATE = {
-  name: "",
-  steps: ""
-}
-
-export default function MyRecipes(props) {
   const { firebase, user } = React.useContext(FirebaseContext)
-  const router = useRouter()
+  const [recipes, setRecipes] = React.useState([])
 
-  // console.log(user)
-  //
-  // React.useEffect(() => {
-  //   getRecipes()
-  // },[])
-  //
-  // function getRecipes() {
-  //   firebase.db.collection('recipes').onSnapshot(handleSnapshot)
-  // }
-  //
-  // function handleSnapshot(snapshot) {
-  //   const recipes = snapshot.docs.map(doc => {
-  //     return { id: doc.id, ...doc.data()}
-  //   })
-  //   console.log({ recipes })
-  // }
+  React.useEffect(() => {
+    if (user) {
+      getRecipes()
+    }
+  }, [user])
+
+  function getRecipes() {
+
+    let myRecipes = []
+
+    firebase.db.collection('recipes').where("postedBy.id", "==", user.uid)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          myRecipes.push(doc.data())
+        });
+        setRecipes(myRecipes)
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  }
 
   return (
     <Layout>
-      <div className="columns">
-        <div className="column is-three-fifths">
+      <div className="content">
+        <h3>My Recipes </h3>
 
-          <div className="content">
-            <h3>My Recipes</h3>
-          </div>
-          {!user && <p className="has-text-danger">must be logged in to see this page</p>}
-          {user &&
-            <>
-              <p>welcome to the recipes page {user.displayName}, here you can see the recipes you've posted</p>
-              <RecipeList />
-            </>
-          }
-        </div>
+
+      
+        {recipes.length > 0 && recipes.map(recipe => (
+          <>
+            <p>{recipe.name}</p>
+            <Link href={'/' + recipe.slug} >
+              <a className="has-text-grey link">view</a>
+            </Link>
+            &nbsp;|&nbsp;
+            <Link href={'/' + recipe.slug + '/edit'}>
+              <a className="has-text-grey link">edit</a>
+            </Link>
+            &nbsp;|&nbsp;
+            <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
+          </>
+        ))}
       </div>
     </Layout>
   )

@@ -22,7 +22,7 @@ export default function Home({ allPostsData }) {
             <p class="subtitle">
               All Recipes
             </p>
-            <RecipeList />
+            <RecipeList listContext={"all"}/>
           </div>
         </section>
       </main>

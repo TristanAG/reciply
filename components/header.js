@@ -5,8 +5,6 @@ import { useState } from 'react'
 export default function Header({ title }) {
 
   const { user, firebase } = React.useContext(FirebaseContext)
-  console.log(user)
-
   const [dropDownState, setDropdownState] = useState(false)
 
   return (
@@ -40,9 +38,11 @@ export default function Header({ title }) {
                     ➕&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>New Recipe</span>
                   </a>
                 </Link>
-                <a className="navbar-item has-text-grey">
-                  👨‍🍳&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
-                </a>
+                <Link href="/my-recipes">
+                  <a className="navbar-item has-text-grey">
+                    👨‍🍳&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
+                  </a>
+                </Link>
                 <a className="navbar-item has-text-grey">
                   📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
                 </a>
