@@ -27,9 +27,21 @@ export default function LoginForm() {
   async function authenticateUser() {
     const { name, email, password} = values
     try {
-      login
-        ? await firebase.login(email, password)
-        : await firebase.register(name, email, password)
+
+      // login
+      //   ? await firebase.login(email, password)
+      //   : await firebase.register(name, email, password)
+
+      if (login) {
+        await firebase.login(email, password)
+      } else {
+        await firebase.register(name, email, password)
+        firebase.db.collection('users').add({
+          name: name,
+          email: email
+        })
+      }
+
       router.push('/')
     } catch(err) {
       console.error('Authentication Error', err)

@@ -20,17 +20,18 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
   return(
     <div>
       <hr />
-      <p><b>{recipe.name}</b></p>
+      <p>
+        <Link href={'/' + recipe.slug} >
+          <a><b>{recipe.name}</b></a>
+        </Link>
+        {/* <b>{recipe.name}</b> */}
+      </p>
       <p className="has-text-dark">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</p>
       <small>{format(recipe.created, 'MMMM Mo yyyy')}</small>
-      {user.displayName === recipe.postedBy.name ?
+      {/* {user.displayName === recipe.postedBy.name ?
 
 
         <p>
-          <Link href={'/' + recipe.slug} >
-            <a className="has-text-grey link">view</a>
-          </Link>
-          &nbsp;|&nbsp;
           <Link href={'/' + recipe.slug + '/edit'}>
             <a className="has-text-grey link">edit</a>
           </Link>
@@ -41,7 +42,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
         <>
         </>
 
-      }
+      } */}
       <style jsx>{`
         .edit-button:hover {
           cursor: pointer;

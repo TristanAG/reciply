@@ -10,6 +10,7 @@ export default function Recipe({ recipe }) {
     <Layout>
       <div class="content">
         <h1>{recipe.name}</h1>
+        <div className="button is-dark">Save Recipe?</div>
         <p>//description goes here...</p>
         <h2>Instructions</h2>
         <p>{recipe.steps}</p>

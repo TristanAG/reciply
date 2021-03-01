@@ -88,7 +88,7 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   return (
     <>
-      <div className="columns">
+      {/* <div className="columns">
         <div className="column">
           <div className="card has-background-info-light">
             <div className="card-content">
@@ -103,7 +103,7 @@ export default function RecipeForm({ mode, recipe, id }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="columns">
         <div className="column is-three-fifths">
