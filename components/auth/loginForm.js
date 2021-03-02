@@ -35,11 +35,22 @@ export default function LoginForm() {
       if (login) {
         await firebase.login(email, password)
       } else {
-        await firebase.register(name, email, password)
+        // await firebase.register(name, email, password)
+        let result = await firebase.register(name, email, password); // wait until the promise resolves (*)
+
+        console.log('R E S U L T')
+        console.log(result)
+
         firebase.db.collection('users').add({
           name: name,
           email: email
         })
+
+        // let promise = new Promise((resolve, reject) => {
+        //   setTimeout(() => resolve("done!"), 2000)
+        // });
+
+
       }
 
       router.push('/')

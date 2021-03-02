@@ -57,7 +57,8 @@ export default function Header({ title }) {
               {user ? (
                 <>
                   <a className="button is-light" onClick={() => firebase.logout()}>
-                    {/* Log Out */}{user && '@ ' + user.displayName.split(' ').join('').toLowerCase()}
+                    {user && '@ ' + user.displayName.split(' ').join('').toLowerCase()}
+                    {/* login toggle */}
                   </a>
                 </>
               ) : (

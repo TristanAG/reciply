@@ -1,16 +1,34 @@
 import React from 'react'
 import Layout from '../../components/layout'
+// import Firebase from '../../firebase/firebase'
+import { FirebaseContext } from '../../firebase'
 import Firebase from '../../firebase/firebase'
 import Link from 'next/link'
 
 export default function Recipe({ recipe }) {
-  // const { firebase, user } = React.useContext(FirebaseContext)
+  const { firebase, user } = React.useContext(FirebaseContext)
+
+  function handleSaveRecipe() {
+    if (user) {
+      alert(user.uid)
+      firebase.db.collection('users').doc(user.uid).update({
+        'savedRecipes': recipe.name
+      });
+    } else {
+      alert('please login or create an account to save recipes')
+    }
+    //update the like count ... actually don't really need to worry about this now... more interested in the user list
+    //the recipe should also have a list of the users that like the recipe, right? then you can just count that... list out name and name and name like this recipe...
+    // Firebase.db.collection('recipes').doc(id).update(recipe);
+  }
 
   return (
     <Layout>
       <div class="content">
-        <h1>{recipe.name}</h1>
-        <div className="button is-dark">Save Recipe?</div>
+        <h1>{recipe.name} </h1>
+        <div className="button is-info is-light has-text-weight-normal	" onClick={() => handleSaveRecipe()}>Save This Recipe?</div>
+        <br />
+        <br />
         <p>//description goes here...</p>
         <h2>Instructions</h2>
         <p>{recipe.steps}</p>
@@ -22,6 +40,10 @@ export default function Recipe({ recipe }) {
         </ul>
 
       </div>
+
+      <style jsx>{`
+
+      `}</style>
     </Layout>
   )
 }
