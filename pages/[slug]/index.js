@@ -8,12 +8,17 @@ import Link from 'next/link'
 export default function Recipe({ recipe }) {
   const { firebase, user } = React.useContext(FirebaseContext)
 
+  if (user) {
+    alert('got a user')
+  }
+
   function handleSaveRecipe() {
     if (user) {
       alert(user.uid)
       firebase.db.collection('users').doc(user.uid).update({
         'savedRecipes': recipe.name
       });
+      //then statement here to preform the state update to actually make it so the recipe is
     } else {
       alert('please login or create an account to save recipes')
     }
@@ -26,6 +31,8 @@ export default function Recipe({ recipe }) {
     <Layout>
       <div class="content">
         <h1>{recipe.name} </h1>
+        <b><p className="has-text-success">test</p></b>
+
         <div className="button is-info is-light has-text-weight-normal	" onClick={() => handleSaveRecipe()}>Save This Recipe?</div>
         <br />
         <br />
