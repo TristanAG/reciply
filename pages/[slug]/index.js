@@ -8,9 +8,7 @@ import Link from 'next/link'
 export default function Recipe({ recipe }) {
   const { firebase, user } = React.useContext(FirebaseContext)
 
-  if (user) {
-    alert('got a user')
-  }
+  //so i don't have direct access to the user i need an activeUser context or something... what would htat be that i need? something that sorta well,
 
   function handleSaveRecipe() {
     if (user) {

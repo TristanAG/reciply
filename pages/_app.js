@@ -2,38 +2,49 @@ import '../styles/global.css'
 import 'bulma/css/bulma.min.css'
 import useAuth from '../components/auth/useAuth'
 import firebase, { FirebaseContext } from '../firebase'
-import { RecipeProvider } from '../components/RecipeContext'
+import UserContext from '../contexts/UserContext'
+import { useState, useEffect } from 'react'
 
 export default function App({ Component, pageProps }) {
   const user = useAuth()
+  // const userInfo = null
+  // const UserContext = React.createContext({})
 
-  let userInfo = null
+  // const [userInfo, setUserInfo] = useState("cool guy")
 
-  if (user) {
-    console.log('s w i s h')
-    console.log(user)
-
-    var docRef = firebase.db.collection('users').doc(user.uid);
-    docRef.get().then((doc) => {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-      userInfo = doc.data()
-      console.log(userInfo.savedRecipes)
-    } else {
-        // doc.data() will be undefined in this case
-      console.log("No such document!");
+  React.useEffect(() => {
+    if (user) {
+      checkUser()
     }
-    }).catch((error) => {
-      console.log("Error getting document:", error);
-    });
+  }, [user])
+
+
+  function checkUser() {
+    console.log('CHECKING USER')
+    if (user) {
+      var docRef = firebase.db.collection('users').doc(user.uid);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data()
+          // setUserInfo(userData)
+        } else {
+          console.log("No such document!");
+        }
+        }).catch((error) => {
+          console.log("Error getting document:", error);
+        });
+    }
 
   }
 
+
   return (
     <FirebaseContext.Provider value={{ user, firebase }}>
-      <RecipeProvider>
+      {/* it's working here... how do i populate the context? */}
+      {/* {userInfo.name} */}
+      <UserContext.Provider>
         <Component {...pageProps} />
-      </RecipeProvider>
+      </UserContext.Provider>
     </FirebaseContext.Provider>
   )
 }

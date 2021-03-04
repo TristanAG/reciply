@@ -6,11 +6,15 @@ import { getSortedPostsData } from '../lib/posts'
 import useAuth from '../components/auth/useAuth'
 import RecipeList from '../components/recipeList'
 
+
 import Date from '../components/date'
 
 export default function Home({ allPostsData }) {
 
-
+  // const userInfo = React.useContext(UserContext)
+  console.log('looky here')
+  // console.log(userInfo)
+  //^^ no not working at all here... i really gotta figure out what's up with this context stuff this time...
   // console.log('check it out')
   // const user = useAuth()
   //
@@ -30,6 +34,7 @@ export default function Home({ allPostsData }) {
         <title>{siteTitle}</title>
       </Head>
       <main>
+
         <section class="section">
           <div class="container">
             <p class="subtitle">
