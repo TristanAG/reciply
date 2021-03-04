@@ -5,14 +5,21 @@ import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import useAuth from '../components/auth/useAuth'
 import RecipeList from '../components/recipeList'
+import UserContext from '../contexts/UserContext'
 
 
 import Date from '../components/date'
 
 export default function Home({ allPostsData }) {
 
-  // const userInfo = React.useContext(UserContext)
-  console.log('looky here')
+  const { userInfo, setUserInfo } = React.useContext(UserContext)
+
+  
+  // console.log('looky here')
+  // if (userInfo) {
+  //   console.log(userInfo.name)
+  // }
+
   // console.log(userInfo)
   //^^ no not working at all here... i really gotta figure out what's up with this context stuff this time...
   // console.log('check it out')
@@ -39,6 +46,7 @@ export default function Home({ allPostsData }) {
           <div class="container">
             <p class="subtitle">
               All Recipes
+              {userInfo && <b>{userInfo.name}</b>}
             </p>
             <RecipeList listContext={"all"}/>
           </div>

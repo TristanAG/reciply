@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
   // const userInfo = null
   // const UserContext = React.createContext({})
 
-  // const [userInfo, setUserInfo] = useState("cool guy")
+  const [userInfo, setUserInfo] = useState({})
 
   React.useEffect(() => {
     if (user) {
@@ -26,7 +26,9 @@ export default function App({ Component, pageProps }) {
       docRef.get().then((doc) => {
         if (doc.exists) {
           const userData = doc.data()
-          // setUserInfo(userData)
+          console.log('potato man')
+          console.log(userData)
+          setUserInfo(userData)
         } else {
           console.log("No such document!");
         }
@@ -42,7 +44,7 @@ export default function App({ Component, pageProps }) {
     <FirebaseContext.Provider value={{ user, firebase }}>
       {/* it's working here... how do i populate the context? */}
       {/* {userInfo.name} */}
-      <UserContext.Provider>
+      <UserContext.Provider value={{ userInfo, setUserInfo}} >
         <Component {...pageProps} />
       </UserContext.Provider>
     </FirebaseContext.Provider>
