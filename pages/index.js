@@ -13,8 +13,10 @@ import Date from '../components/date'
 export default function Home({ allPostsData }) {
 
   const { userInfo, setUserInfo } = React.useContext(UserContext)
+  console.log('home here now')
+  console.log(userInfo)
 
-  
+
   // console.log('looky here')
   // if (userInfo) {
   //   console.log(userInfo.name)
@@ -46,7 +48,7 @@ export default function Home({ allPostsData }) {
           <div class="container">
             <p class="subtitle">
               All Recipes
-              {userInfo && <b>{userInfo.name}</b>}
+              {userInfo && <b>{userInfo.savedRecipes}</b>}
             </p>
             <RecipeList listContext={"all"}/>
           </div>

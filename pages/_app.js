@@ -22,19 +22,43 @@ export default function App({ Component, pageProps }) {
   function checkUser() {
     console.log('CHECKING USER')
     if (user) {
-      var docRef = firebase.db.collection('users').doc(user.uid);
-      docRef.get().then((doc) => {
-        if (doc.exists) {
-          const userData = doc.data()
-          console.log('potato man')
-          console.log(userData)
-          setUserInfo(userData)
-        } else {
-          console.log("No such document!");
-        }
-        }).catch((error) => {
-          console.log("Error getting document:", error);
+      // var docRef = firebase.db.collection('users').doc(user.uid).collection('savedRecipes');
+      // docRef.get().then((docs) => {
+      //   console.log('docs')
+      //   console.log(docs)
+      // })
+
+      let savedRecipes = []
+
+      firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            // console.log(doc.id, " => ", doc.data());
+            // console.log(doc.data().name);
+            // setUserInfo({
+            savedRecipes.push({
+              name: doc.data().name
+            })
+
+            // })
+          });
+          setUserInfo(savedRecipes)
         });
+
+
+
+      // docRef.get().then((doc) => {
+      //   if (doc.exists) {
+      //     const userData = doc.data()
+      //     console.log('potato man')
+      //     console.log(userData)
+      //     setUserInfo(userData)
+      //   } else {
+      //     console.log("No such document!");
+      //   }
+      //   }).catch((error) => {
+      //     console.log("Error getting document:", error);
+      //   });
     }
 
   }
