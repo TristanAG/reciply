@@ -15,7 +15,7 @@ export default function Recipe({ recipe }) {
 
   React.useEffect(() => {
     if(JSON.stringify(userInfo) !== JSON.stringify({})) {
-      
+
       userInfo.map((u) => {
 
         if(u.name === recipe.name) {
@@ -53,7 +53,7 @@ export default function Recipe({ recipe }) {
         <br />
         <p>//description goes here...</p>
         <h2>Instructions</h2>
-        <p>{recipe.steps}</p>
+        <p>{recipe && recipe.steps}</p>
         <h2>Ingredients</h2>
         <ul>
           {recipe && recipe.ingredients.map((ingredient) => (
