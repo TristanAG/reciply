@@ -11,24 +11,21 @@ export default function Recipe({ recipe }) {
 
   const { userInfo, setUserInfo } = React.useContext(UserContext)
 
+  const [ buttonStatus, setButtonStatus ] = React.useState(false)
 
-  console.log('home here now 2')
-  console.log(userInfo)
+  React.useEffect(() => {
+    if(JSON.stringify(userInfo) !== JSON.stringify({})) {
+      
+      userInfo.map((u) => {
 
+        if(u.name === recipe.name) {
+          setButtonStatus(true)
+        }
+      })
 
+    }
+  }, [userInfo])
 
-  const [ buttonStatus, setButtonStatus ] = React.useState(false) //if buttonState == false, that means it's not saved, if it equals true it means saved
-
-
-
-  //so i don't have direct access to the user i need an activeUser context or something... what would htat be that i need? something that sorta well,
-
-  //here what i gotta do is set the status of the button, like a 'setButtonStatus'
-  //so get to checking
-
-  if (!buttonStatus) {
-    // alert('recipe not saved')
-  }
 
 
   function handleSaveRecipe() {
@@ -49,10 +46,9 @@ export default function Recipe({ recipe }) {
   return (
     <Layout>
       <div class="content">
-        <h1>{recipe.name} </h1>
-        <b><p className="has-text-success">test</p></b>
+        {recipe && <h1>{recipe.name}</h1>}
 
-        <div className="button is-info is-light has-text-weight-normal	" onClick={() => handleSaveRecipe()}>Save This Recipe?</div>
+        {!buttonStatus ? <div className="button is-info is-light has-text-weight-normal	" onClick={() => handleSaveRecipe()}>Save This Recipe?</div> : <div className="button is-success is-light has-text-weight-normal	" >Saved Recipe</div>}
         <br />
         <br />
         <p>//description goes here...</p>
@@ -60,7 +56,7 @@ export default function Recipe({ recipe }) {
         <p>{recipe.steps}</p>
         <h2>Ingredients</h2>
         <ul>
-          {recipe.ingredients.map((ingredient) => (
+          {recipe && recipe.ingredients.map((ingredient) => (
             <li>{ingredient.ingredientName} <small><i className="has-text-info">{ingredient.ingredientQuantity}</i></small></li>
           ))}
         </ul>

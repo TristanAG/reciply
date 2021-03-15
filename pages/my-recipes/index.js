@@ -25,6 +25,9 @@ export default function MyRecipes() {
     if(JSON.stringify(userInfo) !== JSON.stringify({})) {
       console.log('home here now 3')
       console.log(userInfo)
+      userInfo.map((u) => (
+        console.log(u.name)
+      ))
     }
   }, [userInfo])
 
@@ -65,6 +68,10 @@ export default function MyRecipes() {
             &nbsp;|&nbsp;
             <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
           </>
+        ))}
+        <h3>Saved Recipes </h3>
+        {JSON.stringify(userInfo) !== JSON.stringify({}) && userInfo.map((u) => (
+          <p>{u.name}</p>
         ))}
       </div>
     </Layout>
