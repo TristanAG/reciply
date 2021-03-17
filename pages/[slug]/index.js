@@ -12,17 +12,16 @@ export default function Recipe({ recipe }) {
   const { userInfo, setUserInfo } = React.useContext(UserContext)
 
   const [ buttonStatus, setButtonStatus ] = React.useState(false)
+  const [ isLoading, setIsLoading ] = React.useState(true)
 
   React.useEffect(() => {
     if(JSON.stringify(userInfo) !== JSON.stringify({})) {
-
       userInfo.map((u) => {
-
         if(u.name === recipe.name) {
           setButtonStatus(true)
         }
       })
-
+      setIsLoading(false)
     }
   }, [userInfo])
 
@@ -48,7 +47,26 @@ export default function Recipe({ recipe }) {
       <div class="content">
         {recipe && <h1>{recipe.name}</h1>}
 
-        {!buttonStatus ? <div className="button is-info is-light has-text-weight-normal	" onClick={() => handleSaveRecipe()}>Save This Recipe?</div> : <div className="button is-success is-light has-text-weight-normal	" >Saved Recipe</div>}
+        {isLoading && <div className="button is-white has-text-weight-normal is-loading">loading...</div>}
+        {!isLoading && <div className={buttonStatus === true ? 'button is-success is-light has-text-weight-normal' : 'button is-info is-light has-text-weight-normal'}>{buttonStatus === true ? 'saved recipe' : 'not saved recipe'}</div>}
+
+        {/* {buttonStatus === true ? 'button is-success has-text-weight-normal' : 'button is-info has-text-weight-normal'} */}
+
+        {/* <div className={isLoading ? "button is-success is-light has-text-weight-normal is-loading" : "button is-success is-light has-text-weight-normal"}>{buttonStatus ? 'saved' : 'not saved'}</div> */}
+        {/* {!isLoading && <div className={"button is-success is-light has-text-weight-normal"}>btn 2{buttonStatus === true ? 'saved recipe' : 'not saved recipe'}</div>} */}
+
+        {/* {isLoading && <p>'is loading'</p>}
+        {isLoading && <div className="button is-info is-light has-text-weight-normal is-loading" >loading...</div>}
+        {buttonStatus && <div className="button is-success is-light has-text-weight-normal	" >Saved Recipe</div>}
+        {!buttonStatus === !isLoading && <div className="button is-info is-light has-text-weight-normal	is-loading" onClick={() => handleSaveRecipe()}>Save This Recipe?</div>} */}
+
+
+
+        {/* {buttonStatus === 'loading' && <div className="button is-info is-light has-text-weight-normal is-loading" >loading...</div>}
+        {buttonStatus === 'saved' && <div className="button is-success is-light has-text-weight-normal	" >Saved Recipe</div>}
+        {buttonStatus === 'notsaved' && <div className="button is-info is-light has-text-weight-normal	is-loading" onClick={() => handleSaveRecipe()}>Save This Recipe?</div>} */}
+
+
         <br />
         <br />
         <p>//description goes here...</p>
