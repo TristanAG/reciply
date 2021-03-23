@@ -12,87 +12,72 @@ export default function Recipe({ recipe }) {
   // const { userInfo, setUserInfo } = React.useContext(UserContext)
 
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
+  const [ savedRef, setSavedRef ] = React.useState('')
 
   const [ buttonStatus, setButtonStatus ] = React.useState(false)
   const [ isLoading, setIsLoading ] = React.useState(true)
 
   React.useEffect(() => {
-
-    // if(JSON.stringify(userInfo) !== JSON.stringify({})) {
-    //   userInfo.map((u) => {
-    //     if(u.name === recipe.name) {
-    //       setButtonStatus(true)
-    //     }
-    //   })
-    //   setIsLoading(false)
-    // }
-    savedRecipes && alert('got the saved recipes!')
-
     if (savedRecipes) {
       savedRecipes.map((r) => {
         if(r.name === recipe.name) {
           setButtonStatus(true)
+          setSavedRef(r.id)
         }
       })
       setIsLoading(false)
     }
-
-
-
   }, [savedRecipes])
 
   React.useEffect(() => {
-    console.log('user')
-    console.log(user)
-
     if (user) {
       //gonna try grabbing the saved recipes here ... im thinking it can be extrapolated out into a helper method
       firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
         .then(querySnapshot => {
           let recipes = []
           querySnapshot.forEach(doc => {
-            // console.log(doc.id, " => ", doc.data());
-            // console.log(doc.data().name);
-            // setUserInfo({
             recipes.push({
               name: doc.data().name,
               id: doc.id
             })
-
-            // })
           });
           setSavedRecipes(recipes)
         });
       }
   },[user])
 
-
-  // //gonna try grabbing the saved recipes here ... im thinking it can be extrapolated out into a helper method
-  // firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
-  //   .then(querySnapshot => {
-  //     let savedRecipes = []
-  //     querySnapshot.forEach(doc => {
-  //       // console.log(doc.id, " => ", doc.data());
-  //       // console.log(doc.data().name);
-  //       // setUserInfo({
-  //       savedRecipes.push({
-  //         name: doc.data().name,
-  //         id: doc.id
-  //       })
-  //
-  //       // })
-  //     });
-  //     setUserInfo(savedRecipes)
-  //   });
-
-
-
   function handleSaveRecipe() {
+    alert('handle saved recipe')
     if (user) {
-      // alert(user.uid)
-      firebase.db.collection('users').doc(user.uid).collection('savedRecipes').add({
-        name: recipe.name
-      });
+      if(buttonStatus) {
+        //delete
+        alert('i should delete')
+
+        firebase.db.collection('users').doc(user.uid).collection('savedRecipes').doc(savedRef).delete().then(() => {
+            console.log('after the delete')
+            setButtonStatus(false)
+        });
+
+      } else {
+        alert('i should add')
+        firebase.db.collection('users').doc(user.uid).collection('savedRecipes').add({
+          name: recipe.name
+        }).then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            console.log('after the add')
+            setButtonStatus(true)
+            setSavedRef(docRef.id)
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+
+
+
+
+
+      }
+
       //then statement here to preform the state update to actually make it so the recipe is
     } else {
       // alert('please login or create an account to save recipes')
@@ -106,35 +91,22 @@ export default function Recipe({ recipe }) {
     <Layout>
       <div class="content">
         {recipe && <h1>{recipe.name}</h1>}
-        {savedRecipes && <p>got saved recipes</p>}
+        {savedRef && <h3>{savedRef}</h3>}
+        {/* {savedRecipes && <p>got saved recipes</p>}
         {savedRecipes && savedRecipes.map((recipe) => (
           <p>{recipe.id}</p>
-        ))}
-
-        {/* {userInfo && userInfo.map(item => (
-          <p>{item.id}</p>
         ))} */}
-        {/* {console.log(userInfo.id)} */}
-
 
         {isLoading && <div className="button is-white has-text-weight-normal is-loading">loading...</div>}
-        {!isLoading && <div className={buttonStatus === true ? 'button is-success is-light has-text-weight-normal' : 'button is-info is-light has-text-weight-normal'}>{buttonStatus === true ? 'saved recipe' : 'not saved recipe'}</div>}
-
-        {/* {buttonStatus === true ? 'button is-success has-text-weight-normal' : 'button is-info has-text-weight-normal'} */}
-
-        {/* <div className={isLoading ? "button is-success is-light has-text-weight-normal is-loading" : "button is-success is-light has-text-weight-normal"}>{buttonStatus ? 'saved' : 'not saved'}</div> */}
-        {/* {!isLoading && <div className={"button is-success is-light has-text-weight-normal"}>btn 2{buttonStatus === true ? 'saved recipe' : 'not saved recipe'}</div>} */}
-
-        {/* {isLoading && <p>'is loading'</p>}
-        {isLoading && <div className="button is-info is-light has-text-weight-normal is-loading" >loading...</div>}
-        {buttonStatus && <div className="button is-success is-light has-text-weight-normal	" >Saved Recipe</div>}
-        {!buttonStatus === !isLoading && <div className="button is-info is-light has-text-weight-normal	is-loading" onClick={() => handleSaveRecipe()}>Save This Recipe?</div>} */}
-
-
-
-        {/* {buttonStatus === 'loading' && <div className="button is-info is-light has-text-weight-normal is-loading" >loading...</div>}
-        {buttonStatus === 'saved' && <div className="button is-success is-light has-text-weight-normal	" >Saved Recipe</div>}
-        {buttonStatus === 'notsaved' && <div className="button is-info is-light has-text-weight-normal	is-loading" onClick={() => handleSaveRecipe()}>Save This Recipe?</div>} */}
+        {!isLoading &&
+          <div
+            onClick={() => handleSaveRecipe()}
+            className={buttonStatus === true
+            ? 'button is-success is-light has-text-weight-normal'
+            : 'button is-info is-light has-text-weight-normal'}>
+              {buttonStatus === true ? 'saved recipe' : 'not saved recipe'}
+          </div>
+        }
 
 
         <br />
