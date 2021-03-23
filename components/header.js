@@ -43,9 +43,11 @@ export default function Header({ title }) {
                     👨‍🍳&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
                   </a>
                 </Link>
-                <a className="navbar-item has-text-grey">
-                  📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
-                </a>
+                <Link href="/meal-planner">
+                  <a className="navbar-item has-text-grey">
+                    📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
+                  </a>
+                </Link>
                 <a className="navbar-item has-text-grey">
                   🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
                 </a>
