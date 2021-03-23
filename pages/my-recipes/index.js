@@ -52,7 +52,8 @@ export default function MyRecipes() {
         querySnapshot.forEach(doc => {
           recipes.push({
             name: doc.data().name,
-            id: doc.id
+            id: doc.id,
+            slug: doc.data().slug
           })
         });
         setSavedRecipes(recipes)
@@ -83,7 +84,11 @@ export default function MyRecipes() {
         ))}
         <h3>Saved Recipes </h3>
         {savedRecipes && savedRecipes.map((u) => (
-          <p>{u.name}</p>
+          <p>
+            <Link href={'/' + u.slug} >
+              <a className="has-text-link">{u.name}</a>
+            </Link>
+          </p>
         ))}
       </div>
     </Layout>

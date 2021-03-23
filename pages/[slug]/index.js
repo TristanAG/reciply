@@ -52,7 +52,8 @@ export default function Recipe({ recipe }) {
         //add
         setIsLoading(true)
         firebase.db.collection('users').doc(user.uid).collection('savedRecipes').add({
-          name: recipe.name
+          name: recipe.name,
+          slug: recipe.slug
         }).then((docRef) => {
           setButtonStatus(true)
           setSavedRef(docRef.id)
