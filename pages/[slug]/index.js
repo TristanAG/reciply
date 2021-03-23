@@ -11,19 +11,79 @@ export default function Recipe({ recipe }) {
 
   // const { userInfo, setUserInfo } = React.useContext(UserContext)
 
+  const [ savedRecipes, setSavedRecipes ] = React.useState(null)
+
   const [ buttonStatus, setButtonStatus ] = React.useState(false)
   const [ isLoading, setIsLoading ] = React.useState(true)
 
-  // React.useEffect(() => {
-  //   if(JSON.stringify(userInfo) !== JSON.stringify({})) {
-  //     userInfo.map((u) => {
-  //       if(u.name === recipe.name) {
-  //         setButtonStatus(true)
-  //       }
-  //     })
-  //     setIsLoading(false)
-  //   }
-  // }, [userInfo])
+  React.useEffect(() => {
+
+    // if(JSON.stringify(userInfo) !== JSON.stringify({})) {
+    //   userInfo.map((u) => {
+    //     if(u.name === recipe.name) {
+    //       setButtonStatus(true)
+    //     }
+    //   })
+    //   setIsLoading(false)
+    // }
+    savedRecipes && alert('got the saved recipes!')
+
+    if (savedRecipes) {
+      savedRecipes.map((r) => {
+        if(r.name === recipe.name) {
+          setButtonStatus(true)
+        }
+      })
+      setIsLoading(false)
+    }
+
+
+
+  }, [savedRecipes])
+
+  React.useEffect(() => {
+    console.log('user')
+    console.log(user)
+
+    if (user) {
+      //gonna try grabbing the saved recipes here ... im thinking it can be extrapolated out into a helper method
+      firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
+        .then(querySnapshot => {
+          let recipes = []
+          querySnapshot.forEach(doc => {
+            // console.log(doc.id, " => ", doc.data());
+            // console.log(doc.data().name);
+            // setUserInfo({
+            recipes.push({
+              name: doc.data().name,
+              id: doc.id
+            })
+
+            // })
+          });
+          setSavedRecipes(recipes)
+        });
+      }
+  },[user])
+
+
+  // //gonna try grabbing the saved recipes here ... im thinking it can be extrapolated out into a helper method
+  // firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
+  //   .then(querySnapshot => {
+  //     let savedRecipes = []
+  //     querySnapshot.forEach(doc => {
+  //       // console.log(doc.id, " => ", doc.data());
+  //       // console.log(doc.data().name);
+  //       // setUserInfo({
+  //       savedRecipes.push({
+  //         name: doc.data().name,
+  //         id: doc.id
+  //       })
+  //
+  //       // })
+  //     });
+  //     setUserInfo(savedRecipes)
+  //   });
 
 
 
@@ -46,6 +106,16 @@ export default function Recipe({ recipe }) {
     <Layout>
       <div class="content">
         {recipe && <h1>{recipe.name}</h1>}
+        {savedRecipes && <p>got saved recipes</p>}
+        {savedRecipes && savedRecipes.map((recipe) => (
+          <p>{recipe.id}</p>
+        ))}
+
+        {/* {userInfo && userInfo.map(item => (
+          <p>{item.id}</p>
+        ))} */}
+        {/* {console.log(userInfo.id)} */}
+
 
         {isLoading && <div className="button is-white has-text-weight-normal is-loading">loading...</div>}
         {!isLoading && <div className={buttonStatus === true ? 'button is-success is-light has-text-weight-normal' : 'button is-info is-light has-text-weight-normal'}>{buttonStatus === true ? 'saved recipe' : 'not saved recipe'}</div>}

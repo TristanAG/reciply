@@ -12,14 +12,13 @@ export default function App({ Component, pageProps }) {
 
 
 
-
   return (
     <FirebaseContext.Provider value={{ user, firebase }}>
       {/* it's working here... how do i populate the context? */}
       {/* {userInfo.name} */}
-      {/* <UserContext.Provider value={{ userInfo, setUserInfo}} > */}
+
         <Component {...pageProps} />
-      {/* </UserContext.Provider> */}
+  
     </FirebaseContext.Provider>
   )
 }
