@@ -5,16 +5,16 @@ import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import useAuth from '../components/auth/useAuth'
 import RecipeList from '../components/recipeList'
-import UserContext from '../contexts/UserContext'
+
 
 
 import Date from '../components/date'
 
 export default function Home({ allPostsData }) {
 
-  const { userInfo, setUserInfo } = React.useContext(UserContext)
-  console.log('home here now')
-  console.log(userInfo)
+  // const { userInfo, setUserInfo } = React.useContext(UserContext)
+  // console.log('home here now')
+  // console.log(userInfo)
 
 
   // console.log('looky here')
@@ -48,7 +48,7 @@ export default function Home({ allPostsData }) {
           <div class="container">
             <p class="subtitle">
               All Recipes
-              {userInfo && <b>{userInfo.savedRecipes}</b>}
+              {/* {userInfo && <b>{userInfo.savedRecipes}</b>} */}
             </p>
             <RecipeList listContext={"all"}/>
           </div>

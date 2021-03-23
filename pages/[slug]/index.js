@@ -4,26 +4,26 @@ import Layout from '../../components/layout'
 import { FirebaseContext } from '../../firebase'
 import Firebase from '../../firebase/firebase'
 import Link from 'next/link'
-import UserContext from '../../contexts/UserContext'
+// import UserContext from '../../contexts/UserContext'
 
 export default function Recipe({ recipe }) {
   const { firebase, user } = React.useContext(FirebaseContext)
 
-  const { userInfo, setUserInfo } = React.useContext(UserContext)
+  // const { userInfo, setUserInfo } = React.useContext(UserContext)
 
   const [ buttonStatus, setButtonStatus ] = React.useState(false)
   const [ isLoading, setIsLoading ] = React.useState(true)
 
-  React.useEffect(() => {
-    if(JSON.stringify(userInfo) !== JSON.stringify({})) {
-      userInfo.map((u) => {
-        if(u.name === recipe.name) {
-          setButtonStatus(true)
-        }
-      })
-      setIsLoading(false)
-    }
-  }, [userInfo])
+  // React.useEffect(() => {
+  //   if(JSON.stringify(userInfo) !== JSON.stringify({})) {
+  //     userInfo.map((u) => {
+  //       if(u.name === recipe.name) {
+  //         setButtonStatus(true)
+  //       }
+  //     })
+  //     setIsLoading(false)
+  //   }
+  // }, [userInfo])
 
 
 

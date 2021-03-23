@@ -1,19 +1,14 @@
 import Layout from '../../components/layout'
 import { FirebaseContext } from '../../firebase'
 import MyRecipeList from '../../components/myRecipeList'
-import UserContext from '../../contexts/UserContext'
+
 import Firebase from '../../firebase/firebase'
 import Link from 'next/link'
 
 export default function MyRecipes() {
 
   const { firebase, user } = React.useContext(FirebaseContext)
-  const [recipes, setRecipes] = React.useState([])
-
-  const { userInfo, setUserInfo } = React.useContext(UserContext)
-
-
-
+  const [ recipes, setRecipes ] = React.useState([])
 
   React.useEffect(() => {
     if (user) {
@@ -21,15 +16,15 @@ export default function MyRecipes() {
     }
   }, [user])
 
-  React.useEffect(() => {
-    if(JSON.stringify(userInfo) !== JSON.stringify({})) {
-      console.log('home here now 3')
-      console.log(userInfo)
-      userInfo.map((u) => (
-        console.log(u.name)
-      ))
-    }
-  }, [userInfo])
+  // React.useEffect(() => {
+  //   if(JSON.stringify(userInfo) !== JSON.stringify({})) {
+  //     console.log('home here now 3')
+  //     console.log(userInfo)
+  //     userInfo.map((u) => (
+  //       console.log(u.name)
+  //     ))
+  //   }
+  // }, [userInfo])
 
   function getRecipes() {
 
