@@ -45,9 +45,8 @@ export default function Recipe({ recipe }) {
         //delete
         setIsLoading(true)
         firebase.db.collection('users').doc(user.uid).collection('savedRecipes').doc(savedRef).delete().then(() => {
-            console.log('after the delete')
-            setButtonStatus(false)
-            setIsLoading(false)
+          setButtonStatus(false)
+          setIsLoading(false)
         })
       } else {
         //add
@@ -109,7 +108,6 @@ export default function Recipe({ recipe }) {
 export const getStaticPaths = async () => {
   const recipes = await Firebase.db.collection('recipes').get()
   const paths = recipes.docs.map(recipe => ({
-
     params: {
       slug: recipe.data().slug
     }
