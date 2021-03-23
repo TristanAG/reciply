@@ -9,10 +9,12 @@ export default function MyRecipes() {
 
   const { firebase, user } = React.useContext(FirebaseContext)
   const [ recipes, setRecipes ] = React.useState([])
+  const [ savedRecipes, setSavedRecipes ] = React.useState(null)
 
   React.useEffect(() => {
     if (user) {
       getRecipes()
+      getSavedRecipes()
     }
   }, [user])
 
@@ -43,6 +45,21 @@ export default function MyRecipes() {
       });
   }
 
+  function getSavedRecipes() {
+    firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
+      .then(querySnapshot => {
+        let recipes = []
+        querySnapshot.forEach(doc => {
+          recipes.push({
+            name: doc.data().name,
+            id: doc.id
+          })
+        });
+        setSavedRecipes(recipes)
+      })
+
+  }
+
   return (
     <Layout>
       <div className="content">
@@ -65,7 +82,7 @@ export default function MyRecipes() {
           </>
         ))}
         <h3>Saved Recipes </h3>
-        {JSON.stringify(userInfo) !== JSON.stringify({}) && userInfo.map((u) => (
+        {savedRecipes && savedRecipes.map((u) => (
           <p>{u.name}</p>
         ))}
       </div>
