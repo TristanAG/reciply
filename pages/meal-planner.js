@@ -3,17 +3,12 @@ import Layout from '../components/layout'
 export default function MealPlanner() {
 
   const today = new Date();
-
-
-  var currentMonth = today.getMonth()+1
-
-
-  // today.setDate(today.getDate()-1);
+  var currentMonth = today.getMonth() + 1
 
   const [ dayOfWeekInt, setDayOfWeek ] = React.useState(today.getDay())
 
 
-  console.log('hi?')
+
 
   let currentDay = ''
 
@@ -77,13 +72,13 @@ export default function MealPlanner() {
           <table class="table is-bordered is-striped">
             <tbody>
               <tr>
-                <td className={dayOfWeekInt === 1 && "has-text-primary"}>Monday</td>
-                <td className={dayOfWeekInt === 2 && "has-text-primary"}>Tuesday</td>
-                <td className={dayOfWeekInt === 3 && "has-text-primary"}>Wednesday</td>
-                <td className={dayOfWeekInt === 4 && "has-text-primary"}>Thursday</td>
-                <td className={dayOfWeekInt === 5 && "has-text-primary"}>Friday</td>
-                <td className={dayOfWeekInt === 6 && "has-text-primary"}>Saturday</td>
-                <td className={dayOfWeekInt === 0 && "has-text-primary"}>Sunday</td>
+                <td className={dayOfWeekInt === 1 && "has-background-info-light is-active"}>Monday</td>
+                <td className={dayOfWeekInt === 2 && "has-background-info-light is-active"}>Tuesday</td>
+                <td className={dayOfWeekInt === 3 && "has-background-info-light is-active"}>Wednesday</td>
+                <td className={dayOfWeekInt === 4 && "has-background-info-light is-active"}>Thursday</td>
+                <td className={dayOfWeekInt === 5 && "has-background-info-light is-active"}>Friday</td>
+                <td className={dayOfWeekInt === 6 && "has-background-info-light is-active"}>Saturday</td>
+                <td className={dayOfWeekInt === 0 && "has-background-info-light is-active"}>Sunday</td>
               </tr>
             </tbody>
           </table>
@@ -93,6 +88,12 @@ export default function MealPlanner() {
           <h4>{dayOfWeekText}</h4>
         </div>
       </div>
+
+      <style jsx>{`
+        .is-active {
+          font-weight: 700;
+        }
+      `}</style>
     </Layout>
   )
 }
