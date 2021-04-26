@@ -7,9 +7,6 @@ export default function MealPlanner() {
 
   const [ dayOfWeekInt, setDayOfWeek ] = React.useState(today.getDay())
 
-
-
-
   let currentDay = ''
 
   switch(today.getDay()) {
@@ -20,7 +17,7 @@ export default function MealPlanner() {
         currentDay = 'Monday'
         break;
       case 2:
-        currentDay = 'Tuesday ' + currentMonth + ' / ' + dayOfWeekInt
+        currentDay = 'Tuesday'
         break;
       case 3:
         currentDay = 'Wednesday'
@@ -36,33 +33,7 @@ export default function MealPlanner() {
         break;
   }
 
-  const [ dayOfWeekText, setDayOfWeekText ] = React.useState(currentDay)
-
-  // switch(today.getDay()) {
-  //   case 0:
-  //     setDayOfWeekText('Sunday')
-  //     break;
-  //   case 1:
-  //     setDayOfWeekText('Monday')
-  //     break;
-  //   case 2:
-  //     setDayOfWeekText('Tuesday')
-  //     break;
-  //   case 3:
-  //     setDayOfWeekText('Wednesday')
-  //     break;
-  //   case 4:
-  //     setDayOfWeekText('Thursday')
-  //     break;
-  //   case 5:
-  //     setDayOfWeekText('Friday')
-  //     break;
-  //   case 6:
-  //     setDayOfWeekText('Saturday')
-  //     break;
-// }
-
-
+  const [ dayOfWeekText, setDayOfWeekText ] = React.useState(currentDay + currentMonth + ' / ' + String(today.getDate()).padStart(2, '0'))
 
   return (
     <Layout>
@@ -86,6 +57,7 @@ export default function MealPlanner() {
 
         <div className="day-view">
           <h4>{dayOfWeekText}</h4>
+          <p>hello</p>
         </div>
       </div>
 
