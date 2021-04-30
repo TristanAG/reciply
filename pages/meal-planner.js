@@ -56,7 +56,7 @@ export default function MealPlanner() {
                 {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
                   <td className={dayOfWeekInt === i && "has-background-info-light is-active"}>
                     {WEEKDAYS[i]} <br />
-                    <small>{currentWeekDatesArray[i].getDate()}</small>
+                    <small>{currentWeekDatesArray[i].getMonth()}/{currentWeekDatesArray[i].getDate()}</small>
                   </td>
                 ))}
               </tr>
