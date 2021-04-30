@@ -14,24 +14,27 @@ export default function MealPlanner() {
   let currentDay = ''
 
   for (let i in WEEKDAYS) {
-    // alert(day)
     if (i == day) {
       currentDay = WEEKDAYS[i]
-      console.log(i)
     }
   }
 
   const [ dayOfWeekText, setDayOfWeekText ] = React.useState(currentDay + ' ' + currentMonth + ' / ' + String(today.getDate()).padStart(2, '0'))
+  const [ currentWeekDatesArray, setCurrentWeekDatesArray ] = React.useState([])
 
   React.useEffect(() => {
+    let arr = []
     const startWeekIndex = today.getDay() * -1
-
     for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
-      console.log(i)
-      var currentDate = new Date()
-      var newDate = currentDate.setDate(currentDate.getDate() + i)
-      console.log(new Date(newDate))
+      const currentDate = new Date()
+      const newDate = currentDate.setDate(currentDate.getDate() + i)
+
+      // console.log(new Date(newDate))
+
+      arr.push(new Date(newDate))
     }
+    // console.log(arr)
+    setCurrentWeekDatesArray(arr)
   },[dayOfWeekInt])
 
   return (
@@ -50,8 +53,11 @@ export default function MealPlanner() {
           <table className="table is-bordered">
             <tbody>
               <tr>
-                {WEEKDAYS.map((day, i) => (
-                  <td className={dayOfWeekInt === i && "has-background-info-light is-active"}>{WEEKDAYS[i]}</td>
+                {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
+                  <td className={dayOfWeekInt === i && "has-background-info-light is-active"}>
+                    {WEEKDAYS[i]} <br />
+                    <small>{currentWeekDatesArray[i].getDate()}</small>
+                  </td>
                 ))}
               </tr>
             </tbody>
