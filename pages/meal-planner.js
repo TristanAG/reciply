@@ -4,7 +4,7 @@ const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 
 export default function MealPlanner() {
 
-  const today = new Date();
+  const today = new Date()
   const day = today.getDay()
   const currentMonth = today.getMonth() + 1
 
@@ -18,6 +18,11 @@ export default function MealPlanner() {
   const [ dayOfWeekText, setDayOfWeekText ] = React.useState(currentDay + ' ' + currentMonth + ' / ' + String(today.getDate()).padStart(2, '0'))
   const [ currentWeekDatesArray, setCurrentWeekDatesArray ] = React.useState([])
   const [ dayOfWeekInt, setDayOfWeek ] = React.useState(day)
+  const [ selected, setSelected ] = React.useState(day)
+
+  React.useEffect(() => {
+    // alert('change')
+  },[selected])
 
   React.useEffect(() => {
     let arr = []
@@ -47,9 +52,10 @@ export default function MealPlanner() {
             <tbody>
               <tr>
                 {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
-                  <td className={dayOfWeekInt === i && "has-background-info-light is-active"}>
-                    {WEEKDAYS[i]} <br />
-                    <small>{currentWeekDatesArray[i].getMonth()}/{currentWeekDatesArray[i].getDate()}</small>
+                  <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light is-active"}
+                    onClick={() => setSelected(i)} >
+                      {WEEKDAYS[i]} <br />
+                      <small>{currentWeekDatesArray[i].getMonth()}/{currentWeekDatesArray[i].getDate()}</small>
                   </td>
                 ))}
               </tr>
@@ -59,7 +65,7 @@ export default function MealPlanner() {
 
         <div className="day-view">
           <h4>{dayOfWeekText}</h4>
-          <p>hello</p>
+          <p>hello123</p>
         </div>
 
       </div>
@@ -68,6 +74,11 @@ export default function MealPlanner() {
         .is-active {
           font-weight: 700;
         }
+
+        tr:hover {
+          cursor: pointer;
+        }
+
       `}</style>
     </Layout>
   )
