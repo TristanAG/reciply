@@ -6,13 +6,9 @@ export default function MealPlanner() {
 
   const today = new Date();
   const day = today.getDay()
-
   const currentMonth = today.getMonth() + 1
 
-  const [ dayOfWeekInt, setDayOfWeek ] = React.useState(day)
-
   let currentDay = ''
-
   for (let i in WEEKDAYS) {
     if (i == day) {
       currentDay = WEEKDAYS[i]
@@ -21,19 +17,16 @@ export default function MealPlanner() {
 
   const [ dayOfWeekText, setDayOfWeekText ] = React.useState(currentDay + ' ' + currentMonth + ' / ' + String(today.getDate()).padStart(2, '0'))
   const [ currentWeekDatesArray, setCurrentWeekDatesArray ] = React.useState([])
+  const [ dayOfWeekInt, setDayOfWeek ] = React.useState(day)
 
   React.useEffect(() => {
     let arr = []
-    const startWeekIndex = today.getDay() * -1
+    const startWeekIndex = day * -1
     for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
       const currentDate = new Date()
       const newDate = currentDate.setDate(currentDate.getDate() + i)
-
-      // console.log(new Date(newDate))
-
       arr.push(new Date(newDate))
     }
-    // console.log(arr)
     setCurrentWeekDatesArray(arr)
   },[dayOfWeekInt])
 
