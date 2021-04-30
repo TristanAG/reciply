@@ -75,8 +75,13 @@ export default function MealPlanner() {
           font-weight: 700;
         }
 
-        tr:hover {
+        td {
+          width: 120px;
+        }
+
+        td:hover {
           cursor: pointer;
+
         }
 
       `}</style>
