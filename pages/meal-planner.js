@@ -35,30 +35,54 @@ export default function MealPlanner() {
 
   const [ dayOfWeekText, setDayOfWeekText ] = React.useState(currentDay + currentMonth + ' / ' + String(today.getDate()).padStart(2, '0'))
 
+  const startWeekIndex = today.getDay() * -1
+
+
+
+  for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
+    console.log(i)
+
+    var currentDate = new Date()
+    var newDate = currentDate.setDate(currentDate.getDate() + i)
+    console.log(new Date(newDate))
+  }
+  console.log('---')
+
   return (
     <Layout>
       <div className="content">
+
         <h3>Meal Planner</h3>
-        <div class="table-container">
-          <table class="table is-bordered is-striped">
+
+        <div className="container">
+          <div className="is-pulled-left"><a>prevWeek</a></div>
+          <div className="is-pulled-right"><a>nextWeek</a></div>
+          <div className="is-clearfix" />
+        </div>
+
+        <div className="table-container">
+          <table className="table is-bordered">
             <tbody>
               <tr>
+                <td className={dayOfWeekInt === 0 && "has-background-info-light is-active"}>Sunday</td>
                 <td className={dayOfWeekInt === 1 && "has-background-info-light is-active"}>Monday</td>
                 <td className={dayOfWeekInt === 2 && "has-background-info-light is-active"}>Tuesday</td>
                 <td className={dayOfWeekInt === 3 && "has-background-info-light is-active"}>Wednesday</td>
                 <td className={dayOfWeekInt === 4 && "has-background-info-light is-active"}>Thursday</td>
                 <td className={dayOfWeekInt === 5 && "has-background-info-light is-active"}>Friday</td>
                 <td className={dayOfWeekInt === 6 && "has-background-info-light is-active"}>Saturday</td>
-                <td className={dayOfWeekInt === 0 && "has-background-info-light is-active"}>Sunday</td>
               </tr>
             </tbody>
           </table>
         </div>
 
+
+
         <div className="day-view">
           <h4>{dayOfWeekText}</h4>
           <p>hello</p>
         </div>
+
       </div>
 
       <style jsx>{`
