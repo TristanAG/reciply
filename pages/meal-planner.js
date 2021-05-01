@@ -52,7 +52,7 @@ export default function MealPlanner() {
             <tbody>
               <tr>
                 {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
-                  <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light is-active"}
+                  <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light"}
                     onClick={() => setSelected(i)} >
                       {WEEKDAYS[i]} <br />
                       <small>{currentWeekDatesArray[i].getMonth()}/{currentWeekDatesArray[i].getDate()}</small>
@@ -73,10 +73,12 @@ export default function MealPlanner() {
       <style jsx>{`
         .is-active {
           font-weight: 700;
+          font-weight: bold;
         }
 
         td {
           width: 120px;
+          font-weight: normal;
         }
 
         td:hover {
