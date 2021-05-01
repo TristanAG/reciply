@@ -21,7 +21,31 @@ export default function MealPlanner() {
   const [ selected, setSelected ] = React.useState(day)
 
   React.useEffect(() => {
-    // alert('change')
+    //i need the diff of today int and this day int 'selected'
+    //today's int is
+    // alert(day)
+
+
+    //if number is negative, you can determine that... how do we do that again?
+    //we figure out the difference in the number, and we're able to
+
+
+    //so it can be real easy, if it's a negative number you just subtract that amount of days
+    //if its a positive number, you add the days
+    //prove that i can get the data that i want with a dummy output
+
+    // if (selected < 0) {
+    //   alert('negative number')
+    // } else {
+    //   alert('positive number')
+    // }
+    let diff = dayOfWeekInt - selected
+
+    alert(String(today.getDate() - diff).padStart(2, '0'))
+
+
+    // alert(String(today.getDate()).padStart(2, '0'))
+    setDayOfWeekText(WEEKDAYS[selected])
   },[selected])
 
   React.useEffect(() => {
