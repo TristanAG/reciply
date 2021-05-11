@@ -1,8 +1,12 @@
 import Layout from '../components/layout'
+import Firebase from '../firebase/firebase'
+import { FirebaseContext } from '../firebase'
 
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 export default function MealPlanner() {
+
+  const { firebase, user } = React.useContext(FirebaseContext)
 
   const today = new Date()
   const day = today.getDay()
@@ -53,17 +57,27 @@ export default function MealPlanner() {
 
     }
 
-    // console.log(beginningOfWeekRef + '-' + endOfWeekRef)
-
     setMealPlanWeekRef(beginningOfWeekRef + '-' + endOfWeekRef)
-
 
     setCurrentWeekDatesArray(arr)
   },[dayOfWeekInt])
 
   React.useEffect(() => {
-    // console.log(mealPlanWeekRef)
-    mealPlanWeekRef && alert(mealPlanWeekRef)
+    if (mealPlanWeekRef) {
+      // firebase.db.collection('users').where("postedBy.id", "==", user.uid)
+
+      //ok, i gotta figure out how to do this query.... i think it's a good break time here
+      /*
+        to pick this up - I be able to structure the query by looking for the current user,
+        and then in the current user look for the correct mealPlanWeek collection
+        then in mealPlanWeek use the mealPlanWeekRef to fetch the data of the current week
+
+        IF IT EXISTS
+
+        if it doesn't exist
+            then you create it!
+      */
+    }
   }, [mealPlanWeekRef])
 
   function buildMealPlanWeekRef(ref) {
