@@ -19,45 +19,60 @@ export default function MealPlanner() {
   const [ currentWeekDatesArray, setCurrentWeekDatesArray ] = React.useState([])
   const [ dayOfWeekInt, setDayOfWeek ] = React.useState(day)
   const [ selected, setSelected ] = React.useState(day)
+  const [ mealPlanWeekRef, setMealPlanWeekRef ] = React.useState('')
 
   React.useEffect(() => {
-    //i need the diff of today int and this day int 'selected'
-    //today's int is
-    // alert(day)
-
-
-    //if number is negative, you can determine that... how do we do that again?
-    //we figure out the difference in the number, and we're able to
-
-
-    //so it can be real easy, if it's a negative number you just subtract that amount of days
-    //if its a positive number, you add the days
-    //prove that i can get the data that i want with a dummy output
-
-    // if (selected < 0) {
-    //   alert('negative number')
-    // } else {
-    //   alert('positive number')
-    // }
     let diff = dayOfWeekInt - selected
-
-    alert(String(today.getDate() - diff).padStart(2, '0'))
-
-
-    // alert(String(today.getDate()).padStart(2, '0'))
     setDayOfWeekText(WEEKDAYS[selected])
   },[selected])
 
   React.useEffect(() => {
+
     let arr = []
     const startWeekIndex = day * -1
+
+    let beginningOfWeekRef = null
+    let endOfWeekRef = null
+
     for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
+
       const currentDate = new Date()
       const newDate = currentDate.setDate(currentDate.getDate() + i)
-      arr.push(new Date(newDate))
+
+      let indexRef = new Date(newDate)
+
+      arr.push(indexRef)
+
+      if (i === startWeekIndex) {
+        beginningOfWeekRef = buildMealPlanWeekRef(indexRef)
+      }
+
+      if (i === startWeekIndex + 6) {
+        endOfWeekRef = buildMealPlanWeekRef(indexRef)
+      }
+
     }
+
+    // console.log(beginningOfWeekRef + '-' + endOfWeekRef)
+
+    setMealPlanWeekRef(beginningOfWeekRef + '-' + endOfWeekRef)
+
+
     setCurrentWeekDatesArray(arr)
   },[dayOfWeekInt])
+
+  React.useEffect(() => {
+    // console.log(mealPlanWeekRef)
+    mealPlanWeekRef && alert(mealPlanWeekRef)
+  }, [mealPlanWeekRef])
+
+  function buildMealPlanWeekRef(ref) {
+    ref = ref.toString().split(' ')
+    ref = ref[1] + ref[2] + ref[3]
+
+    return ref
+  }
+
 
   return (
     <Layout>
