@@ -64,6 +64,7 @@ export default function MealPlanner() {
 
   React.useEffect(() => {
     if (mealPlanWeekRef) {
+      alert(mealPlanWeekRef)
       // firebase.db.collection('users').where("postedBy.id", "==", user.uid)
 
       //ok, i gotta figure out how to do this query.... i think it's a good break time here
