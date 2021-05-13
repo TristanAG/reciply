@@ -123,8 +123,13 @@ export default function MealPlanner() {
                     onClick={() => setSelected(i)} >
                       {WEEKDAYS[i]} <br />
                       <small>{currentWeekDatesArray[i].getMonth()}/{currentWeekDatesArray[i].getDate()}</small>
-                      <br /><b className="has-text-success">{i}</b><br />
-                      <small>{savedMealsByDay && savedMealsByDay[i]}</small>
+                      {/* <br /><b className="has-text-success">{i}</b><br /> */}
+                      {/* {savedMealsByDay && <b className="has-text-success">{i}</b>} */}
+                      <small>
+                        {savedMealsByDay && savedMealsByDay[i] &&
+                          <b className="has-text-success">{savedMealsByDay[i].length}</b>
+                        }
+                      </small>
 
                       {/* {if savedMealsByDay[i].hasElements
 
