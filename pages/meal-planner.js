@@ -31,7 +31,6 @@ export default function MealPlanner() {
   },[savedMealsByDay])
 
   React.useEffect(() => {
-    alert(selected)
     setSelected(selected)
 
   },[selected])
@@ -133,7 +132,8 @@ export default function MealPlanner() {
                       {/* {savedMealsByDay && <b className="has-text-success">{i}</b>} */}
                       <small>
                         {savedMealsByDay && savedMealsByDay[i] &&
-                          <b className="has-text-success">{savedMealsByDay[i].length}</b>
+                          // <b className="has-text-success">{savedMealsByDay[i].length}</b>
+                          <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length}</span>
                         }
                       </small>
 
@@ -153,10 +153,17 @@ export default function MealPlanner() {
 
         <div className="day-view">
           <h4>{dayOfWeekText}</h4>
-          <p>hello123</p>
-          <p>{dayOfWeekInt}</p>
           <div>
-            {savedMealsByDay && savedMealsByDay[selected]}
+            {savedMealsByDay && savedMealsByDay[selected]
+              ?
+                <div>
+                    {savedMealsByDay[selected].map(meal => (
+                      <p>{meal}</p>
+                    ))}
+                </div>
+              :
+                <p><i>no saved recipes yet...</i></p>
+            }
           </div>
         </div>
 
