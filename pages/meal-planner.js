@@ -6,7 +6,7 @@ const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 
 export default function MealPlanner() {
 
-  const { firebase, user } = React.useContext(FirebaseContext)
+  const { user, firebase } = React.useContext(FirebaseContext)
 
   const today = new Date()
   const day = today.getDay()
@@ -63,23 +63,24 @@ export default function MealPlanner() {
   },[dayOfWeekInt])
 
   React.useEffect(() => {
-    if (mealPlanWeekRef) {
-      alert(mealPlanWeekRef)
-      // firebase.db.collection('users').where("postedBy.id", "==", user.uid)
+    if (mealPlanWeekRef && user) {
 
-      //ok, i gotta figure out how to do this query.... i think it's a good break time here
       /*
-        to pick this up - I be able to structure the query by looking for the current user,
-        and then in the current user look for the correct mealPlanWeek collection
-        then in mealPlanWeek use the mealPlanWeekRef to fetch the data of the current week
-
+        TODO
         IF IT EXISTS
-
+            fetch using mealPlanWeekRef
         if it doesn't exist
-            then you create it!
+            then you create it - creating the entry with mealPlanWeekRef nomenclature as 'ref' on record
       */
+
+      firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').where('ref', '==', mealPlanWeekRef).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            console.log(doc.data())
+          })
+      })
+
     }
-  }, [mealPlanWeekRef])
+  }, [mealPlanWeekRef, user])
 
   function buildMealPlanWeekRef(ref) {
     ref = ref.toString().split(' ')
