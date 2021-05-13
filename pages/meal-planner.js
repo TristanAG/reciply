@@ -31,6 +31,12 @@ export default function MealPlanner() {
   },[savedMealsByDay])
 
   React.useEffect(() => {
+    alert(selected)
+    setSelected(selected)
+
+  },[selected])
+
+  React.useEffect(() => {
     let diff = dayOfWeekInt - selected
     setDayOfWeekText(WEEKDAYS[selected])
   },[selected])
@@ -150,7 +156,7 @@ export default function MealPlanner() {
           <p>hello123</p>
           <p>{dayOfWeekInt}</p>
           <div>
-            {savedMealsByDay && savedMealsByDay[1]}
+            {savedMealsByDay && savedMealsByDay[selected]}
           </div>
         </div>
 
