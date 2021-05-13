@@ -24,6 +24,11 @@ export default function MealPlanner() {
   const [ dayOfWeekInt, setDayOfWeek ] = React.useState(day)
   const [ selected, setSelected ] = React.useState(day)
   const [ mealPlanWeekRef, setMealPlanWeekRef ] = React.useState('')
+  const [ savedMealsByDay, setSavedMealsByDay ] = React.useState(null)
+
+  React.useEffect(() => {
+    savedMealsByDay && console.log(savedMealsByDay)
+  },[savedMealsByDay])
 
   React.useEffect(() => {
     let diff = dayOfWeekInt - selected
@@ -72,12 +77,19 @@ export default function MealPlanner() {
         if it doesn't exist
             then you create it - creating the entry with mealPlanWeekRef nomenclature as 'ref' on record
       */
-
+      console.log(mealPlanWeekRef)
+      let savedMealsByDay = []
       firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').where('ref', '==', mealPlanWeekRef).get().then((querySnapshot) => {
+          let i = 0
           querySnapshot.forEach((doc) => {
-            console.log(doc.data())
+            // savedMealsByDay.push(doc.data())
+            // console.log(doc.data())
+            // console.log(i)
+            // i++
+            setSavedMealsByDay(doc.data())
           })
       })
+
 
     }
   }, [mealPlanWeekRef, user])
@@ -111,6 +123,16 @@ export default function MealPlanner() {
                     onClick={() => setSelected(i)} >
                       {WEEKDAYS[i]} <br />
                       <small>{currentWeekDatesArray[i].getMonth()}/{currentWeekDatesArray[i].getDate()}</small>
+                      <br /><b className="has-text-success">{i}</b><br />
+                      <small>{savedMealsByDay && savedMealsByDay[i]}</small>
+
+                      {/* {if savedMealsByDay[i].hasElements
+
+                      } */}
+                      {/* {savedMealsByDay && console.log(savedMealsByDay)} */}
+
+                      {/* <div>{savedMealsByDay && <p>$</p>}</div>
+                      {console.log(savedMealsByDay)} */}
                   </td>
                 ))}
               </tr>
@@ -121,6 +143,10 @@ export default function MealPlanner() {
         <div className="day-view">
           <h4>{dayOfWeekText}</h4>
           <p>hello123</p>
+          <p>{dayOfWeekInt}</p>
+          <div>
+            {savedMealsByDay && savedMealsByDay[1]}
+          </div>
         </div>
 
       </div>
