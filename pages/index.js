@@ -42,18 +42,21 @@ export default function Home({ allPostsData }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <main>
 
-        <section class="section">
+      <div className="container">
+
+        <section class="section all-recipes">
           <div class="container">
-            <p class="subtitle">
-              All Recipes
-              {/* {userInfo && <b>{userInfo.savedRecipes}</b>} */}
-            </p>
+              {/* <p class="subtitle">
+                All Recipes
+
+              </p> */}
             <RecipeList listContext={"all"}/>
           </div>
         </section>
-      </main>
+
+      </div>
+
     </Layout>
   )
 }

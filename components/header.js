@@ -81,8 +81,7 @@ export default function Header({ title }) {
       <style jsx>{`
         .logo {
           font-size: 28px;
-          padding-top: 21px;
-          padding-left: 10px;
+          
         }
         .greeting {
           margin-right: 12px;

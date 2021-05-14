@@ -32,7 +32,6 @@ export default function MealPlanner() {
 
   React.useEffect(() => {
     setSelected(selected)
-
   },[selected])
 
   React.useEffect(() => {
@@ -153,18 +152,21 @@ export default function MealPlanner() {
 
         <div className="day-view">
           <h4>{dayOfWeekText}</h4>
-          <div>
+          <div className="content">
             {savedMealsByDay && savedMealsByDay[selected]
               ?
                 <div>
-                    {savedMealsByDay[selected].map(meal => (
-                      <p>{meal}</p>
-                    ))}
+                  {savedMealsByDay[selected].map(meal => (
+                    <p>{meal}</p>
+                  ))}
                 </div>
               :
                 <p><i>no saved recipes yet...</i></p>
             }
+
+            <button className="button is-text">+ add recipe for {WEEKDAYS[selected]}</button>
           </div>
+
         </div>
 
       </div>
