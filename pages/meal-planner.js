@@ -126,7 +126,7 @@ export default function MealPlanner() {
                   <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light"}
                     onClick={() => setSelected(i)} >
                       {WEEKDAYS[i]} <br />
-                      <small>{currentWeekDatesArray[i].getMonth()}/{currentWeekDatesArray[i].getDate()}</small>
+                      <small>{currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}</small>
                       {/* <br /><b className="has-text-success">{i}</b><br /> */}
                       {/* {savedMealsByDay && <b className="has-text-success">{i}</b>} */}
                       <small>
