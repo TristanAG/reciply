@@ -96,7 +96,6 @@ export default function MealPlanner() {
             // console.log(i)
             // i++
             setSavedMealsByDay(doc.data())
-            alert('test')
           })
       })
 
@@ -159,6 +158,7 @@ export default function MealPlanner() {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             console.log('exists!')
+            updateMealPlanRef()
 
         } else {
             // doc.data() will be undefined in this case
@@ -189,9 +189,22 @@ export default function MealPlanner() {
 
   }
 
-  function addToExistingMealPlanWeekRef() {
+  function updateMealPlanRef() {
     //TODO
     //if it has found, you just add a new entry
+    alert('yolo')
+    firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
+      [selected]: {
+        0: "the NEXT recipe"
+      },
+      ref: mealPlanWeekRef
+    })
+    .then(() => {
+        console.log("Document successfully written!");
+    })
+    .catch((error) => {
+        console.error("Error writing document: ", error);
+    });
   }
 
 
