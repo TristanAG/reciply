@@ -217,20 +217,22 @@ export default function MealPlanner() {
             <section className="modal-card-body">
               My Recipes <br />
               {recipes && recipes.map((recipe) => (
-                <p>
+                <div>
                   <Link href={'/' + recipe.slug} >
                     <a className="has-text-link">{recipe.name}</a>
                   </Link>
-                </p>
+                  <button className="button is-small add-button">+ add</button>
+                </div>
               ))}
               <br />
               Saved Recipes <br />
               {savedRecipes && savedRecipes.map((savedRecipe) => (
-                <p>
+                <div>
                   <Link href={'/' + savedRecipe.slug} >
                     <a className="has-text-link">{savedRecipe.name}</a>
                   </Link>
-                </p>
+                  <button className="button is-small add-button">+ add</button>
+                </div>
               ))}
             </section>
 
@@ -258,6 +260,9 @@ export default function MealPlanner() {
         td:hover {
           cursor: pointer;
 
+        }
+        .add-button {
+          margin-left: 22px;
         }
 
       `}</style>
