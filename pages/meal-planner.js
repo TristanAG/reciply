@@ -1,6 +1,7 @@
 import Layout from '../components/layout'
 import Firebase from '../firebase/firebase'
 import { FirebaseContext } from '../firebase'
+import Link from 'next/link'
 
 const WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
@@ -26,6 +27,7 @@ export default function MealPlanner() {
   const [ mealPlanWeekRef, setMealPlanWeekRef ] = React.useState('')
   const [ savedMealsByDay, setSavedMealsByDay ] = React.useState(null)
   const [ displayModal, setDisplayModal ] = React.useState(false)
+  const [ recipes, setRecipes ] = React.useState([])
 
   React.useEffect(() => {
     savedMealsByDay && console.log(savedMealsByDay)
@@ -108,8 +110,28 @@ export default function MealPlanner() {
 
   function openAddModal(selected) {
     // alert(selected)
+
+    getRecipes()
+
     setDisplayModal(true)
 
+  }
+
+  function getRecipes() {
+
+    let myRecipes = []
+
+    firebase.db.collection('recipes').where("postedBy.id", "==", user.uid)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          myRecipes.push(doc.data())
+        });
+        setRecipes(myRecipes)
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
   }
 
 
@@ -176,7 +198,20 @@ export default function MealPlanner() {
             </header>
 
             <section className="modal-card-body">
-              hello
+              {recipes.length > 0 && recipes.map(recipe => (
+                <>
+                  <p>{recipe.name}</p>
+                  <Link href={'/' + recipe.slug} >
+                    <a className="has-text-grey link">view</a>
+                  </Link>
+                  &nbsp;|&nbsp;
+                  <Link href={'/' + recipe.slug + '/edit'}>
+                    <a className="has-text-grey link">edit</a>
+                  </Link>
+                  &nbsp;|&nbsp;
+                  <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
+                </>
+              ))}
             </section>
 
             <footer className="modal-card-foot">
