@@ -151,6 +151,20 @@ export default function MealPlanner() {
 
   }
 
+  function addToMealPlanWeekRef() {
+    var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+  }
+
 
   return (
     <Layout>
@@ -231,7 +245,7 @@ export default function MealPlanner() {
                   <Link href={'/' + savedRecipe.slug} >
                     <a className="has-text-link">{savedRecipe.name}</a>
                   </Link>
-                  <button className="button is-small add-button">+ add</button>
+                  <button className="button is-small add-button" onClick={addToMealPlanWeekRef}>+ add</button>
                 </div>
               ))}
             </section>
