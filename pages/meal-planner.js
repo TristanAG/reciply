@@ -210,11 +210,12 @@ export default function MealPlanner() {
           <div className="modal-card">
 
               <header className="modal-card-head">
-              <p className="modal-card-title">Modal title</p>
+              <p className="modal-card-title">Add Recipe for {WEEKDAYS[selected]}</p>
               <button className="delete" aria-label="close" onClick={() => setDisplayModal(false)}></button>
             </header>
 
             <section className="modal-card-body">
+              My Recipes <br />
               {recipes && recipes.map((recipe) => (
                 <p>
                   <Link href={'/' + recipe.slug} >
@@ -222,7 +223,8 @@ export default function MealPlanner() {
                   </Link>
                 </p>
               ))}
-
+              <br />
+              Saved Recipes <br />
               {savedRecipes && savedRecipes.map((savedRecipe) => (
                 <p>
                   <Link href={'/' + savedRecipe.slug} >
