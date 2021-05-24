@@ -173,10 +173,9 @@ export default function MealPlanner() {
   function addNewMealPlanWeekRef() {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
       [selected]: {
-        0: "Bill Gates",
-        1: "Larry Page",
-        2: "James Tamplin"
-      }
+        0: "the new recipe"
+      },
+      ref: mealPlanWeekRef
     })
     .then(() => {
         console.log("Document successfully written!");
