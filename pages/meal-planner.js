@@ -89,12 +89,14 @@ export default function MealPlanner() {
       let savedMealsByDay = []
       firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').where('ref', '==', mealPlanWeekRef).get().then((querySnapshot) => {
           let i = 0
+
           querySnapshot.forEach((doc) => {
             // savedMealsByDay.push(doc.data())
-            // console.log(doc.data())
+            console.log(doc.data())
             // console.log(i)
             // i++
             setSavedMealsByDay(doc.data())
+            alert('test')
           })
       })
 
@@ -216,7 +218,8 @@ export default function MealPlanner() {
                         <small>{currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}</small>
                         <small>
                           {savedMealsByDay && savedMealsByDay[i] &&
-                            <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length}</span>
+                            <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length > 1 ? savedMealsByDay[i].length : 1}</span>
+                            // <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length}</span>
                           }
                         </small>
                     </td>
@@ -226,15 +229,20 @@ export default function MealPlanner() {
             </table>
           </div>
 
+          {/* this logic sucks, but it does the trick.... basically have to hack it out to only present 1 item instead of map
+            it's not that bad */}
           <div className="day-view">
             <h4>{dayOfWeekText}</h4>
             <div className="content">
               {savedMealsByDay && savedMealsByDay[selected]
                 ?
                   <div>
-                    {savedMealsByDay[selected].map(meal => (
-                      <p>{meal}</p>
-                    ))}
+                    {savedMealsByDay > 0
+                        ? savedMealsByDay[selected].map(meal => (
+                            <p>{meal}</p>
+                          ))
+                        : <p>{savedMealsByDay[selected][0]}</p>
+                    }
                   </div>
                 :
                   <p><i>no saved recipes yet...</i></p>
