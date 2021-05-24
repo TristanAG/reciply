@@ -166,14 +166,17 @@ export default function MealPlanner() {
     }).catch((error) => {
         console.log("Error getting document:", error);
         // good to post!
+        addToExistingMealPlanWeekRef()
     });
   }
 
   function addNewMealPlanWeekRef() {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
-      name: "Los Angeles",
-      state: "CA",
-      country: "USA"
+      [selected]: {
+        0: "Bill Gates",
+        1: "Larry Page",
+        2: "James Tamplin"
+      }
     })
     .then(() => {
         console.log("Document successfully written!");
@@ -183,6 +186,11 @@ export default function MealPlanner() {
     });
 
 
+  }
+
+  function addToExistingMealPlanWeekRef() {
+    //TODO
+    //if it has found, you just add a new entry
   }
 
 
