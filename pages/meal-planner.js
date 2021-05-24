@@ -155,14 +155,34 @@ export default function MealPlanner() {
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
     docRef.get().then((doc) => {
         if (doc.exists) {
-            console.log("Document data:", doc.data());
+            // console.log("Document data:", doc.data());
+            console.log('exists!')
+
         } else {
             // doc.data() will be undefined in this case
             console.log("No such document!");
+            addNewMealPlanWeekRef()
         }
     }).catch((error) => {
         console.log("Error getting document:", error);
+        // good to post!
     });
+  }
+
+  function addNewMealPlanWeekRef() {
+    firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
+      name: "Los Angeles",
+      state: "CA",
+      country: "USA"
+    })
+    .then(() => {
+        console.log("Document successfully written!");
+    })
+    .catch((error) => {
+        console.error("Error writing document: ", error);
+    });
+
+
   }
 
 
