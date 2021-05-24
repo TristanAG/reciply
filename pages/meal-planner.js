@@ -25,6 +25,7 @@ export default function MealPlanner() {
   const [ selected, setSelected ] = React.useState(day)
   const [ mealPlanWeekRef, setMealPlanWeekRef ] = React.useState('')
   const [ savedMealsByDay, setSavedMealsByDay ] = React.useState(null)
+  const [ displayModal, setDisplayModal ] = React.useState(false)
 
   React.useEffect(() => {
     savedMealsByDay && console.log(savedMealsByDay)
@@ -105,71 +106,88 @@ export default function MealPlanner() {
     return ref
   }
 
+  function openAddModal(selected) {
+    // alert(selected)
+    setDisplayModal(true)
+
+  }
+
 
   return (
     <Layout>
-      <div className="content">
+      <>
+        <div className="content">
+          <h3>Meal Planner</h3>
 
-        <h3>Meal Planner</h3>
+          <div className="container">
+            <div className="is-pulled-left"><a>prevWeek</a></div>
+            <div className="is-pulled-right"><a>nextWeek</a></div>
+            <div className="is-clearfix" />
+          </div>
 
-        <div className="container">
-          <div className="is-pulled-left"><a>prevWeek</a></div>
-          <div className="is-pulled-right"><a>nextWeek</a></div>
-          <div className="is-clearfix" />
-        </div>
-
-        <div className="table-container">
-          <table className="table is-bordered">
-            <tbody>
-              <tr>
-                {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
-                  <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light"}
-                    onClick={() => setSelected(i)} >
-                      {WEEKDAYS[i]} <br />
-                      <small>{currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}</small>
-                      {/* <br /><b className="has-text-success">{i}</b><br /> */}
-                      {/* {savedMealsByDay && <b className="has-text-success">{i}</b>} */}
-                      <small>
-                        {savedMealsByDay && savedMealsByDay[i] &&
-                          // <b className="has-text-success">{savedMealsByDay[i].length}</b>
-                          <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length}</span>
-                        }
-                      </small>
-
-                      {/* {if savedMealsByDay[i].hasElements
-
-                      } */}
-                      {/* {savedMealsByDay && console.log(savedMealsByDay)} */}
-
-                      {/* <div>{savedMealsByDay && <p>$</p>}</div>
-                      {console.log(savedMealsByDay)} */}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div className="day-view">
-          <h4>{dayOfWeekText}</h4>
-          <div className="content">
-            {savedMealsByDay && savedMealsByDay[selected]
-              ?
-                <div>
-                  {savedMealsByDay[selected].map(meal => (
-                    <p>{meal}</p>
+          <div className="table-container">
+            <table className="table is-bordered">
+              <tbody>
+                <tr>
+                  {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
+                    <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light"}
+                      onClick={() => setSelected(i)} >
+                        {WEEKDAYS[i]} <br />
+                        <small>{currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}</small>
+                        <small>
+                          {savedMealsByDay && savedMealsByDay[i] &&
+                            <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length}</span>
+                          }
+                        </small>
+                    </td>
                   ))}
-                </div>
-              :
-                <p><i>no saved recipes yet...</i></p>
-            }
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-            <button className="button is-text">+ add recipe for {WEEKDAYS[selected]}</button>
+          <div className="day-view">
+            <h4>{dayOfWeekText}</h4>
+            <div className="content">
+              {savedMealsByDay && savedMealsByDay[selected]
+                ?
+                  <div>
+                    {savedMealsByDay[selected].map(meal => (
+                      <p>{meal}</p>
+                    ))}
+                  </div>
+                :
+                  <p><i>no saved recipes yet...</i></p>
+              }
+
+              <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
+            </div>
           </div>
 
         </div>
 
-      </div>
+        <div className={displayModal ? "modal is-active" : "modal"}>
+          <div className="modal-background"></div>
+          <div className="modal-card">
+
+              <header className="modal-card-head">
+              <p className="modal-card-title">Modal title</p>
+              <button className="delete" aria-label="close" onClick={() => setDisplayModal(false)}></button>
+            </header>
+
+            <section className="modal-card-body">
+              hello
+            </section>
+
+            <footer className="modal-card-foot">
+              <button className="button is-success">Add Recipe</button>
+              <button className="button" onClick={() => setDisplayModal(false)}>Cancel</button>
+            </footer>
+
+          </div>
+        </div>
+
+      </>
 
       <style jsx>{`
         .is-active {
