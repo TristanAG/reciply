@@ -47,12 +47,10 @@ export default function MealPlanner() {
 
     let arr = []
     const startWeekIndex = day * -1
-
     let beginningOfWeekRef = null
     let endOfWeekRef = null
 
     for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
-
       const currentDate = new Date()
       const newDate = currentDate.setDate(currentDate.getDate() + i)
 
@@ -62,16 +60,12 @@ export default function MealPlanner() {
 
       if (i === startWeekIndex) {
         beginningOfWeekRef = buildMealPlanWeekRef(indexRef)
-      }
-
-      if (i === startWeekIndex + 6) {
+      } else if (i === startWeekIndex + 6) {
         endOfWeekRef = buildMealPlanWeekRef(indexRef)
       }
-
     }
 
     setMealPlanWeekRef(beginningOfWeekRef + '-' + endOfWeekRef)
-
     setCurrentWeekDatesArray(arr)
   },[dayOfWeekInt])
 
@@ -89,7 +83,6 @@ export default function MealPlanner() {
       let savedMealsByDay = []
       firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').where('ref', '==', mealPlanWeekRef).get().then((querySnapshot) => {
           let i = 0
-
           querySnapshot.forEach((doc) => {
             // savedMealsByDay.push(doc.data())
             console.log(doc.data())
@@ -98,8 +91,6 @@ export default function MealPlanner() {
             setSavedMealsByDay(doc.data())
           })
       })
-
-
     }
   }, [mealPlanWeekRef, user])
 
@@ -109,6 +100,10 @@ export default function MealPlanner() {
 
     return ref
   }
+
+
+
+  //Modal -------------------------------------------------------------------------------------------------------------------
 
   function openAddModal(selected) {
     // alert(selected)
@@ -152,23 +147,24 @@ export default function MealPlanner() {
 
   }
 
-  function addToMealPlanWeekRef() {
+  function addToMealPlanWeekRef(savedRecipeName) {
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
     docRef.get().then((doc) => {
-        if (doc.exists) {
-            // console.log("Document data:", doc.data());
-            console.log('exists!')
-            updateMealPlanRef()
-
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-            addNewMealPlanWeekRef()
-        }
+      if (doc.exists) {
+        //UPDATE
+        // console.log("Document data:", doc.data());
+        console.log('exists!')
+        updateMealPlanRef(savedRecipeName)
+      } else {
+        //ADD NEW mealPlanWeekRef
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+        addNewMealPlanWeekRef()
+      }
     }).catch((error) => {
-        console.log("Error getting document:", error);
-        // good to post!
-        addToExistingMealPlanWeekRef()
+      console.log("Error getting document:", error);
+      // good to post!
+      addToExistingMealPlanWeekRef()
     });
   }
 
@@ -178,24 +174,22 @@ export default function MealPlanner() {
         0: "the new recipe"
       },
       ref: mealPlanWeekRef
-    })
-    .then(() => {
+    }).then(() => {
         console.log("Document successfully written!");
-    })
-    .catch((error) => {
+    }).catch((error) => {
         console.error("Error writing document: ", error);
     });
 
 
   }
 
-  function updateMealPlanRef() {
+  function updateMealPlanRef(savedRecipeName) {
     //TODO
     //if it has found, you just add a new entry
     alert('yolo')
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
       [selected]: {
-        0: "the NEXT recipe"
+        0: [savedRecipeName]
       },
       ref: mealPlanWeekRef
     })
@@ -206,6 +200,11 @@ export default function MealPlanner() {
         console.error("Error writing document: ", error);
     });
   }
+
+  // End Modal -----------------------------------------------------------------------------------------------------------
+
+
+
 
 
   return (
@@ -267,6 +266,13 @@ export default function MealPlanner() {
 
         </div>
 
+
+
+
+
+
+        {/* //Modal ------------------------------------------------------------------------------------------------------------------- */}
+
         <div className={displayModal ? "modal is-active" : "modal"}>
           <div className="modal-background"></div>
           <div className="modal-card">
@@ -293,7 +299,7 @@ export default function MealPlanner() {
                   <Link href={'/' + savedRecipe.slug} >
                     <a className="has-text-link">{savedRecipe.name}</a>
                   </Link>
-                  <button className="button is-small add-button" onClick={addToMealPlanWeekRef}>+ add</button>
+                  <button className="button is-small add-button" onClick={() => addToMealPlanWeekRef(savedRecipe.name)}>+ add</button>
                 </div>
               ))}
             </section>
@@ -305,6 +311,8 @@ export default function MealPlanner() {
 
           </div>
         </div>
+
+        {/* // End Modal ----------------------------------------------------------------------------------------------------------- */}
 
       </>
 
