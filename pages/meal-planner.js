@@ -172,7 +172,7 @@ export default function MealPlanner() {
   function addNewMealPlanWeekRef(savedRecipeName) {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
       [selected]: {
-        'name': [savedRecipeName],
+        'name': savedRecipeName,
         'ingredients': JSON.stringify({'butter':'1 tbsp'})
       },
 
@@ -193,9 +193,9 @@ export default function MealPlanner() {
     alert('yolo')
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
       [selected]: {
-        [savedRecipeName]: JSON.stringify({'butter':'1 tbsp'})
-      },
-      ref: mealPlanWeekRef
+        'name': savedRecipeName,
+        'ingredients': JSON.stringify({'butter':'1 tbsp'})
+      }
     })
     .then(() => {
         console.log("Document successfully written!");
@@ -250,28 +250,40 @@ export default function MealPlanner() {
           <div className="day-view">
             <h4>{dayOfWeekText}</h4>
             <div className="content">
-              {console.log('render')}
-              {savedMealsByDay && savedMealsByDay[selected]
+              {/* {console.log('render')}
+              {console.log(savedMealsByDay)} */}
+              {/* {savedMealsByDay && savedMealsByDay[selected]
                 ?
                   <div>
                     {savedMealsByDay > 0
                         ? savedMealsByDay[selected].map(meal => (
-                          <>
-                            <p>{meal}</p>
-                            {/* {console.log(meal.keys.length)} */}
+                            <>
+                              <p>{meal}</p>
+
                             </>
                           ))
                         :
-                        // <p>{console.log(savedMealsByDay[selected])}</p>
+
                         <>
                         <p>{savedMealsByDay[selected].name}</p>
-                        
+
                         </>
                     }
                   </div>
                 :
                   <p><i>no saved recipes yet...</i></p>
+              } */}
+
+
+
+              {savedMealsByDay &&
+                // console.log(Object.keys(savedMealsByDay[selected]))
+                savedMealsByDay[selected] && <p>{savedMealsByDay[selected].name}</p>
               }
+
+
+
+
 
               <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
             </div>
