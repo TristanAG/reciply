@@ -278,7 +278,11 @@ export default function MealPlanner() {
 
               {savedMealsByDay &&
                 // console.log(Object.keys(savedMealsByDay[selected]))
-                savedMealsByDay[selected] && <p>{savedMealsByDay[selected].name}</p>
+                savedMealsByDay[selected] &&
+                  <>
+                    <p>{savedMealsByDay[selected].name}</p>
+                    <p>{savedMealsByDay[selected].ingredients}</p>
+                  </>
               }
 
 
