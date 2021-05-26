@@ -31,7 +31,7 @@ export default function MealPlanner() {
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
 
   React.useEffect(() => {
-    savedMealsByDay && console.log(savedMealsByDay)
+    // savedMealsByDay && console.log(savedMealsByDay)
   },[savedMealsByDay])
 
   React.useEffect(() => {
@@ -79,13 +79,13 @@ export default function MealPlanner() {
         if it doesn't exist
             then you create it - creating the entry with mealPlanWeekRef nomenclature as 'ref' on record
       */
-      console.log(mealPlanWeekRef)
+      // console.log(mealPlanWeekRef)
       let savedMealsByDay = []
       firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').where('ref', '==', mealPlanWeekRef).get().then((querySnapshot) => {
           let i = 0
           querySnapshot.forEach((doc) => {
             // savedMealsByDay.push(doc.data())
-            console.log(doc.data())
+            // console.log(doc.data())
             // console.log(i)
             // i++
             setSavedMealsByDay(doc.data())
@@ -159,20 +159,24 @@ export default function MealPlanner() {
         //ADD NEW mealPlanWeekRef
         // doc.data() will be undefined in this case
         console.log("No such document!");
-        addNewMealPlanWeekRef()
+        addNewMealPlanWeekRef(savedRecipeName)
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
       // good to post!
-      addToExistingMealPlanWeekRef()
+      // addToExistingMealPlanWeekRef()
+      // updateMealPlanRef()
     });
   }
 
-  function addNewMealPlanWeekRef() {
+  function addNewMealPlanWeekRef(savedRecipeName) {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
       [selected]: {
-        0: "the new recipe"
+        'name': [savedRecipeName],
+        'ingredients': JSON.stringify({'butter':'1 tbsp'})
       },
+
+      // [savedRecipeName]: JSON.stringify({'butter':'1 tbsp'})
       ref: mealPlanWeekRef
     }).then(() => {
         console.log("Document successfully written!");
@@ -189,7 +193,7 @@ export default function MealPlanner() {
     alert('yolo')
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
       [selected]: {
-        0: [savedRecipeName]
+        [savedRecipeName]: JSON.stringify({'butter':'1 tbsp'})
       },
       ref: mealPlanWeekRef
     })
@@ -246,14 +250,23 @@ export default function MealPlanner() {
           <div className="day-view">
             <h4>{dayOfWeekText}</h4>
             <div className="content">
+              {console.log('render')}
               {savedMealsByDay && savedMealsByDay[selected]
                 ?
                   <div>
                     {savedMealsByDay > 0
                         ? savedMealsByDay[selected].map(meal => (
+                          <>
                             <p>{meal}</p>
+                            {/* {console.log(meal.keys.length)} */}
+                            </>
                           ))
-                        : <p>{savedMealsByDay[selected][0]}</p>
+                        :
+                        // <p>{console.log(savedMealsByDay[selected])}</p>
+                        <>
+                        <p>{savedMealsByDay[selected].name}</p>
+                        
+                        </>
                     }
                   </div>
                 :
