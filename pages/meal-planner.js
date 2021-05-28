@@ -30,13 +30,13 @@ export default function MealPlanner() {
   const [ recipes, setRecipes ] = React.useState(false)
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
 
-  React.useEffect(() => {
-    // savedMealsByDay && console.log(savedMealsByDay)
-  },[savedMealsByDay])
+  // React.useEffect(() => {
+  //   savedMealsByDay && console.log(savedMealsByDay)
+  // },[savedMealsByDay])
 
-  React.useEffect(() => {
-    setSelected(selected)
-  },[selected])
+  // React.useEffect(() => {
+  //   setSelected(selected)
+  // },[selected])
 
   React.useEffect(() => {
     let diff = dayOfWeekInt - selected
@@ -44,7 +44,6 @@ export default function MealPlanner() {
   },[selected])
 
   React.useEffect(() => {
-
     let arr = []
     const startWeekIndex = day * -1
     let beginningOfWeekRef = null
@@ -71,23 +70,10 @@ export default function MealPlanner() {
 
   React.useEffect(() => {
     if (mealPlanWeekRef && user) {
-
-      /*
-        TODO
-        IF IT EXISTS
-            fetch using mealPlanWeekRef
-        if it doesn't exist
-            then you create it - creating the entry with mealPlanWeekRef nomenclature as 'ref' on record
-      */
-      // console.log(mealPlanWeekRef)
       let savedMealsByDay = []
       firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').where('ref', '==', mealPlanWeekRef).get().then((querySnapshot) => {
           let i = 0
           querySnapshot.forEach((doc) => {
-            // savedMealsByDay.push(doc.data())
-            // console.log(doc.data())
-            // console.log(i)
-            // i++
             setSavedMealsByDay(doc.data())
           })
       })
@@ -101,23 +87,17 @@ export default function MealPlanner() {
     return ref
   }
 
-
-
   //Modal -------------------------------------------------------------------------------------------------------------------
 
   function openAddModal(selected) {
-    // alert(selected)
-
     getRecipes()
     getSavedRecipes()
     setDisplayModal(true)
-
   }
 
   function getRecipes() {
 
     let myRecipes = []
-
     firebase.db.collection('recipes').where("postedBy.id", "==", user.uid)
       .get()
       .then((querySnapshot) => {
@@ -132,9 +112,10 @@ export default function MealPlanner() {
   }
 
   function getSavedRecipes() {
-    firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
+    let recipes = []
+    firebase.db.collection('users').doc(user.uid).collection('savedRecipes')
+      .get()
       .then(querySnapshot => {
-        let recipes = []
         querySnapshot.forEach(doc => {
           recipes.push({
             name: doc.data().name,
@@ -144,6 +125,9 @@ export default function MealPlanner() {
         });
         setSavedRecipes(recipes)
       })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
 
   }
 
@@ -151,21 +135,14 @@ export default function MealPlanner() {
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
     docRef.get().then((doc) => {
       if (doc.exists) {
-        //UPDATE
-        // console.log("Document data:", doc.data());
-        console.log('exists!')
+        //UPDATE IF EXISTS
         updateMealPlanRef(savedRecipeName)
       } else {
-        //ADD NEW mealPlanWeekRef
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
+        //ADD NEW mealPlanWeekRef if no doc exists
         addNewMealPlanWeekRef(savedRecipeName)
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
-      // good to post!
-      // addToExistingMealPlanWeekRef()
-      // updateMealPlanRef()
     });
   }
 
@@ -175,13 +152,11 @@ export default function MealPlanner() {
         'name': savedRecipeName,
         'ingredients': JSON.stringify({'butter':'1 tbsp'})
       },
-
-      // [savedRecipeName]: JSON.stringify({'butter':'1 tbsp'})
       ref: mealPlanWeekRef
     }).then(() => {
-        console.log("Document successfully written!");
+      console.log("Document successfully written!");
     }).catch((error) => {
-        console.error("Error writing document: ", error);
+      console.error("Error writing document: ", error);
     });
 
 
@@ -190,7 +165,18 @@ export default function MealPlanner() {
   function updateMealPlanRef(savedRecipeName) {
     //TODO
     //if it has found, you just add a new entry
-    alert('yolo')
+    //first pull down a copy of the doc
+    let ref = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).get()
+    .then((doc) => {
+      if (doc.exists) {
+        //UPDATE IF EXISTS
+        alert('hi')
+        console.log('yolo')
+        console.log(doc.data())
+      }
+    });
+
+
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
       [selected]: {
         'name': savedRecipeName,
@@ -228,7 +214,7 @@ export default function MealPlanner() {
               <tbody>
                 <tr>
                   {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
-                    <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light"}
+                    <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light" }
                       onClick={() => setSelected(i)} >
                         {WEEKDAYS[i]} <br />
                         <small>{currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}</small>
@@ -245,50 +231,17 @@ export default function MealPlanner() {
             </table>
           </div>
 
-          {/* this logic sucks, but it does the trick.... basically have to hack it out to only present 1 item instead of map
-            it's not that bad */}
+
           <div className="day-view">
             <h4>{dayOfWeekText}</h4>
             <div className="content">
-              {/* {console.log('render')}
-              {console.log(savedMealsByDay)} */}
-              {/* {savedMealsByDay && savedMealsByDay[selected]
-                ?
-                  <div>
-                    {savedMealsByDay > 0
-                        ? savedMealsByDay[selected].map(meal => (
-                            <>
-                              <p>{meal}</p>
-
-                            </>
-                          ))
-                        :
-
-                        <>
-                        <p>{savedMealsByDay[selected].name}</p>
-
-                        </>
-                    }
-                  </div>
-                :
-                  <p><i>no saved recipes yet...</i></p>
-              } */}
-
-
-
               {savedMealsByDay &&
-                // console.log(Object.keys(savedMealsByDay[selected]))
                 savedMealsByDay[selected] &&
                   <>
                     <p>{savedMealsByDay[selected].name}</p>
                     <p>{savedMealsByDay[selected].ingredients}</p>
                   </>
               }
-
-
-
-
-
               <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
             </div>
           </div>
