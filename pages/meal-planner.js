@@ -120,7 +120,8 @@ export default function MealPlanner() {
           recipes.push({
             name: doc.data().name,
             id: doc.id,
-            slug: doc.data().slug
+            slug: doc.data().slug,
+            ingredients: doc.data().ingredients
           })
         });
         setSavedRecipes(recipes)
@@ -131,30 +132,27 @@ export default function MealPlanner() {
 
   }
 
-  function addToMealPlanWeekRef(savedRecipeName) {
+  function addToMealPlanWeekRef(savedRecipe) {
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
     docRef.get().then((doc) => {
       if (doc.exists) {
         //UPDATE IF EXISTS
-        updateMealPlanRef(savedRecipeName)
+        updateMealPlanRef(savedRecipe)
       } else {
         //ADD NEW mealPlanWeekRef if no doc exists
-        addNewMealPlanWeekRef(savedRecipeName)
+        addNewMealPlanWeekRef(savedRecipe)
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
     });
   }
 
-  function addNewMealPlanWeekRef(savedRecipeName) {
+  function addNewMealPlanWeekRef(savedRecipe) {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
-      [selected]: {
-        'name': savedRecipeName,
-        'ingredients': JSON.stringify({'butter':'1 tbsp'})
-      },
       ref: mealPlanWeekRef
     }).then(() => {
       console.log("Document successfully written!");
+      updateMealPlanRef(savedRecipe)
     }).catch((error) => {
       console.error("Error writing document: ", error);
     });
@@ -162,26 +160,15 @@ export default function MealPlanner() {
 
   }
 
-  function updateMealPlanRef(savedRecipeName) {
-    //TODO
-    //if it has found, you just add a new entry
-    //first pull down a copy of the doc
-    let ref = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).get()
-    .then((doc) => {
-      if (doc.exists) {
-        //UPDATE IF EXISTS
-        alert('hi')
-        console.log('yolo')
-        console.log(doc.data())
-      }
-    });
+  function updateMealPlanRef(savedRecipe) {
+    console.log('updateMealPlanRef')
+    console.log(savedRecipe)
 
-
-    firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
-      [selected]: {
-        'name': savedRecipeName,
-        'ingredients': JSON.stringify({'butter':'1 tbsp'})
-      }
+    firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes').add({
+      name: savedRecipe.name,
+      slug: savedRecipe.slug,
+      ingredients: savedRecipe.ingredients,
+      dayInt: selected
     })
     .then(() => {
         console.log("Document successfully written!");
@@ -189,6 +176,46 @@ export default function MealPlanner() {
     .catch((error) => {
         console.error("Error writing document: ", error);
     });
+
+
+    //TODO
+
+    //you know that it exists, so here all you're going to do is add a new entry into the new 'recipes'
+
+
+
+
+
+
+    //if it has found, you just add a new entry
+    //first pull down a copy of the doc
+    // let ref = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).get()
+    // .then((doc) => {
+    //   if (doc.exists) {
+    //     //UPDATE IF EXISTS
+    //     alert('hi')
+    //     console.log('yolo')
+    //     let savedMealsInDayRef = doc.data()[selected]
+    //     console.log( savedMealsByDay[selected]["name"] )
+    //     console.log( savedMealsByDay[selected]["ingredients"] )
+    //   }
+    // });
+
+    // let tempobj = savedMealsByDay[selected]["name"] savedRecipeName
+
+
+    // firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
+    //   [selected]: {
+    //     'name': savedRecipeName,
+    //     'ingredients': JSON.stringify({'butter':'1 tbsp'})
+    //   }
+    // })
+    // .then(() => {
+    //     console.log("Document successfully written!");
+    // })
+    // .catch((error) => {
+    //     console.error("Error writing document: ", error);
+    // });
   }
 
   // End Modal -----------------------------------------------------------------------------------------------------------
@@ -281,7 +308,7 @@ export default function MealPlanner() {
                   <Link href={'/' + savedRecipe.slug} >
                     <a className="has-text-link">{savedRecipe.name}</a>
                   </Link>
-                  <button className="button is-small add-button" onClick={() => addToMealPlanWeekRef(savedRecipe.name)}>+ add</button>
+                  <button className="button is-small add-button" onClick={() => addToMealPlanWeekRef(savedRecipe)}>+ add</button>
                 </div>
               ))}
             </section>
