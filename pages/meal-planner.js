@@ -143,7 +143,7 @@ export default function MealPlanner() {
         addNewMealPlanWeekRef(savedRecipe)
       }
     }).catch((error) => {
-      console.log("Error getting document:", error);
+        console.log("Error getting document:", error);
     });
   }
 
@@ -156,8 +156,6 @@ export default function MealPlanner() {
     }).catch((error) => {
       console.error("Error writing document: ", error);
     });
-
-
   }
 
   function updateMealPlanRef(savedRecipe) {
@@ -176,46 +174,12 @@ export default function MealPlanner() {
     .catch((error) => {
         console.error("Error writing document: ", error);
     });
+  }
+
+  function getMealPlanWeekRef() {
+    // TODO get the mealPlanWeekRef to get all your high level week snapshot stuff...
 
 
-    //TODO
-
-    //you know that it exists, so here all you're going to do is add a new entry into the new 'recipes'
-
-
-
-
-
-
-    //if it has found, you just add a new entry
-    //first pull down a copy of the doc
-    // let ref = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).get()
-    // .then((doc) => {
-    //   if (doc.exists) {
-    //     //UPDATE IF EXISTS
-    //     alert('hi')
-    //     console.log('yolo')
-    //     let savedMealsInDayRef = doc.data()[selected]
-    //     console.log( savedMealsByDay[selected]["name"] )
-    //     console.log( savedMealsByDay[selected]["ingredients"] )
-    //   }
-    // });
-
-    // let tempobj = savedMealsByDay[selected]["name"] savedRecipeName
-
-
-    // firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).update({
-    //   [selected]: {
-    //     'name': savedRecipeName,
-    //     'ingredients': JSON.stringify({'butter':'1 tbsp'})
-    //   }
-    // })
-    // .then(() => {
-    //     console.log("Document successfully written!");
-    // })
-    // .catch((error) => {
-    //     console.error("Error writing document: ", error);
-    // });
   }
 
   // End Modal -----------------------------------------------------------------------------------------------------------
