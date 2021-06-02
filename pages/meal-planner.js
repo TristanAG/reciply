@@ -29,6 +29,7 @@ export default function MealPlanner() {
   const [ displayModal, setDisplayModal ] = React.useState(false)
   const [ recipes, setRecipes ] = React.useState(false)
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
+  const [ weekPreview, setWeekPreview ] = React.useState([0,0,0,0,0,0,0])
 
   // React.useEffect(() => {
   //   savedMealsByDay && console.log(savedMealsByDay)
@@ -209,16 +210,40 @@ export default function MealPlanner() {
   }
 
   function getRecipesInMealPlan(mealPlanWeekRef) {
+
+    let arr = [0,0,0,0,0,0,0]
+
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log(doc.data())
+        console.log(doc.data().dayInt)
+        var temp = arr[doc.data().dayInt]
+        arr[doc.data().dayInt] = temp + 1
+
+
+
+        //the loop needs to go through and sort the data, and it can be done in a single for loop or map
+        //just 1 pass
+        //the structure is like [0,0,0,0,0,0]
+        //you know where you're at based on the index of the loop
+        //and if that day corresponds to the dayInt, then that number gets placed there in an increment
+
+        //something feels so amazing about this right now, listening to joseph jacobs 'beneath stars'
+        //i first check
       });
+
+      // console.log(arr)
+      setWeekPreview(arr)
+
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
+
+
   }
+
+
 
   // End Modal -----------------------------------------------------------------------------------------------------------
 
@@ -247,11 +272,9 @@ export default function MealPlanner() {
                       onClick={() => setSelected(i)} >
                         {WEEKDAYS[i]} <br />
                         <small>{currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}</small>
+                        {/* <small><span className="tag is-info is-light is-pulled-right">{weekPreview[i] > 0 && weekPreview[i]}</span></small> */}
                         <small>
-                          {savedMealsByDay && savedMealsByDay[i] &&
-                            <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length > 1 ? savedMealsByDay[i].length : 1}</span>
-                            // <span className="tag is-info is-light is-pulled-right">{savedMealsByDay[i].length}</span>
-                          }
+                          {weekPreview[i] > 0 && <span className="tag is-info is-light is-pulled-right">{weekPreview[i]}</span>}
                         </small>
                     </td>
                   ))}
