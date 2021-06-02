@@ -30,6 +30,7 @@ export default function MealPlanner() {
   const [ recipes, setRecipes ] = React.useState(false)
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
   const [ weekPreview, setWeekPreview ] = React.useState([0,0,0,0,0,0,0])
+  const [ meals, setMeals ] = React.useState([[], [], [], [], [], [], []])
 
   React.useEffect(() => {
     let diff = dayOfWeekInt - selected
@@ -187,13 +188,24 @@ export default function MealPlanner() {
 
   function getRecipesInMealPlan(mealPlanWeekRef) {
     let arr = [0,0,0,0,0,0,0]
+    let arr2 = [[], [], [], [], [], [], []]
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         var temp = arr[doc.data().dayInt]
+        var temp2 = arr2[doc.data().dayInt]
+
         arr[doc.data().dayInt] = temp + 1
+        arr2[doc.data().dayInt].push({
+          name: doc.data().name,
+          slug: doc.data().slug
+        })
+
       });
       setWeekPreview(arr)
+      setMeals(arr2)
+      console.log('array 2')
+      console.log(arr2)
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
@@ -244,13 +256,14 @@ export default function MealPlanner() {
           <div className="day-view">
             <h4>{dayOfWeekText}</h4>
             <div className="content">
-              {savedMealsByDay &&
+              {meals[selected].length > 0 && <p>has meals! {meals[selected].length}</p>}
+              {/* {savedMealsByDay &&
                 savedMealsByDay[selected] &&
                   <>
                     <p>{savedMealsByDay[selected].name}</p>
                     <p>{savedMealsByDay[selected].ingredients}</p>
                   </>
-              }
+              } */}
               <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
             </div>
           </div>
