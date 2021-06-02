@@ -31,21 +31,12 @@ export default function MealPlanner() {
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
   const [ weekPreview, setWeekPreview ] = React.useState([0,0,0,0,0,0,0])
 
-  // React.useEffect(() => {
-  //   savedMealsByDay && console.log(savedMealsByDay)
-  // },[savedMealsByDay])
-
-  // React.useEffect(() => {
-  //   setSelected(selected)
-  // },[selected])
-
   React.useEffect(() => {
     let diff = dayOfWeekInt - selected
     setDayOfWeekText(WEEKDAYS[selected])
   },[selected])
 
   React.useEffect(() => {
-
     //generate calendar current week view based on today
     let arr = []
     const startWeekIndex = day * -1
@@ -82,9 +73,6 @@ export default function MealPlanner() {
       })
 
       //INIT SETUP
-      //1345234524352345234523452345234523452346235462345
-      //1345234524352345234523452345234523452346235462345
-      //1345234524352345234523452345234523452346235462345
       getMealPlanWeekRef(mealPlanWeekRef)
     }
   }, [mealPlanWeekRef, user])
@@ -138,7 +126,6 @@ export default function MealPlanner() {
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
-
   }
 
   function addToMealPlanWeekRef(savedRecipe) {
@@ -168,9 +155,6 @@ export default function MealPlanner() {
   }
 
   function updateMealPlanRef(savedRecipe) {
-    console.log('updateMealPlanRef')
-    console.log(savedRecipe)
-
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes').add({
       name: savedRecipe.name,
       slug: savedRecipe.slug,
@@ -178,25 +162,18 @@ export default function MealPlanner() {
       dayInt: selected
     })
     .then(() => {
-        console.log("Document successfully written!");
+      console.log("Document successfully written!");
     })
     .catch((error) => {
-        console.error("Error writing document: ", error);
+      console.error("Error writing document: ", error);
     });
   }
 
   function getMealPlanWeekRef(mealPlanWeekRef) {
-    // TODO get the mealPlanWeekRef to get all your high level week snapshot stuff...
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
     docRef.get().then((doc) => {
       if (doc.exists) {
         //UPDATE IF EXISTS
-        // updateMealPlanRef(savedRecipe)
-
-        console.log('skrrt')
-        console.log(doc.data())
-        //ok, so here now i need to fetch the recipes, right?
-        // getSavedRecipes(doc.data())
         getRecipesInMealPlan(mealPlanWeekRef)
       } else {
         //ADD NEW mealPlanWeekRef if no doc exists
@@ -204,43 +181,23 @@ export default function MealPlanner() {
         alert('no hit!')
       }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+      console.log("Error getting document:", error);
     });
-
   }
 
   function getRecipesInMealPlan(mealPlanWeekRef) {
-
     let arr = [0,0,0,0,0,0,0]
-
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        console.log(doc.data().dayInt)
         var temp = arr[doc.data().dayInt]
         arr[doc.data().dayInt] = temp + 1
-
-
-
-        //the loop needs to go through and sort the data, and it can be done in a single for loop or map
-        //just 1 pass
-        //the structure is like [0,0,0,0,0,0]
-        //you know where you're at based on the index of the loop
-        //and if that day corresponds to the dayInt, then that number gets placed there in an increment
-
-        //something feels so amazing about this right now, listening to joseph jacobs 'beneath stars'
-        //i first check
       });
-
-      // console.log(arr)
       setWeekPreview(arr)
-
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
-
-
   }
 
 
@@ -271,8 +228,9 @@ export default function MealPlanner() {
                     <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light" }
                       onClick={() => setSelected(i)} >
                         {WEEKDAYS[i]} <br />
-                        <small>{currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}</small>
-                        {/* <small><span className="tag is-info is-light is-pulled-right">{weekPreview[i] > 0 && weekPreview[i]}</span></small> */}
+                        <small>
+                          {currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}
+                        </small>
                         <small>
                           {weekPreview[i] > 0 && <span className="tag is-info is-light is-pulled-right">{weekPreview[i]}</span>}
                         </small>
@@ -282,7 +240,6 @@ export default function MealPlanner() {
               </tbody>
             </table>
           </div>
-
 
           <div className="day-view">
             <h4>{dayOfWeekText}</h4>
