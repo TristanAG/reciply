@@ -44,6 +44,8 @@ export default function MealPlanner() {
   },[selected])
 
   React.useEffect(() => {
+
+    //generate calendar current week view based on today
     let arr = []
     const startWeekIndex = day * -1
     let beginningOfWeekRef = null
@@ -72,11 +74,17 @@ export default function MealPlanner() {
     if (mealPlanWeekRef && user) {
       let savedMealsByDay = []
       firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').where('ref', '==', mealPlanWeekRef).get().then((querySnapshot) => {
-          let i = 0
-          querySnapshot.forEach((doc) => {
-            setSavedMealsByDay(doc.data())
-          })
+        let i = 0
+        querySnapshot.forEach((doc) => {
+          setSavedMealsByDay(doc.data())
+        })
       })
+
+      //INIT SETUP
+      //1345234524352345234523452345234523452346235462345
+      //1345234524352345234523452345234523452346235462345
+      //1345234524352345234523452345234523452346235462345
+      getMealPlanWeekRef(mealPlanWeekRef)
     }
   }, [mealPlanWeekRef, user])
 
@@ -176,10 +184,40 @@ export default function MealPlanner() {
     });
   }
 
-  function getMealPlanWeekRef() {
+  function getMealPlanWeekRef(mealPlanWeekRef) {
     // TODO get the mealPlanWeekRef to get all your high level week snapshot stuff...
+    var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        //UPDATE IF EXISTS
+        // updateMealPlanRef(savedRecipe)
 
+        console.log('skrrt')
+        console.log(doc.data())
+        //ok, so here now i need to fetch the recipes, right?
+        // getSavedRecipes(doc.data())
+        getRecipesInMealPlan(mealPlanWeekRef)
+      } else {
+        //ADD NEW mealPlanWeekRef if no doc exists
+        // addNewMealPlanWeekRef(savedRecipe)
+        alert('no hit!')
+      }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
 
+  }
+
+  function getRecipesInMealPlan(mealPlanWeekRef) {
+    var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
+    docRef.get().then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        console.log(doc.data())
+      });
+    })
+    .catch((error) => {
+      console.log("Error getting documents: ", error);
+    });
   }
 
   // End Modal -----------------------------------------------------------------------------------------------------------
