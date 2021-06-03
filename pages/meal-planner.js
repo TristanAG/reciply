@@ -35,33 +35,10 @@ export default function MealPlanner() {
   React.useEffect(() => {
     let diff = dayOfWeekInt - selected
     setDayOfWeekText(WEEKDAYS[selected])
-
   },[selected])
 
   React.useEffect(() => {
-    //generate calendar current week view based on today
-    let arr = []
-    const startWeekIndex = day * -1
-    let beginningOfWeekRef = null
-    let endOfWeekRef = null
-
-    for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
-      const currentDate = new Date()
-      const newDate = currentDate.setDate(currentDate.getDate() + i)
-
-      let indexRef = new Date(newDate)
-
-      arr.push(indexRef)
-
-      if (i === startWeekIndex) {
-        beginningOfWeekRef = buildMealPlanWeekRef(indexRef)
-      } else if (i === startWeekIndex + 6) {
-        endOfWeekRef = buildMealPlanWeekRef(indexRef)
-      }
-    }
-
-    setMealPlanWeekRef(beginningOfWeekRef + '-' + endOfWeekRef)
-    setCurrentWeekDatesArray(arr)
+    buildCalendar()
   },[dayOfWeekInt])
 
   React.useEffect(() => {
@@ -84,6 +61,51 @@ export default function MealPlanner() {
     ref = ref[1] + ref[2] + ref[3]
 
     return ref
+  }
+
+  function buildCalendar() {
+    let arr = []
+    const startWeekIndex = day * -1
+    let beginningOfWeekRef = null
+    let endOfWeekRef = null
+
+    for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
+      const currentDate = new Date()
+      const newDate = currentDate.setDate(currentDate.getDate() + i)
+
+      let indexRef = new Date(newDate)
+
+      arr.push(indexRef)
+
+      if (i === startWeekIndex) {
+        beginningOfWeekRef = buildMealPlanWeekRef(indexRef)
+      } else if (i === startWeekIndex + 6) {
+        endOfWeekRef = buildMealPlanWeekRef(indexRef)
+      }
+    }
+
+    setMealPlanWeekRef(beginningOfWeekRef + '-' + endOfWeekRef)
+    setCurrentWeekDatesArray(arr)
+  }
+
+  function removeMealFromDay(meal) {
+    alert(meal)
+    //need to look up the ref... will that work?
+    //i think it's best to remove by the id... so i think i need to like save that when i create it
+
+
+
+
+    var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
+    docRef.doc(meal).delete().then(() => {
+      console.log("Document successfully deleted!");
+      //rerender the ui now
+      getRecipesInMealPlan(mealPlanWeekRef)
+
+      //NEEDS TO BE IN A 'THEN'
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    });
   }
 
   //Modal -------------------------------------------------------------------------------------------------------------------
@@ -170,9 +192,10 @@ export default function MealPlanner() {
       ingredients: savedRecipe.ingredients,
       dayInt: selected
     })
-    .then(() => {
+    .then((doc) => {
       console.log("Document successfully written!");
       console.log('rerender ui')
+      console.log(doc.id)
       getRecipesInMealPlan(mealPlanWeekRef)
     })
     .catch((error) => {
@@ -197,26 +220,24 @@ export default function MealPlanner() {
   }
 
   function getRecipesInMealPlan(mealPlanWeekRef) {
-    let arr = [0,0,0,0,0,0,0]
-    let arr2 = [[], [], [], [], [], [], []]
+    let weekPreviewArr = [0,0,0,0,0,0,0]
+    let recipesInDay = [[], [], [], [], [], [], []]
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
         const index = doc.data().dayInt
+        const recipesInCurrentDay = weekPreviewArr[index]
 
-        var recipesInCurrentDay = arr[index]
-
-        arr[index] = recipesInCurrentDay + 1
-        arr2[index].push({
+        weekPreviewArr[index] = recipesInCurrentDay + 1
+        recipesInDay[index].push({
           name: doc.data().name,
-          slug: doc.data().slug
+          slug: doc.data().slug,
+          id: doc.id
         })
 
       });
-      setWeekPreview(arr)
-      setMeals(arr2)
-      console.log('array 2')
-      console.log(arr2)
+      setWeekPreview(weekPreviewArr)
+      setMeals(recipesInDay)
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
@@ -269,7 +290,7 @@ export default function MealPlanner() {
             <div className="content">
 
               {meals[selected].map((meal, i) => {
-                return <p>{meal.name}</p>
+                return <p>{meal.name} <b onClick={() => removeMealFromDay(meal.id)} className="remove-button">x</b></p>
               })}
 
               <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
@@ -345,6 +366,10 @@ export default function MealPlanner() {
         }
         .add-button {
           margin-left: 22px;
+        }
+
+        .remove-button {
+          cursor: pointer;
         }
 
       `}</style>
