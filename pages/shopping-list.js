@@ -7,6 +7,7 @@ export default function ShoppingList() {
   const { user, firebase } = React.useContext(FirebaseContext)
 
   const [ mealPlanWeekRef, setMealPlanWeekRef ] = React.useState('')
+  const [ ingredients, setIngredients ] = React.useState(null)
 
   React.useEffect(() => {
     if (mealPlanWeekRef && user) {
@@ -74,6 +75,7 @@ export default function ShoppingList() {
   function getRecipesInMealPlan(mealPlanWeekRef) {
     // let weekPreviewArr = [0,0,0,0,0,0,0]
     // let recipesInDay = [[], [], [], [], [], [], []]
+    let ingredientsArray = []
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
@@ -86,11 +88,14 @@ export default function ShoppingList() {
         //   slug: doc.data().slug,
         //   id: doc.id
         // })
-        console.log('doc =>', doc.data())
+        console.log('doc =>', doc.data().ingredients)
+        ingredientsArray.push(doc.data().ingredients)
 
       });
       // setWeekPreview(weekPreviewArr)
       // setMeals(recipesInDay)
+      console.log(ingredientsArray)
+      setIngredients(ingredientsArray)
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
@@ -102,6 +107,11 @@ export default function ShoppingList() {
       <>
         <div className="content">
           <h3>Shopping List</h3>
+          {ingredients && ingredients.map((ingredient, i) => (
+            ingredient.map(ing => {
+              return <p>{ing.ingredientName}</p>
+            })
+          ))}
         </div>
       </>
 
