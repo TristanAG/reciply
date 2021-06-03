@@ -35,6 +35,7 @@ export default function MealPlanner() {
   React.useEffect(() => {
     let diff = dayOfWeekInt - selected
     setDayOfWeekText(WEEKDAYS[selected])
+
   },[selected])
 
   React.useEffect(() => {
@@ -148,8 +149,15 @@ export default function MealPlanner() {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
       ref: mealPlanWeekRef
     }).then(() => {
+
       console.log("Document successfully written!");
       updateMealPlanRef(savedRecipe)
+
+      // to rerender on add
+      // to rerender on add
+      // to rerender on add
+      // getRecipesInMealPlan(mealPlanWeekRef)
+
     }).catch((error) => {
       console.error("Error writing document: ", error);
     });
@@ -164,6 +172,8 @@ export default function MealPlanner() {
     })
     .then(() => {
       console.log("Document successfully written!");
+      console.log('thwarp')
+      getRecipesInMealPlan(mealPlanWeekRef)
     })
     .catch((error) => {
       console.error("Error writing document: ", error);
