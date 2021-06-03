@@ -89,20 +89,9 @@ export default function MealPlanner() {
   }
 
   function removeMealFromDay(meal) {
-    alert(meal)
-    //need to look up the ref... will that work?
-    //i think it's best to remove by the id... so i think i need to like save that when i create it
-
-
-
-
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.doc(meal).delete().then(() => {
-      console.log("Document successfully deleted!");
-      //rerender the ui now
       getRecipesInMealPlan(mealPlanWeekRef)
-
-      //NEEDS TO BE IN A 'THEN'
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
