@@ -33,7 +33,6 @@ export default function MealPlanner() {
   const [ meals, setMeals ] = React.useState([[], [], [], [], [], [], []])
 
   React.useEffect(() => {
-    let diff = dayOfWeekInt - selected
     setDayOfWeekText(WEEKDAYS[selected])
   },[selected])
 
@@ -160,15 +159,8 @@ export default function MealPlanner() {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).set({
       ref: mealPlanWeekRef
     }).then(() => {
-
       console.log("Document successfully written!");
       updateMealPlanRef(savedRecipe)
-
-      // to rerender on add
-      // to rerender on add
-      // to rerender on add
-      // getRecipesInMealPlan(mealPlanWeekRef)
-
     }).catch((error) => {
       console.error("Error writing document: ", error);
     });
