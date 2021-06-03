@@ -256,14 +256,11 @@ export default function MealPlanner() {
           <div className="day-view">
             <h4>{dayOfWeekText}</h4>
             <div className="content">
-              {meals[selected].length > 0 && <p>has meals! {meals[selected].length}</p>}
-              {/* {savedMealsByDay &&
-                savedMealsByDay[selected] &&
-                  <>
-                    <p>{savedMealsByDay[selected].name}</p>
-                    <p>{savedMealsByDay[selected].ingredients}</p>
-                  </>
-              } */}
+
+              {meals[selected].map((meal, i) => {
+                return <p>{meal.name}</p>
+              })}
+
               <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
             </div>
           </div>
