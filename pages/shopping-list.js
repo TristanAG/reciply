@@ -8,6 +8,7 @@ export default function ShoppingList() {
 
   const [ mealPlanWeekRef, setMealPlanWeekRef ] = React.useState('')
   const [ ingredients, setIngredients ] = React.useState(null)
+  const [ mealPlanRefText, setMealPlanWeekRefText] = React.useState(null)
 
   React.useEffect(() => {
     if (mealPlanWeekRef && user) {
@@ -30,6 +31,8 @@ export default function ShoppingList() {
     const startWeekIndex = day * -1
     let beginningOfWeekRef = null
     let endOfWeekRef = null
+    let beginningOfWeekRefText = null
+    let endOfWeekRefText = null
 
     for (let i = startWeekIndex; i <= startWeekIndex + 6; i++) {
       const currentDate = new Date()
@@ -41,18 +44,30 @@ export default function ShoppingList() {
 
       if (i === startWeekIndex) {
         beginningOfWeekRef = buildMealPlanWeekRef(indexRef)
+        beginningOfWeekRefText = buildMealPlanWeekRefText(indexRef)
+        console.log(beginningOfWeekRefText)
       } else if (i === startWeekIndex + 6) {
         endOfWeekRef = buildMealPlanWeekRef(indexRef)
+        // console.log(indexRef)
+        endOfWeekRefText = buildMealPlanWeekRefText(indexRef)
+        console.log(endOfWeekRefText)
       }
     }
 
     setMealPlanWeekRef(beginningOfWeekRef + '-' + endOfWeekRef)
+    setMealPlanWeekRefText(beginningOfWeekRefText + ' - ' + endOfWeekRefText)
   }
 
   function buildMealPlanWeekRef(ref) {
     ref = ref.toString().split(' ')
     ref = ref[1] + ref[2] + ref[3]
 
+    return ref
+  }
+
+  function buildMealPlanWeekRefText(ref) {
+    ref = ref.toString().split(' ')
+    ref = ref[1] + ' ' + ref[2]
     return ref
   }
 
@@ -65,7 +80,7 @@ export default function ShoppingList() {
       } else {
         //ADD NEW mealPlanWeekRef if no doc exists
         // addNewMealPlanWeekRef(savedRecipe)
-        alert('no hit!')
+        alert('no mealplanweekref found!')
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
@@ -73,28 +88,12 @@ export default function ShoppingList() {
   }
 
   function getRecipesInMealPlan(mealPlanWeekRef) {
-    // let weekPreviewArr = [0,0,0,0,0,0,0]
-    // let recipesInDay = [[], [], [], [], [], [], []]
     let ingredientsArray = []
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        // const index = doc.data().dayInt
-        // const recipesInCurrentDay = weekPreviewArr[index]
-        //
-        // weekPreviewArr[index] = recipesInCurrentDay + 1
-        // recipesInDay[index].push({
-        //   name: doc.data().name,
-        //   slug: doc.data().slug,
-        //   id: doc.id
-        // })
-        console.log('doc =>', doc.data().ingredients)
         ingredientsArray.push(doc.data().ingredients)
-
       });
-      // setWeekPreview(weekPreviewArr)
-      // setMeals(recipesInDay)
-      console.log(ingredientsArray)
       setIngredients(ingredientsArray)
     })
     .catch((error) => {
@@ -107,11 +106,14 @@ export default function ShoppingList() {
       <>
         <div className="content">
           <h3>Shopping List</h3>
-          {ingredients && ingredients.map((ingredient, i) => (
-            ingredient.map(ing => {
-              return <p>{ing.ingredientName}</p>
-            })
-          ))}
+          {mealPlanRefText && <p>week of {mealPlanRefText}</p>}
+          <ul>
+            {ingredients && ingredients.map((ingredient, i) => (
+              ingredient.map(ing => {
+                return <li>{ing.ingredientName}</li>
+              })
+            ))}
+          </ul>
         </div>
       </>
 
