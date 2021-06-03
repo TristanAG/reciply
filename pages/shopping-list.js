@@ -9,6 +9,7 @@ export default function ShoppingList() {
   const [ mealPlanWeekRef, setMealPlanWeekRef ] = React.useState('')
   const [ ingredients, setIngredients ] = React.useState(null)
   const [ mealPlanRefText, setMealPlanWeekRefText] = React.useState(null)
+  const [ formattedIngredients, setFormattedIngredients ] = React.useState()
 
   React.useEffect(() => {
     if (mealPlanWeekRef && user) {
@@ -94,11 +95,26 @@ export default function ShoppingList() {
       querySnapshot.forEach(doc => {
         ingredientsArray.push(doc.data().ingredients)
       });
-      setIngredients(ingredientsArray)
+      // setIngredients(ingredientsArray)
+      formatIngredientList(ingredientsArray)
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
     });
+  }
+
+  function formatIngredientList(ingredientsArray) {
+    let newArr = []
+    ingredientsArray.map(ingredientsInDay => (
+      ingredientsInDay.map(ingredient => {
+        // console.log(ingredient.ingredientName)
+
+        newArr.push(ingredient.ingredientName)
+
+      })
+    ))
+
+    setFormattedIngredients(newArr)
   }
 
   return (
@@ -106,12 +122,9 @@ export default function ShoppingList() {
       <>
         <div className="content">
           <h3>Shopping List</h3>
-          {mealPlanRefText && <p>week of {mealPlanRefText}</p>}
           <ul>
-            {ingredients && ingredients.map((ingredient, i) => (
-              ingredient.map(ing => {
-                return <li>{ing.ingredientName}</li>
-              })
+            {formattedIngredients && formattedIngredients.map(ingredient => (
+              <li>{ingredient}</li>
             ))}
           </ul>
         </div>
