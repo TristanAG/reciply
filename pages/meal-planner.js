@@ -172,7 +172,7 @@ export default function MealPlanner() {
     })
     .then(() => {
       console.log("Document successfully written!");
-      console.log('thwarp')
+      console.log('rerender ui')
       getRecipesInMealPlan(mealPlanWeekRef)
     })
     .catch((error) => {
@@ -202,11 +202,12 @@ export default function MealPlanner() {
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        var temp = arr[doc.data().dayInt]
-        var temp2 = arr2[doc.data().dayInt]
+        const index = doc.data().dayInt
 
-        arr[doc.data().dayInt] = temp + 1
-        arr2[doc.data().dayInt].push({
+        var recipesInCurrentDay = arr[index]
+
+        arr[index] = recipesInCurrentDay + 1
+        arr2[index].push({
           name: doc.data().name,
           slug: doc.data().slug
         })
