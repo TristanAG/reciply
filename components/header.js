@@ -48,9 +48,11 @@ export default function Header({ title }) {
                     📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
                   </a>
                 </Link>
-                <a className="navbar-item has-text-grey">
-                  🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
-                </a>
+                <Link href="/shopping-list">
+                  <a className="navbar-item has-text-grey">
+                    🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
+                  </a>
+                </Link>
               </div>
           </center>
 
@@ -81,7 +83,7 @@ export default function Header({ title }) {
       <style jsx>{`
         .logo {
           font-size: 28px;
-          
+
         }
         .greeting {
           margin-right: 12px;
