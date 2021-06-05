@@ -107,32 +107,80 @@ export default function ShoppingList() {
 
   function formatIngredientList(ingredientsArray) {
 
-    let newArr = []
+    let allIngredients = []
 
     ingredientsArray.forEach(dayIngredients => {
       dayIngredients.forEach((ingredient, pos) => {
-        newArr.push(ingredient)
+        allIngredients.push(ingredient)
       })
     });
 
+    console.log('look')
+    console.log(allIngredients)
 
-    let newArr2 = []
-    newArr.forEach((ingredient, i) => {
 
-      
+    let compressedIngredients = []
 
-      if (newArr2.length > 0) {
-        console.log(i + ' length')
-      } else if (newArr2.length === 0) {
-        newArr2.push(ingredient)
+    allIngredients.forEach((ingredient, i) => {
+      // console.log(ingredient.ingredientName)
+
+
+      // console.log(ingredient.ingredientName)
+
+      if (compressedIngredients.length > 0) {
+        checkIfDuplicate(ingredient.ingredientName, compressedIngredients) && console.log('hit')
+        compressedIngredients.push(ingredient)
+      } else if (compressedIngredients.length === 0) {
+        compressedIngredients.push(ingredient)
       }
+
+      // console.log(compressedIngredients)
+
+
+      // if (ingredient.ingredientName.includes('bun')) {
+        // console.log('got bun')
+      // }
+
+      // if (newArr2.length > 0) {
+      //   // console.log(i + ' length')
+      //   console.log(checkIfDuplicate(ingredient, newArr2))
+      //
+      // } else if (newArr2.length === 0) {
+      //
+      //   // console.log(checkIfDuplicate(ingredient, newArr2))
+      //
+      //
+      //   newArr2.push(ingredient)
+      //
+      //
+      //
+      // }
 
 
     })
+    console.log(compressedIngredients)
+    setFormattedIngredients(allIngredients)
 
-    setFormattedIngredients(newArr)
+
+  }
+
+  function checkIfDuplicate(ingredient, compressedIngredients) {
+
+    compressedIngredients.forEach((compressedIngredient, i) => {
+      // console.log(ingredient)
+      compressedIngredient.ingredientName === ingredient && console.log('found duplicate')
+    });
 
 
+      // console.log(ingredient)
+
+    // modifiedIngredientArray.forEach((ingredient, i) => {
+    //   if (ingredient.ingredientName === testIngredient.ingredientName) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // })
   }
 
   return (
