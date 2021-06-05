@@ -140,9 +140,7 @@ export default function ShoppingList() {
       console.log('occurences')
       console.log(occurences)
       return true;
-
     }
-
   }
 
   return (
