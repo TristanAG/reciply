@@ -97,6 +97,8 @@ export default function ShoppingList() {
       });
       // setIngredients(ingredientsArray)
       formatIngredientList(ingredientsArray)
+
+      // console.log(ingredientsArray)
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
@@ -104,17 +106,33 @@ export default function ShoppingList() {
   }
 
   function formatIngredientList(ingredientsArray) {
+
     let newArr = []
-    ingredientsArray.map(ingredientsInDay => (
-      ingredientsInDay.map(ingredient => {
-        // console.log(ingredient.ingredientName)
 
-        newArr.push(ingredient.ingredientName)
-
+    ingredientsArray.forEach(dayIngredients => {
+      dayIngredients.forEach((ingredient, pos) => {
+        newArr.push(ingredient)
       })
-    ))
+    });
+
+
+    let newArr2 = []
+    newArr.forEach((ingredient, i) => {
+
+      
+
+      if (newArr2.length > 0) {
+        console.log(i + ' length')
+      } else if (newArr2.length === 0) {
+        newArr2.push(ingredient)
+      }
+
+
+    })
 
     setFormattedIngredients(newArr)
+
+
   }
 
   return (
@@ -124,7 +142,7 @@ export default function ShoppingList() {
           <h3>Shopping List</h3>
           <ul>
             {formattedIngredients && formattedIngredients.map(ingredient => (
-              <li>{ingredient}</li>
+              <li>{ingredient.ingredientName}</li>
             ))}
           </ul>
         </div>
