@@ -21,8 +21,6 @@ export default function ShoppingList() {
     }
   }, [mealPlanWeekRef, user])
 
-
-
   function generateMealPlanWeekRef() {
     let arr = []
 
@@ -82,6 +80,7 @@ export default function ShoppingList() {
         //ADD NEW mealPlanWeekRef if no doc exists
         // addNewMealPlanWeekRef(savedRecipe)
         alert('no mealplanweekref found!')
+        // generateMealPlanWeekRef(mealPlanWeekRef)
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
@@ -135,6 +134,7 @@ export default function ShoppingList() {
         occurences++
       }
     });
+
 
     if (foundDuplicate === true) {
       console.log('occurences')

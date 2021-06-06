@@ -108,6 +108,12 @@ export default function Header({ title }) {
           text-align: right;
         }
 
+        @media (min-width: 1024px) {
+          .navbar-brand {
+            margin-top: 10px;
+          }
+        }
+
       `}</style>
 
     </header>
