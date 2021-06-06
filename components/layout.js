@@ -45,6 +45,16 @@ export default function Layout({ children, home }) {
           </Link>
         </div>
       )}
+
+      <style jsx>{`
+        @media (max-width: 1024px) {
+          main {
+            padding-left: 6px;
+            padding-right: 6px;
+          }
+        }
+
+      `}</style>
     </div>
   )
 }

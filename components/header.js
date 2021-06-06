@@ -90,6 +90,7 @@ export default function Header({ title }) {
         }
         .navbar-brand {
           height: 20px;
+          margin-left: -6px;
         }
         .navbar-item {
           text-align: right;
@@ -98,7 +99,8 @@ export default function Header({ title }) {
           margin-top:4px;
         }
         .end-mod {
-          padding-top: 4px;
+          // padding-top: 4px;
+          margin-top: -2px;
         }
         .mobile-mod {
           display: block;
@@ -111,6 +113,7 @@ export default function Header({ title }) {
         @media (min-width: 1024px) {
           .navbar-brand {
             margin-top: 10px;
+
           }
         }
 
