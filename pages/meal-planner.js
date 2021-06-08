@@ -178,6 +178,7 @@ export default function MealPlanner() {
       console.log('rerender ui')
       console.log(doc.id)
       getRecipesInMealPlan(mealPlanWeekRef)
+      setDisplayModal(false)
     })
     .catch((error) => {
       console.error("Error writing document: ", error);
@@ -190,7 +191,7 @@ export default function MealPlanner() {
       if (doc.exists) {
         //UPDATE IF EXISTS
         getRecipesInMealPlan(mealPlanWeekRef)
-      } 
+      }
     }).catch((error) => {
       console.log("Error getting document:", error);
     });
