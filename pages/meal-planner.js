@@ -190,11 +190,7 @@ export default function MealPlanner() {
       if (doc.exists) {
         //UPDATE IF EXISTS
         getRecipesInMealPlan(mealPlanWeekRef)
-      } else {
-        //ADD NEW mealPlanWeekRef if no doc exists
-        // addNewMealPlanWeekRef(savedRecipe)
-        alert('no hit!')
-      }
+      } 
     }).catch((error) => {
       console.log("Error getting document:", error);
     });

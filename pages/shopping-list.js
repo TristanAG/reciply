@@ -126,6 +126,9 @@ export default function ShoppingList() {
   }
 
   function checkIfDuplicate(ingredient, compressedIngredients) {
+    // if(compressedIngredients.includes(ingredient)){
+    //   return true
+    // }
     let foundDuplicate = false
     let occurences = 0
     compressedIngredients.forEach((compressedIngredient, i) => {
