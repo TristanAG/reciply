@@ -194,9 +194,12 @@ export default function RecipeForm({ mode, recipe, id }) {
           }
         </div>
         <div className="column">
-          <pre>
+          {/* <pre>
             {JSON.stringify(ingredientFields, null, 2)}
-          </pre>
+          </pre> */}
+          {ingredientFields && ingredientFields.map((ingredient => {
+            return ingredient.ingredientName && <p>{ingredient.ingredientName} | {ingredient.ingredientQuantity}</p>
+          }))}
         </div>
       </div>
 
