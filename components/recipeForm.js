@@ -18,8 +18,11 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
 
+  const [activeTab, setActiveTab] = useState('ingredients')
+
   //define the fields
   const [ingredientFields, setIngredientFields] = useState([{ ingredientName: '', ingredientQuantity: '' }])
+
 
   useEffect(() => {
     if (mode === 'edit') {
@@ -127,7 +130,7 @@ export default function RecipeForm({ mode, recipe, id }) {
               />
               {errors.name && <p className="has-text-danger">{errors.name}</p>}
 
-              <input
+              {/* <input
                 onChange={handleChange}
                 value={values.steps}
                 name="steps"
@@ -136,52 +139,86 @@ export default function RecipeForm({ mode, recipe, id }) {
                 className="input"
                 autoComplete="off"
               />
-              {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
+              {errors.steps && <p className="has-text-danger">{errors.steps}</p>} */}
 
               <br />
               <br />
 
-              <div className="content">
-                <h4>Ingredients</h4>
+
+              <div className="tabs">
+                <ul>
+                  <li className={activeTab === 'ingredients' && 'is-active'} onClick={() => setActiveTab('ingredients')}><a>ingredients</a></li>
+                  <li className={activeTab === 'steps' && 'is-active'} onClick={() => setActiveTab('steps')}><a>steps</a></li>
+                </ul>
               </div>
 
-              <div>
-                {ingredientFields.map((ingredientField, index) => (
-                  <div key={`${ingredientField}~${index}`} >
-                    <div className="ingredient-item">
-                      <div className="columns">
-                        <div className="column is-two-fifths">
-                          <input
-                            className="input"
-                            placeholder="Ingredient"
-                            id="ingredientName"
-                            name="ingredientName"
-                            value={ingredientField.ingredientName}
-                            onChange={event => handleIngredientChange(index, event)}
-                          />
-                        </div>
-                        <div className="column">
-                          <input
-                            className="input"
-                            placeholder="Amount / Quantity"
-                            type="text"
-                            id="ingredientQuantity"
-                            name="ingredientQuantity"
-                            value={ingredientField.ingredientQuantity}
-                            onChange={event => handleIngredientChange(index, event)}
-                          />
-                          <div className="has-text-right">
-                            <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}><b>x</b></a>
+
+              {activeTab === 'ingredients' &&
+                <>
+                  <div className="content">
+                    <h4>Ingredients</h4>
+                  </div>
+
+                  <div>
+                    {ingredientFields.map((ingredientField, index) => (
+                      <div key={`${ingredientField}~${index}`} >
+                        <div className="ingredient-item">
+                          <div className="columns">
+                            <div className="column is-two-fifths">
+                              <input
+                                className="input"
+                                placeholder="Ingredient"
+                                id="ingredientName"
+                                name="ingredientName"
+                                value={ingredientField.ingredientName}
+                                onChange={event => handleIngredientChange(index, event)}
+                              />
+                            </div>
+                            <div className="column">
+                              <input
+                                className="input"
+                                placeholder="Amount / Quantity"
+                                type="text"
+                                id="ingredientQuantity"
+                                name="ingredientQuantity"
+                                value={ingredientField.ingredientQuantity}
+                                onChange={event => handleIngredientChange(index, event)}
+                              />
+                              <div className="has-text-right">
+                                <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}><b>x</b></a>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className="has-text-right">
-                <div className="button add-ingredient-button is-primary" onClick={() => handleAddIngredientFields()}>Add Ingredient</div>
-              </div>
+
+                  <div className="has-text-right">
+                    <div className="button add-ingredient-button is-primary" onClick={() => handleAddIngredientFields()}>Add Ingredient</div>
+                  </div>
+                </>
+              }
+
+              {activeTab === 'steps' &&
+                <>
+                  <div className="content">
+                    <h4>Steps</h4>
+                  </div>
+                  <input
+                    onChange={handleChange}
+                    value={values.steps}
+                    name="steps"
+                    type="text"
+                    placeholder="Recipe Steps"
+                    className="input"
+                    autoComplete="off"
+                  />
+                  {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
+                </>
+              }
+
+
 
               <br/>
 
