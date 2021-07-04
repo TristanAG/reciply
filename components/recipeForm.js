@@ -20,7 +20,6 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   const [activeTab, setActiveTab] = useState('ingredients')
 
-  //define the fields
   const [ ingredientFields, setIngredientFields ] = useState([{ ingredientName: '', ingredientQuantity: '' }])
   const [ stepFields, setStepFields ] = useState([{ stepCount: '', stepContent: '', stepImage: '' }])
 
