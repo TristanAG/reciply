@@ -21,20 +21,27 @@ export default function RecipeForm({ mode, recipe, id }) {
   const [activeTab, setActiveTab] = useState('ingredients')
 
   //define the fields
-  const [ingredientFields, setIngredientFields] = useState([{ ingredientName: '', ingredientQuantity: '' }])
-
+  const [ ingredientFields, setIngredientFields ] = useState([{ ingredientName: '', ingredientQuantity: '' }])
+  const [ stepFields, setStepFields ] = useState([{ stepCount: '', stepContent: '', stepImage: '' }])
 
   useEffect(() => {
     if (mode === 'edit') {
       values.name = recipe.name
       values.steps = recipe.steps
       setIngredientFields(recipe.ingredients)
+      setStepFields(recipe.steps)
     }
   }, [mode])
 
   const handleAddIngredientFields = () => {
     const values = [...ingredientFields];
     values.push({ ingredientName: '', ingredientQuantity: '' });
+    setIngredientFields(values);
+  }
+
+  const handleAddStepFields = () => {
+    const values = [...ingredientFields];
+    values.push({ stepCount: '', step: '' });
     setIngredientFields(values);
   }
 
@@ -205,7 +212,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                   <div className="content">
                     <h4>Steps</h4>
                   </div>
-                  <input
+                  {/* <input
                     onChange={handleChange}
                     value={values.steps}
                     name="steps"
@@ -213,7 +220,16 @@ export default function RecipeForm({ mode, recipe, id }) {
                     placeholder="Recipe Steps"
                     className="input"
                     autoComplete="off"
-                  />
+                  /> */}
+                  <textarea
+                    className="textarea"
+                    placeholder="e.g. Hello world"
+                    onChange={handleChange}
+                    value={values.steps}
+                    name="steps"
+                    type="text"
+                  >
+                  </textarea>
                   {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
                 </>
               }
