@@ -21,12 +21,16 @@ export default function RecipeForm({ mode, recipe, id }) {
   const [activeTab, setActiveTab] = useState('ingredients')
 
   const [ ingredientFields, setIngredientFields ] = useState([{ ingredientName: '', ingredientQuantity: '' }])
-  const [ stepFields, setStepFields ] = useState([{ stepCount: '', stepContent: '', stepImage: '' }])
+  const [ stepFields, setStepFields ] = useState([{ stepContent: '' }])
 
   useEffect(() => {
     if (mode === 'edit') {
       values.name = recipe.name
       values.steps = recipe.steps
+
+      console.log(recipe.steps)
+
+
       setIngredientFields(recipe.ingredients)
       setStepFields(recipe.steps)
     }
@@ -39,9 +43,9 @@ export default function RecipeForm({ mode, recipe, id }) {
   }
 
   const handleAddStepFields = () => {
-    const values = [...ingredientFields];
-    values.push({ stepCount: '', step: '' });
-    setIngredientFields(values);
+    const values = [...stepFields];
+    values.push({ stepContent: '' });
+    setStepFields(values);
   }
 
   const handleRemoveIngredientFields = index => {
@@ -61,12 +65,23 @@ export default function RecipeForm({ mode, recipe, id }) {
     setIngredientFields(values);
   };
 
+  const handleStepChange = (index, event) => {
+    const values = [...stepFields];
+    if (event.target.name === "stepContent") {
+      values[index].stepContent = event.target.value;
+    } else {
+      values[index].stepCount = event.target.value;
+    }
+
+    setStepFields(values);
+  };
+
   function handleCreateRecipe() {
     const { name, steps } = values
 
     const recipe = {
       name,
-      steps,
+      steps: stepFields,
       ingredients: ingredientFields,
       postedBy: {
         id: user.uid,
@@ -146,7 +161,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                 autoComplete="off"
               />
               {errors.steps && <p className="has-text-danger">{errors.steps}</p>} */}
-
+              {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
               <br />
               <br />
 
@@ -220,7 +235,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                     className="input"
                     autoComplete="off"
                   /> */}
-                  <textarea
+                  {/* <textarea
                     className="textarea"
                     placeholder="e.g. Hello world"
                     onChange={handleChange}
@@ -228,8 +243,40 @@ export default function RecipeForm({ mode, recipe, id }) {
                     name="steps"
                     type="text"
                   >
-                  </textarea>
-                  {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
+                  </textarea> */}
+
+
+
+
+                  <div>
+                    <p>{stepFields.length}</p>
+                    {stepFields.map((stepField, index) => (
+                      <div key={`${stepField}~${index}`} >
+                        <div className="step-item">
+                          <div className="columns">
+                            <div className="column">
+                              <textarea
+                                className="textarea"
+                                placeholder="e.g. Hello world"
+                                onChange={handleChange}
+                                value={stepField.stepContent}
+                                id="stepContent"
+                                name="stepContent"
+                                onChange={event => handleStepChange(index, event)}
+                                type="text"
+                              >
+                              </textarea>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {/* {errors.steps && <p className="has-text-danger">{errors.steps}</p>} */}
+                  <div className="has-text-right">
+                    <div className="button add-ingredient-button is-primary" onClick={() => handleAddStepFields()}>Add Step</div>
+                  </div>
                 </>
               }
 

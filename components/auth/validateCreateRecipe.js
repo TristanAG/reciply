@@ -6,9 +6,9 @@ export default function validateCreateRecipe(values) {
     errors.name = "Recipe Name is Required"
   }
   // password errors
-  if (!values.steps) {
-    errors.steps = "Steps are required... how do you make a recipe without them?"
-  }
+  // if (!values.steps) {
+  //   errors.steps = "Steps are required... how do you make a recipe without them?"
+  // }
 
   return errors
 }

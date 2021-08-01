@@ -83,14 +83,20 @@ export default function Recipe({ recipe }) {
             className={buttonStatus === true
             ? 'button is-success is-light has-text-weight-normal'
             : 'button is-info is-light has-text-weight-normal'}>
-              {buttonStatus === true ? 'saved recipe' : 'not saved recipe'}
+              {buttonStatus === true ? 'saved recipe' : 'save recipe?'}
           </div>
         }
         <br />
         <br />
         <p>//description goes here...</p>
         <h2>Instructions</h2>
-        <p>{recipe && recipe.steps}</p>
+
+
+        <ol>
+          {recipe && recipe.steps.map((step, i) => (
+            <li className="has-text-dark">{step.stepContent}</li>
+          ))}
+        </ol>
         <h2>Ingredients</h2>
         <ul>
           {recipe && recipe.ingredients.map((ingredient) => (
