@@ -3,6 +3,7 @@ import validateLogin from './validateLogin'
 import firebase from '../../firebase'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 const INITIAL_STATE = {
   name: '',
@@ -10,7 +11,7 @@ const INITIAL_STATE = {
   password: ''
 }
 
-export default function LoginForm() {
+export default function LoginForm(props) {
   const router = useRouter()
   const {
     handleChange,
@@ -23,6 +24,12 @@ export default function LoginForm() {
 
   const [login, setLogin] = React.useState(true)
   const [firebaseError, setFirebaseError] = React.useState(null)
+
+  useEffect(() => {
+    props.pageContext === 'sign-up' && setLogin(prevLogin => !prevLogin)
+  },[props])
+
+
 
   async function authenticateUser() {
     const { name, email, password} = values

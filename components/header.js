@@ -67,13 +67,15 @@ export default function Header({ title }) {
                 </>
               ) : (
                   <span className="login-button">
-                    <Link href="/login">
+                    <Link href="/sign-up">
                       <a className="button is-link is-light"><strong>Sign up</strong></a>
                     </Link>
                     &nbsp;
-                    <a className="button is-light">
-                      Log in
-                    </a>
+                    <Link href="/login">
+                      <a className="button is-light">
+                        Log in
+                      </a>
+                    </Link>
                   </span>
               )}
             </div>
