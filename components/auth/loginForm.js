@@ -113,11 +113,11 @@ export default function LoginForm() {
                 <button
                   type="submit"
 
-                  className={ isSubmitting ? 'button is-primary is-light' : 'button is-primary'}
+                  className={ isSubmitting ? 'button is-light' : 'button is-link is-light'}
                   disabled={isSubmitting}
 
                 >
-                  submit
+                  <strong>submit</strong>
                 </button>
                 <br />
                 <button type="button" className="button" onClick={() => setLogin(prevLogin => !prevLogin)}> {login ? "need to create an account?" : "already have an account?"}</button>
