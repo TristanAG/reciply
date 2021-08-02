@@ -236,44 +236,50 @@ export default function MealPlanner() {
         <div className="content">
           <h3>Meal Planner</h3>
 
-          <div className="container">
-            <div className="is-pulled-left"><a>prevWeek</a></div>
-            <div className="is-pulled-right"><a>nextWeek</a></div>
-            <div className="is-clearfix" />
-          </div>
 
-          <div className="table-container">
-            <table className="table is-bordered">
-              <tbody>
-                <tr>
-                  {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
-                    <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light" }
-                      onClick={() => setSelected(i)} >
-                        {WEEKDAYS[i]} <br />
-                        <small>
-                          {currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}
-                        </small>
-                        <small>
-                          {weekPreview[i] > 0 && <span className="tag is-info is-light is-pulled-right">{weekPreview[i]}</span>}
-                        </small>
-                    </td>
-                  ))}
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          {!user
+            ? <p className="has-text-danger">must be logged in to post a recipe</p>
+            : <>
+              <div className="container">
+                <div className="is-pulled-left"><a>prevWeek</a></div>
+                <div className="is-pulled-right"><a>nextWeek</a></div>
+                <div className="is-clearfix" />
+              </div>
 
-          <div className="day-view">
-            <h4>{dayOfWeekText}</h4>
-            <div className="content">
+              <div className="table-container">
+                <table className="table is-bordered">
+                  <tbody>
+                    <tr>
+                      {currentWeekDatesArray.length !== 0 && WEEKDAYS.map((day, i) => (
+                        <td className={ dayOfWeekInt === i && "has-background-info-light is-active" || selected === i && "has-background-light" }
+                          onClick={() => setSelected(i)} >
+                            {WEEKDAYS[i]} <br />
+                            <small>
+                              {currentWeekDatesArray[i].getMonth() + 1}/{currentWeekDatesArray[i].getDate()}
+                            </small>
+                            <small>
+                              {weekPreview[i] > 0 && <span className="tag is-info is-light is-pulled-right">{weekPreview[i]}</span>}
+                            </small>
+                        </td>
+                      ))}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
 
-              {meals[selected].map((meal, i) => {
-                return <p>{meal.name} <b onClick={() => removeMealFromDay(meal.id)} className="remove-button">x</b></p>
-              })}
+              <div className="day-view">
+                <h4>{dayOfWeekText}</h4>
+                <div className="content">
 
-              <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
-            </div>
-          </div>
+                  {meals[selected].map((meal, i) => {
+                    return <p>{meal.name} <b onClick={() => removeMealFromDay(meal.id)} className="remove-button">x</b></p>
+                  })}
+
+                  <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
+                </div>
+              </div>
+            </>
+          }
 
         </div>
 

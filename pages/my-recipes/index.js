@@ -66,30 +66,34 @@ export default function MyRecipes() {
       <div className="content">
         <h3>My Recipes </h3>
 
+        {!user
+          ? <p className="has-text-danger">must be logged in to post a recipe</p>
+          : <>
+            {recipes.length > 0 && recipes.map(recipe => (
+              <>
+                <p>{recipe.name}</p>
+                <Link href={'/' + recipe.slug} >
+                  <a className="has-text-grey link">view</a>
+                </Link>
+                &nbsp;|&nbsp;
+                <Link href={'/' + recipe.slug + '/edit'}>
+                  <a className="has-text-grey link">edit</a>
+                </Link>
+                &nbsp;|&nbsp;
+                <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
+              </>
+            ))}
 
-
-        {recipes.length > 0 && recipes.map(recipe => (
-          <>
-            <p>{recipe.name}</p>
-            <Link href={'/' + recipe.slug} >
-              <a className="has-text-grey link">view</a>
-            </Link>
-            &nbsp;|&nbsp;
-            <Link href={'/' + recipe.slug + '/edit'}>
-              <a className="has-text-grey link">edit</a>
-            </Link>
-            &nbsp;|&nbsp;
-            <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
+            <h3>Saved Recipes </h3>
+            {savedRecipes && savedRecipes.map((u) => (
+              <p>
+                <Link href={'/' + u.slug} >
+                  <a className="has-text-link">{u.name}</a>
+                </Link>
+              </p>
+            ))}
           </>
-        ))}
-        <h3>Saved Recipes </h3>
-        {savedRecipes && savedRecipes.map((u) => (
-          <p>
-            <Link href={'/' + u.slug} >
-              <a className="has-text-link">{u.name}</a>
-            </Link>
-          </p>
-        ))}
+        }
       </div>
     </Layout>
   )

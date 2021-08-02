@@ -151,11 +151,17 @@ export default function ShoppingList() {
       <>
         <div className="content">
           <h3>Shopping List</h3>
-          <ul>
-            {formattedIngredients && formattedIngredients.map(ingredient => (
-              <li>{ingredient.ingredientName}</li>
-            ))}
-          </ul>
+
+          {!user
+            ? <p className="has-text-danger">must be logged in to post a recipe</p>
+            : <>
+              <ul>
+                {formattedIngredients && formattedIngredients.map(ingredient => (
+                  <li>{ingredient.ingredientName}</li>
+                ))}
+              </ul>
+            </>
+          }
         </div>
       </>
 
