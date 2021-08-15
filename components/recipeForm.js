@@ -14,6 +14,8 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   const { firebase, user } = React.useContext(FirebaseContext)
 
+
+
   const router = useRouter()
 
   const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
@@ -110,6 +112,20 @@ export default function RecipeForm({ mode, recipe, id }) {
     router.push('/')
   }
 
+  function onFileChange(e) {
+    const file = e.target.files[0]
+    const storageRef = firebase.storage.ref()
+    const fileRef = storageRef.child(file.name)
+    fileRef.put(file).then(() => {
+      console.log('uploaded file', file.name)
+    })
+
+    // const fileRef = firebase.getStorageRef(file.name)
+    // fileRef.put(file).then(() => {
+    //   console.log('uploaded file')
+    // })
+  }
+
   return (
     <>
       {/* <div className="columns">
@@ -150,6 +166,9 @@ export default function RecipeForm({ mode, recipe, id }) {
                 autoComplete="off"
               />
               {errors.name && <p className="has-text-danger">{errors.name}</p>}
+
+              <p>file upload</p>
+              <input type="file" onChange={onFileChange} />
 
               {/* <input
                 onChange={handleChange}

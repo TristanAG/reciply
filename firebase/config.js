@@ -1,4 +1,3 @@
-
 var firebaseConfig = {
   apiKey: "AIzaSyCTxkph0di8Sa7EwXmPkc4XGwoK4-04fSY",
   authDomain: "chillrecipes.firebaseapp.com",

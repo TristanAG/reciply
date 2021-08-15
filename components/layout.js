@@ -4,8 +4,8 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import Header from './header'
 
-const name = 'Reciply'
-export const siteTitle = 'Reciply'
+const name = 'Plantsallday'
+export const siteTitle = 'Plantsallday'
 
 export default function Layout({ children, home }) {
   return (
