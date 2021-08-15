@@ -116,8 +116,10 @@ export default function RecipeForm({ mode, recipe, id }) {
     const file = e.target.files[0]
     const storageRef = firebase.storage.ref()
     const fileRef = storageRef.child(file.name)
-    fileRef.put(file).then(() => {
-      console.log('uploaded file', file.name)
+    fileRef.put(file).then((snapshot) => {
+      snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log("File available at", downloadURL);
+      });
     })
 
     // const fileRef = firebase.getStorageRef(file.name)
