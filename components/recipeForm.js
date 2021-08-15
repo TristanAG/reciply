@@ -25,6 +25,8 @@ export default function RecipeForm({ mode, recipe, id }) {
   const [ ingredientFields, setIngredientFields ] = useState([{ ingredientName: '', ingredientQuantity: '' }])
   const [ stepFields, setStepFields ] = useState([{ stepContent: '' }])
 
+  const [ image, setImage ] = useState(null)
+
   useEffect(() => {
     if (mode === 'edit') {
       values.name = recipe.name
@@ -119,6 +121,7 @@ export default function RecipeForm({ mode, recipe, id }) {
     fileRef.put(file).then((snapshot) => {
       snapshot.ref.getDownloadURL().then(function(downloadURL) {
         console.log("File available at", downloadURL);
+        setImage(downloadURL)
       });
     })
 
@@ -169,8 +172,23 @@ export default function RecipeForm({ mode, recipe, id }) {
               />
               {errors.name && <p className="has-text-danger">{errors.name}</p>}
 
-              <p>file upload</p>
-              <input type="file" onChange={onFileChange} />
+              
+              {/* <input type="file" onChange={onFileChange} className="button" /> */}
+
+              <div className="file">
+                <label className="file-label">
+                  <input className="file-input" type="file" onChange={onFileChange} />
+                  <span className="file-cta">
+                    <span className="file-icon">
+                      <i className="fas fa-upload"></i>
+                    </span>
+                    <span clasNames="file-label">
+                      Choose a file…
+                    </span>
+                  </span>
+                </label>
+              </div>
+              {image && <img src={image} />}
 
               {/* <input
                 onChange={handleChange}
