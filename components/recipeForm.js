@@ -172,7 +172,6 @@ export default function RecipeForm({ mode, recipe, id }) {
               />
               {errors.name && <p className="has-text-danger">{errors.name}</p>}
 
-              
               {/* <input type="file" onChange={onFileChange} className="button" /> */}
 
               <div className="file">
@@ -180,10 +179,11 @@ export default function RecipeForm({ mode, recipe, id }) {
                   <input className="file-input" type="file" onChange={onFileChange} />
                   <span className="file-cta">
                     <span className="file-icon">
-                      <i className="fas fa-upload"></i>
+                      {/* <i className="fas fa-upload"></i> */}
+                      📷 
                     </span>
                     <span clasNames="file-label">
-                      Choose a file…
+                      Upload Image
                     </span>
                   </span>
                 </label>

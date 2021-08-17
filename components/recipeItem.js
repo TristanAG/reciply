@@ -22,7 +22,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
       <hr />
       <p>
         <Link href={'/' + recipe.slug} >
-          <a><b>{recipe.name}</b></a>
+          <a className="link">{recipe.name}</a>
         </Link>
         {/* <b>{recipe.name}</b> */}
       </p>
@@ -48,9 +48,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
           cursor: pointer;
         }
 
-        .link {
-          text-decoration: underline;
-        }
+        
       `}</style>
     </div>
   )

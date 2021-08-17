@@ -8,13 +8,15 @@ export default function Header({ title }) {
   const [dropDownState, setDropdownState] = useState(false)
 
   return (
+
     <header>
+
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="content">
           <div className="navbar-brand">
               <Link href="/">
                 <a className="navbar-item">
-                  <p className="logo has-text-grey">{title}</p>
+                  <p className="logo" style={{"color":"#338a4c"}}>{title}</p>
                 </a>
               </Link>
 
@@ -93,7 +95,7 @@ export default function Header({ title }) {
         }
         .navbar-brand {
           height: 20px;
-          margin-left: -6px;
+          margin-left: 12px;
         }
         .navbar-item {
           text-align: right;
@@ -123,5 +125,6 @@ export default function Header({ title }) {
       `}</style>
 
     </header>
+
   )
 }
