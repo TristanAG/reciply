@@ -75,7 +75,7 @@ export default function Recipe({ recipe }) {
   return (
     <Layout>
       <div className="content">
-        {recipe && <h1>{recipe.name}</h1>}
+        {recipe && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
         {isLoading && <div className="button is-white has-text-weight-normal is-loading">loading...</div>}
         {!isLoading &&
           <div

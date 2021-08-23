@@ -151,9 +151,9 @@ export default function RecipeForm({ mode, recipe, id }) {
       </div> */}
 
       <div className="columns">
-        <div className="column is-three-fifths">
+        <div className="column is-three-fifths col-mod">
           <div className="content">
-            {mode === 'edit' ? <h1>Edit Recipe</h1> : <h1>New Recipe</h1>}
+            {mode === 'edit' ? <h2>Edit Recipe</h2> : <h2>New Recipe</h2>}
             <small><i>recipe url:</i> reciply.app/{values.name.split(' ').join('-').toLowerCase()}</small>
           </div>
 
@@ -161,6 +161,7 @@ export default function RecipeForm({ mode, recipe, id }) {
 
           {user &&
             <form onSubmit={handleSubmit}>
+              <label className="label">Recipe Name</label>
               <input
                 onChange={handleChange}
                 value={values.name}
@@ -172,7 +173,7 @@ export default function RecipeForm({ mode, recipe, id }) {
               />
               {errors.name && <p className="has-text-danger">{errors.name}</p>}
 
-              {/* <input type="file" onChange={onFileChange} className="button" /> */}
+
 
               <div className="file">
                 <label className="file-label">
@@ -180,7 +181,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                   <span className="file-cta">
                     <span className="file-icon">
                       {/* <i className="fas fa-upload"></i> */}
-                      📷 
+                      📷
                     </span>
                     <span clasNames="file-label">
                       Upload Image

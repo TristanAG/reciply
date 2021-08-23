@@ -95,7 +95,7 @@ export default function Header({ title }) {
         }
         .navbar-brand {
           height: 20px;
-          margin-left: 12px;
+          
         }
         .navbar-item {
           text-align: right;
