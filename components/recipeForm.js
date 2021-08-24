@@ -25,7 +25,7 @@ export default function RecipeForm({ mode, recipe, id }) {
   const [ ingredientFields, setIngredientFields ] = useState([{ ingredientName: '', ingredientQuantity: '' }])
   const [ stepFields, setStepFields ] = useState([{ stepContent: '' }])
 
-  const [ image, setImage ] = useState(null)
+  const [ mainImage, setMainImage ] = useState(null)
 
   useEffect(() => {
     if (mode === 'edit') {
@@ -91,6 +91,7 @@ export default function RecipeForm({ mode, recipe, id }) {
         id: user.uid,
         name: user.displayName
       },
+      mainImage,
       likes: [],
       slug: name.split(' ').join('-').toLowerCase(),
       created: Date.now()
@@ -121,7 +122,7 @@ export default function RecipeForm({ mode, recipe, id }) {
     fileRef.put(file).then((snapshot) => {
       snapshot.ref.getDownloadURL().then(function(downloadURL) {
         console.log("File available at", downloadURL);
-        setImage(downloadURL)
+        setMainImage(downloadURL)
       });
     })
 
@@ -189,7 +190,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                   </span>
                 </label>
               </div>
-              {image && <img src={image} />}
+              {mainImage && <img src={mainImage} alt={name} />}
 
               {/* <input
                 onChange={handleChange}

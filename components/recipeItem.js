@@ -20,14 +20,17 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
   return(
     <div>
       <hr />
+      <p className="has-text-dark">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</p>
+      <p>{recipe.mainImage && <img src={recipe.mainImage} alt={recipe.name} className="thumbnail" />}</p>
       <p>
         <Link href={'/' + recipe.slug} >
           <a className="link">{recipe.name}</a>
         </Link>
         {/* <b>{recipe.name}</b> */}
       </p>
-      <p className="has-text-dark">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</p>
+
       <small>{format(recipe.created, 'MMMM Mo yyyy')}</small>
+
       {/* {user.displayName === recipe.postedBy.name ?
 
 
@@ -48,7 +51,11 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
           cursor: pointer;
         }
 
-        
+        .thumbnail {
+          width: 220px;
+
+        }
+
       `}</style>
     </div>
   )

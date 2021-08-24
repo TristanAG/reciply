@@ -88,6 +88,7 @@ export default function Recipe({ recipe }) {
         }
         <br />
         <br />
+        {recipe.mainImage && <img src={recipe.mainImage} alt={recipe.name} />}
         <p>//description goes here...</p>
         <h2>Instructions</h2>
 
