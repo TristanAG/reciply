@@ -16,7 +16,8 @@ export default function Header({ title }) {
           <div className="navbar-brand">
               <Link href="/">
                 <a className="navbar-item">
-                  <p className="logo" style={{"color":"#338a4c"}}>{title}</p>
+                  <p className="logo">{title}</p>
+                  {/* <p className="logo" style={{"color":"#338a4c"}}>{title}</p> */}
                 </a>
               </Link>
 
@@ -86,16 +87,13 @@ export default function Header({ title }) {
       </nav>
 
       <style jsx>{`
-        .logo {
-          font-size: 28px;
 
-        }
         .greeting {
           margin-right: 12px;
         }
         .navbar-brand {
           height: 20px;
-          
+
         }
         .navbar-item {
           text-align: right;
