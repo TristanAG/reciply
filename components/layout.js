@@ -50,6 +50,10 @@ export default function Layout({ children, home }) {
       )}
 
       <style jsx>{`
+        main {
+          padding-top: 120px;
+        }
+
         @media (max-width: 1024px) {
           main {
             padding-left: 6px;

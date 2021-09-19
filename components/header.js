@@ -11,7 +11,7 @@ export default function Header({ title }) {
 
     <header>
 
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <nav className="navbar is-fixed-top" role="navigation" aria-label="main navigation">
         <div className="content">
           <div className="navbar-brand">
               <Link href="/">
@@ -30,34 +30,34 @@ export default function Header({ title }) {
         </div>
 
         <div id="navbarBasicExample" className={dropDownState === true ? "navbar-menu is-active" : "navbar-menu"}>
-          <div className="navbar-start">
+          {/* <div className="navbar-start">
 
-          </div>
+          </div> */}
 
-          <center>
-              <div className="inner">
+          {/* <center> */}
+              {/* <div className="inner"> */}
                 <Link href="/create-recipe">
                   <a className="navbar-item has-text-grey">
-                    ➕&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>New Recipe</span>
+                    <span>New Recipe</span>
                   </a>
                 </Link>
                 <Link href="/my-recipes">
                   <a className="navbar-item has-text-grey">
-                    👨‍🍳&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>My Recipes</span>
+                    <span>My Recipes</span>
                   </a>
                 </Link>
                 <Link href="/meal-planner">
                   <a className="navbar-item has-text-grey">
-                    📆️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Meal Planner</span>
+                    <span>Meal Planner</span>
                   </a>
                 </Link>
                 <Link href="/shopping-list">
                   <a className="navbar-item has-text-grey">
-                    🗒️&nbsp;&nbsp;<span style={{'textDecoration': 'underline'}}>Shopping List</span>
+                    <span>Shopping List</span>
                   </a>
                 </Link>
-              </div>
-          </center>
+              {/* </div> */}
+          {/* </center> */}
 
           <div className="navbar-end end-mod">
             <div className="navbar-item">
@@ -87,6 +87,10 @@ export default function Header({ title }) {
       </nav>
 
       <style jsx>{`
+
+        nav {
+          box-shadow:   0 0.5em 1em -0.125em rgb(10 10 10 / 2%), 0 0 0 1px rgb(10 10 10 / 2%);
+        }
 
         .greeting {
           margin-right: 12px;
