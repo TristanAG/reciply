@@ -31,10 +31,6 @@ export default function RecipeForm({ mode, recipe, id }) {
     if (mode === 'edit') {
       values.name = recipe.name
       values.steps = recipe.steps
-
-      console.log(recipe.steps)
-
-
       setIngredientFields(recipe.ingredients)
       setStepFields(recipe.steps)
     }
@@ -174,6 +170,30 @@ export default function RecipeForm({ mode, recipe, id }) {
               />
               {errors.name && <p className="has-text-danger">{errors.name}</p>}
 
+              <label className="label">Recipe Source</label>
+              <input
+                onChange={handleChange}
+                value={values.source}
+                name="source"
+                type="text"
+                placeholder="Recipe Source"
+                className="input"
+                autoComplete="off"
+              />
+              {errors.source && <p className="has-text-danger">{errors.source}</p>}
+
+              <label className="label">Recipe Source URL</label>
+              <input
+                onChange={handleChange}
+                value={values.sourceUrl}
+                name="sourceUrl"
+                type="text"
+                placeholder="Recipe Source URL"
+                className="input"
+                autoComplete="off"
+              />
+              {errors.sourceUrl && <p className="has-text-danger">{errors.sourceUrl}</p>}
+
 
 
               <div className="file">
@@ -190,21 +210,53 @@ export default function RecipeForm({ mode, recipe, id }) {
                   </span>
                 </label>
               </div>
-              {mainImage && <img src={mainImage} alt={name} />}
+              {mainImage && <img src={mainImage} alt={name} className="main-image"/>}
 
-              {/* <input
+              <label className="label">Image Source</label>
+              <input
                 onChange={handleChange}
-                value={values.steps}
-                name="steps"
+                value={values.imageSource}
+                name="imageSource"
                 type="text"
-                placeholder="Recipe Steps"
+                placeholder="Image Source"
                 className="input"
                 autoComplete="off"
               />
-              {errors.steps && <p className="has-text-danger">{errors.steps}</p>} */}
-              {errors.steps && <p className="has-text-danger">{errors.steps}</p>}
-              <br />
-              <br />
+              {errors.imageSource && <p className="has-text-danger">{errors.imageSource}</p>}
+
+              <label className="label">Image Source URL</label>
+              <input
+                onChange={handleChange}
+                value={values.imageSourceUrl}
+                name="imageSourceUrl"
+                type="text"
+                placeholder="Image Source"
+                className="input"
+                autoComplete="off"
+              />
+              {errors.imageSourceUrl && <p className="has-text-danger">{errors.imageSourceUrl}</p>}
+
+              <label className="label">Description</label>
+              {/* <input
+                onChange={handleChange}
+                value={values.description}
+                name="description"
+                type="text"
+                placeholder="Description"
+                className="input"
+                autoComplete="off"
+              /> */}
+              <textarea
+                className="textarea"
+                placeholder="Description"
+                onChange={handleChange}
+                value={values.description}
+                id="description"
+                name="description"
+                // onChange={event => handleStepChange(index, event)}
+                type="text"
+              />
+              {errors.description && <p className="has-text-danger">{errors.description}</p>}
 
 
               <div className="tabs">
@@ -350,6 +402,10 @@ export default function RecipeForm({ mode, recipe, id }) {
         .add-ingredient-button {
           margin-top: 12px;
           margin-bottom: 12px;
+        }
+        .main-image {
+          width: 300px;
+          max-width: 100%;
         }
       `}</style>
     </>
