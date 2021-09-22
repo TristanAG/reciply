@@ -31,6 +31,10 @@ export default function RecipeForm({ mode, recipe, id }) {
     if (mode === 'edit') {
       values.name = recipe.name
       values.steps = recipe.steps
+      values.source = recipe.source
+      values.sourceUrl = recipe.sourceUrl
+      // values.mainImage = recipe.mainImage
+      setMainImage(recipe.mainImage)
       setIngredientFields(recipe.ingredients)
       setStepFields(recipe.steps)
     }
@@ -77,10 +81,12 @@ export default function RecipeForm({ mode, recipe, id }) {
   };
 
   function handleCreateRecipe() {
-    const { name, steps } = values
+    const { name, source, sourceUrl, steps } = values
 
     const recipe = {
       name,
+      source,
+      sourceUrl,
       steps: stepFields,
       ingredients: ingredientFields,
       postedBy: {
@@ -212,7 +218,7 @@ export default function RecipeForm({ mode, recipe, id }) {
               </div>
               {mainImage && <img src={mainImage} alt={name} className="main-image"/>}
 
-              <label className="label">Image Source</label>
+              {/* <label className="label">Image Source</label>
               <input
                 onChange={handleChange}
                 value={values.imageSource}
@@ -237,15 +243,6 @@ export default function RecipeForm({ mode, recipe, id }) {
               {errors.imageSourceUrl && <p className="has-text-danger">{errors.imageSourceUrl}</p>}
 
               <label className="label">Description</label>
-              {/* <input
-                onChange={handleChange}
-                value={values.description}
-                name="description"
-                type="text"
-                placeholder="Description"
-                className="input"
-                autoComplete="off"
-              /> */}
               <textarea
                 className="textarea"
                 placeholder="Description"
@@ -253,10 +250,9 @@ export default function RecipeForm({ mode, recipe, id }) {
                 value={values.description}
                 id="description"
                 name="description"
-                // onChange={event => handleStepChange(index, event)}
                 type="text"
               />
-              {errors.description && <p className="has-text-danger">{errors.description}</p>}
+              {errors.description && <p className="has-text-danger">{errors.description}</p>} */}
 
 
               <div className="tabs">
