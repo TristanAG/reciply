@@ -78,7 +78,7 @@ export default function Recipe({ recipe }) {
         {recipe && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
         <p><small>recipe source: {recipe.source}</small></p>
 
-        {!user
+        {/* {!user
           ? <p>log in or sign up to save recipes</p>
           : isLoading ? <div className="button is-white has-text-weight-normal is-loading">loading...</div> : <div
                  onClick={() => handleSaveRecipe()}
@@ -87,7 +87,7 @@ export default function Recipe({ recipe }) {
                  : 'button is-info is-light has-text-weight-normal'}>
                  {buttonStatus === true ? 'saved recipe' : 'save recipe?'}
                </div>
-        }
+        } */}
 
         <br />
         <br />
