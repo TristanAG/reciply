@@ -70,10 +70,9 @@ export default function MyRecipes() {
           ? <p className="has-text-danger">must be logged in to post a recipe</p>
           : <>
             {recipes.length > 0 && recipes.map(recipe => (
-              <>
-                <p>{recipe.name}</p>
+              <p>
                 <Link href={'/' + recipe.slug} >
-                  <a className="has-text-grey link">view</a>
+                  <a className="has-text-grey">{recipe.name}</a>
                 </Link>
                 &nbsp;|&nbsp;
                 <Link href={'/' + recipe.slug + '/edit'}>
@@ -81,14 +80,14 @@ export default function MyRecipes() {
                 </Link>
                 &nbsp;|&nbsp;
                 <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
-              </>
+              </p>
             ))}
 
             <h3>Saved Recipes </h3>
             {savedRecipes && savedRecipes.map((u) => (
               <p>
                 <Link href={'/' + u.slug} >
-                  <a className="has-text-link">{u.name}</a>
+                  <a className="has-text-grey">{u.name}</a>
                 </Link>
               </p>
             ))}

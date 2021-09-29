@@ -61,9 +61,9 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
                 </div>
               </div>
             }
-            <span className="tag is-primary is-light">#vegan</span>
-            <span className="tag is-primary is-light">#italian</span>
-            <span className="tag is-primary is-light">#pasta</span>
+            <span className="tag has-background-link-light">#vegan</span>
+            <span className="tag has-background-link-light">#italian</span>
+            <span className="tag has-background-link-light">#pasta</span>
           </div>
         </div>
       </div>
