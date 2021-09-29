@@ -32,6 +32,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
 
 
 
+      <Link href={'/' + recipe.slug} >
       <div className="card">
         <div className="card-content">
           <p className="title is-4">{recipe.name}</p>
@@ -40,38 +41,33 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
               <a className="link">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</a>
             </Link>
             {/* @{recipe.postedBy.name.split(' ').join('').toLowerCase()} */}
+            <br/><small><time datetime="2016-1-1">{format(recipe.created, 'MMMM Mo yyyy')}</time></small>
           </p>
-        </div>
-        <div class="card-image">
-          <figure class="image is-4by3">
-            {recipe.mainImage && <img src={recipe.mainImage} alt="Placeholder image" />}
-          </figure>
-        </div>
-        <div className="card-content">
-          <div className="media">
-            {/* <div clclassNameass="media-left">
-              <figure className="image is-48x48">
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image" />
-              </figure>
-            </div> */}
-            <div className="media-content">
-              {/* <p className="title is-4">{recipe.name}</p> */}
-              {/* <p className="subtitle is-6">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</p> */}
-              the content goes here...
-            </div>
-          </div>
 
-          <div clasclassNames="content">
-            <Link href={'/' + recipe.slug} >
-              <a className="link">{recipe.name}</a>
-            </Link>
-            <a href="#">#css</a> <a href="#">#responsive</a>
-            <br />
-            <small><time datetime="2016-1-1">{format(recipe.created, 'MMMM Mo yyyy')}</time></small>
+        </div>
+        {recipe.mainImage &&
+          <div class="card-image">
+            <figure class="image is-4by3">
+               <img src={recipe.mainImage} alt="Placeholder image" />
+            </figure>
+          </div>
+        }
+        <div className="card-content">
+          <div className="content">
+            {recipe.description &&
+              <div className="media">
+                <div className="media-content">
+                  <p>{recipe.description}</p>
+                </div>
+              </div>
+            }
+            <span className="tag is-primary is-light">#vegan</span>
+            <span className="tag is-primary is-light">#italian</span>
+            <span className="tag is-primary is-light">#pasta</span>
           </div>
         </div>
       </div>
-
+      </Link>
 
 
       <style jsx>{`
@@ -92,7 +88,9 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
 
         }
 
-
+        .tag {
+          margin-right: 8px;
+        }
 
 
 

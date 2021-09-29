@@ -33,6 +33,9 @@ export default function RecipeForm({ mode, recipe, id }) {
       values.steps = recipe.steps
       values.source = recipe.source
       values.sourceUrl = recipe.sourceUrl
+      values.imageSource = recipe.imageSource
+      values.imageSourceUrl = recipe.imageSourceUrl
+      values.description = recipe.description
       // values.mainImage = recipe.mainImage
       setMainImage(recipe.mainImage)
       setIngredientFields(recipe.ingredients)
@@ -81,12 +84,15 @@ export default function RecipeForm({ mode, recipe, id }) {
   };
 
   function handleCreateRecipe() {
-    const { name, source, sourceUrl, steps } = values
+    const { name, source, sourceUrl, imageSource, imageSourceUrl, description, steps } = values
 
     const recipe = {
       name,
       source,
       sourceUrl,
+      imageSource,
+      imageSourceUrl,
+      description,
       steps: stepFields,
       ingredients: ingredientFields,
       postedBy: {
@@ -218,7 +224,7 @@ export default function RecipeForm({ mode, recipe, id }) {
               </div>
               {mainImage && <img src={mainImage} alt={name} className="main-image"/>}
 
-              {/* <label className="label">Image Source</label>
+              <label className="label">Image Source</label>
               <input
                 onChange={handleChange}
                 value={values.imageSource}
@@ -229,6 +235,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                 autoComplete="off"
               />
               {errors.imageSource && <p className="has-text-danger">{errors.imageSource}</p>}
+
 
               <label className="label">Image Source URL</label>
               <input
@@ -252,7 +259,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                 name="description"
                 type="text"
               />
-              {errors.description && <p className="has-text-danger">{errors.description}</p>} */}
+              {errors.description && <p className="has-text-danger">{errors.description}</p>}
 
 
               <div className="tabs">

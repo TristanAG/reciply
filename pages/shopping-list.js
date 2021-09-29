@@ -1,6 +1,7 @@
 import Layout from '../components/layout'
 import Firebase from '../firebase/firebase'
 import { FirebaseContext } from '../firebase'
+import Link from 'next/link'
 
 export default function ShoppingList() {
 
@@ -10,6 +11,7 @@ export default function ShoppingList() {
   const [ ingredients, setIngredients ] = React.useState(null)
   const [ mealPlanRefText, setMealPlanWeekRefText] = React.useState(null)
   const [ formattedIngredients, setFormattedIngredients ] = React.useState()
+  const [ showList, setShowList ] = React.useState(false)
 
   React.useEffect(() => {
     if (mealPlanWeekRef && user) {
@@ -76,11 +78,9 @@ export default function ShoppingList() {
       if (doc.exists) {
         //UPDATE IF EXISTS
         getRecipesInMealPlan(mealPlanWeekRef)
+        showList(true)
       } else {
-        //ADD NEW mealPlanWeekRef if no doc exists
-        // addNewMealPlanWeekRef(savedRecipe)
-        alert('no mealplanweekref found!')
-        // generateMealPlanWeekRef(mealPlanWeekRef)
+        showList(false)
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
@@ -155,11 +155,16 @@ export default function ShoppingList() {
           {!user
             ? <p className="has-text-danger">must be logged in to post a recipe</p>
             : <>
-              <ul>
-                {formattedIngredients && formattedIngredients.map(ingredient => (
-                  <li>{ingredient.ingredientName}</li>
-                ))}
-              </ul>
+                {!showList &&
+                  <ul>
+                    {formattedIngredients && formattedIngredients.map(ingredient => (
+                      <li>{ingredient.ingredientName}</li>
+                    ))}
+                  </ul>
+                 }
+                {showList &&
+                  <div>Add some recipes to your <Link href="/meal-planner"><a className="has-text-grey">Meal Planner</a></Link> to generate a shopping list</div>
+                }
             </>
           }
         </div>

@@ -76,6 +76,7 @@ export default function Recipe({ recipe }) {
     <Layout>
       <div className="content">
         {recipe && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
+        <p><small>recipe source: {recipe.source}</small></p>
         {isLoading && <div className="button is-white has-text-weight-normal is-loading">loading...</div>}
         {!isLoading &&
           <div
@@ -89,7 +90,8 @@ export default function Recipe({ recipe }) {
         <br />
         <br />
         {recipe.mainImage && <img src={recipe.mainImage} alt={recipe.name} />}
-        <p>//description goes here...</p>
+        <small>image source: {recipe.imageSource}</small>
+        <p>{recipe.description}</p>
         <h2>Instructions</h2>
 
 

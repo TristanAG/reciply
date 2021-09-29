@@ -10,8 +10,9 @@
 }
 
 .link {
-  color: #48c26a;
+  /* color: #48c26a; */
   font-weight: bold;
+  color: hsl(0, 0%, 29%);
 }
 
 .col-mod {
