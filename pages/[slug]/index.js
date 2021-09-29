@@ -75,9 +75,9 @@ export default function Recipe({ recipe }) {
   return (
     <Layout>
       <div className="content">
-        {recipe.name && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
+        {recipe && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
 
-        {recipe.source && <p><small>recipe source: {recipe.source}</small></p>}
+        {recipe && <p><small>recipe source: {recipe.source}</small></p>}
 
         {!user && <p>log in or sign up to save recipes</p>}
 
@@ -94,20 +94,20 @@ export default function Recipe({ recipe }) {
 
         <br />
         <br />
-        {recipe.mainImage && <img src={recipe.mainImage} alt={recipe.name} />}
-        {recipe.imageSource && <small>image source: {recipe.imageSource}</small>}
-        {recipe.description && <p>{recipe.description}</p>}
+        {recipe && <img src={recipe.mainImage} alt={recipe.name} />}
+        {recipe && <small>image source: {recipe.imageSource}</small>}
+        {recipe && <p>{recipe.description}</p>}
         <h2>Instructions</h2>
 
 
         <ol>
-          {recipe.steps && recipe.steps.map((step, i) => (
+          {recipe && recipe.steps.map((step, i) => (
             <li className="has-text-dark">{step.stepContent}</li>
           ))}
         </ol>
         <h2>Ingredients</h2>
         <ul>
-          {recipe.ingredients && recipe.ingredients.map((ingredient) => (
+          {recipe && recipe.ingredients.map((ingredient) => (
             <li>{ingredient.ingredientName} <small><i className="has-text-info">{ingredient.ingredientQuantity}</i></small></li>
           ))}
         </ul>
