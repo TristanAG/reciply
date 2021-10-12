@@ -306,7 +306,7 @@ export default function MealPlanner() {
                   <Link href={'/' + recipe.slug} >
                     <a className="has-text-link">{recipe.name}</a>
                   </Link>
-                  <button className="button is-small add-button">+ add</button>
+                  <button className="button is-small add-button" onClick={() => addToMealPlanWeekRef(recipe)}>+ add</button>
                 </div>
               ))}
               <br />
