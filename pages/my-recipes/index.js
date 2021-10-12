@@ -1,7 +1,7 @@
 import Layout from '../../components/layout'
 import { FirebaseContext } from '../../firebase'
 import MyRecipeList from '../../components/myRecipeList'
-
+import { useEffect, useState } from 'react'
 import Firebase from '../../firebase/firebase'
 import Link from 'next/link'
 
@@ -10,6 +10,7 @@ export default function MyRecipes() {
   const { firebase, user } = React.useContext(FirebaseContext)
   const [ recipes, setRecipes ] = React.useState([])
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
+  const [activeTab, setActiveTab] = useState('my-recipes')
 
   React.useEffect(() => {
     if (user) {
@@ -65,6 +66,13 @@ export default function MyRecipes() {
     <Layout>
       <div className="content">
         <h3>My Recipes </h3>
+
+        <div className="tabs">
+          <ul>
+            <li className={activeTab === 'my-recipes' && 'is-active'} onClick={() => setActiveTab('my-recipes')}><a>My Recipes</a></li>
+            <li className={activeTab === 'ingredients' && 'is-active'} onClick={() => setActiveTab('ingredients')}><a>Saved Recipes</a></li>
+          </ul>
+        </div>
 
         {!user
           ? <p className="has-text-danger">must be logged in to post a recipe</p>
