@@ -20,7 +20,7 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateRecipe, handleCreateRecipe)
 
-  const [activeTab, setActiveTab] = useState('ingredients')
+  const [activeTab, setActiveTab] = useState('recipe')
 
   const [ ingredientFields, setIngredientFields ] = useState([{ ingredientName: '', ingredientQuantity: '' }])
   const [ stepFields, setStepFields ] = useState([{ stepContent: '' }])
@@ -169,223 +169,237 @@ export default function RecipeForm({ mode, recipe, id }) {
           {!user && <p className="has-text-danger">must be logged in to post a recipe</p>}
 
           {user &&
-            <form onSubmit={handleSubmit}>
-              <label className="label">Recipe Name</label>
-              <input
-                onChange={handleChange}
-                value={values.name}
-                name="name"
-                type="text"
-                placeholder="Recipe Name"
-                className="input"
-                autoComplete="off"
-              />
-              {errors.name && <p className="has-text-danger">{errors.name}</p>}
-
-              <label className="label">Recipe Source</label>
-              <input
-                onChange={handleChange}
-                value={values.source}
-                name="source"
-                type="text"
-                placeholder="Recipe Source"
-                className="input"
-                autoComplete="off"
-              />
-              {errors.source && <p className="has-text-danger">{errors.source}</p>}
-
-              <label className="label">Recipe Source URL</label>
-              <input
-                onChange={handleChange}
-                value={values.sourceUrl}
-                name="sourceUrl"
-                type="text"
-                placeholder="Recipe Source URL"
-                className="input"
-                autoComplete="off"
-              />
-              {errors.sourceUrl && <p className="has-text-danger">{errors.sourceUrl}</p>}
-
-
-
-              <div className="file">
-                <label className="file-label">
-                  <input className="file-input" type="file" onChange={onFileChange} />
-                  <span className="file-cta">
-                    <span className="file-icon">
-                      {/* <i className="fas fa-upload"></i> */}
-                      📷
-                    </span>
-                    <span clasNames="file-label">
-                      Upload Image
-                    </span>
-                  </span>
-                </label>
-              </div>
-              {mainImage && <img src={mainImage} alt={name} className="main-image"/>}
-
-              <label className="label">Image Source</label>
-              <input
-                onChange={handleChange}
-                value={values.imageSource}
-                name="imageSource"
-                type="text"
-                placeholder="Image Source"
-                className="input"
-                autoComplete="off"
-              />
-              {errors.imageSource && <p className="has-text-danger">{errors.imageSource}</p>}
-
-
-              <label className="label">Image Source URL</label>
-              <input
-                onChange={handleChange}
-                value={values.imageSourceUrl}
-                name="imageSourceUrl"
-                type="text"
-                placeholder="Image Source"
-                className="input"
-                autoComplete="off"
-              />
-              {errors.imageSourceUrl && <p className="has-text-danger">{errors.imageSourceUrl}</p>}
-
-              <label className="label">Description</label>
-              <textarea
-                className="textarea"
-                placeholder="Description"
-                onChange={handleChange}
-                value={values.description}
-                id="description"
-                name="description"
-                type="text"
-              />
-              {errors.description && <p className="has-text-danger">{errors.description}</p>}
-
-
+            <>
               <div className="tabs">
                 <ul>
+                  <li className={activeTab === 'recipe' && 'is-active'} onClick={() => setActiveTab('recipe')}><a>recipe</a></li>
                   <li className={activeTab === 'ingredients' && 'is-active'} onClick={() => setActiveTab('ingredients')}><a>ingredients</a></li>
                   <li className={activeTab === 'steps' && 'is-active'} onClick={() => setActiveTab('steps')}><a>steps</a></li>
                 </ul>
               </div>
 
-
-              {activeTab === 'ingredients' &&
+              <form onSubmit={handleSubmit}>
+                {activeTab === 'recipe' &&
                 <>
-                  <div className="content">
-                    <h4>Ingredients</h4>
-                  </div>
+                  <label className="label">Recipe Name</label>
+                  <input
+                    onChange={handleChange}
+                    value={values.name}
+                    name="name"
+                    type="text"
+                    placeholder="Recipe Name"
+                    className="input"
+                    autoComplete="off"
+                  />
+                  {errors.name && <p className="has-text-danger">{errors.name}</p>}
 
-                  <div>
-                    {ingredientFields.map((ingredientField, index) => (
-                      <div key={`${ingredientField}~${index}`} >
-                        <div className="ingredient-item">
-                          <div className="columns">
-                            <div className="column is-two-fifths">
-                              <input
-                                className="input"
-                                placeholder="Ingredient"
-                                id="ingredientName"
-                                name="ingredientName"
-                                value={ingredientField.ingredientName}
-                                onChange={event => handleIngredientChange(index, event)}
-                              />
-                            </div>
-                            <div className="column">
-                              <input
-                                className="input"
-                                placeholder="Amount / Quantity"
-                                type="text"
-                                id="ingredientQuantity"
-                                name="ingredientQuantity"
-                                value={ingredientField.ingredientQuantity}
-                                onChange={event => handleIngredientChange(index, event)}
-                              />
-                              <div className="has-text-right">
-                                <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}><b>x</b></a>
+                  <label className="label">Recipe Source</label>
+                  <input
+                    onChange={handleChange}
+                    value={values.source}
+                    name="source"
+                    type="text"
+                    placeholder="Recipe Source"
+                    className="input"
+                    autoComplete="off"
+                  />
+                  {errors.source && <p className="has-text-danger">{errors.source}</p>}
+
+                  <label className="label">Recipe Source URL</label>
+                  <input
+                    onChange={handleChange}
+                    value={values.sourceUrl}
+                    name="sourceUrl"
+                    type="text"
+                    placeholder="Recipe Source URL"
+                    className="input"
+                    autoComplete="off"
+                  />
+                  {errors.sourceUrl && <p className="has-text-danger">{errors.sourceUrl}</p>}
+
+
+
+                  <div className="file">
+                    <label className="file-label">
+                      <input className="file-input" type="file" onChange={onFileChange} />
+                      <span className="file-cta">
+                        <span className="file-icon">
+                          {/* <i className="fas fa-upload"></i> */}
+                          📷
+                        </span>
+                        <span clasNames="file-label">
+                          Upload Image
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  {mainImage && <img src={mainImage} alt={name} className="main-image"/>}
+
+                  <label className="label">Image Source</label>
+                  <input
+                    onChange={handleChange}
+                    value={values.imageSource}
+                    name="imageSource"
+                    type="text"
+                    placeholder="Image Source"
+                    className="input"
+                    autoComplete="off"
+                  />
+                  {errors.imageSource && <p className="has-text-danger">{errors.imageSource}</p>}
+
+
+                  <label className="label">Image Source URL</label>
+                  <input
+                    onChange={handleChange}
+                    value={values.imageSourceUrl}
+                    name="imageSourceUrl"
+                    type="text"
+                    placeholder="Image Source"
+                    className="input"
+                    autoComplete="off"
+                  />
+                  {errors.imageSourceUrl && <p className="has-text-danger">{errors.imageSourceUrl}</p>}
+
+                  <label className="label">Description</label>
+                  <textarea
+                    className="textarea"
+                    placeholder="Description"
+                    onChange={handleChange}
+                    value={values.description}
+                    id="description"
+                    name="description"
+                    type="text"
+                  />
+                  {errors.description && <p className="has-text-danger">{errors.description}</p>}
+                </>
+                }
+
+                {/* <div className="tabs">
+                  <ul>
+                    <li className={activeTab === 'ingredients' && 'is-active'} onClick={() => setActiveTab('recipe')}><a>recipe</a></li>
+                    <li className={activeTab === 'ingredients' && 'is-active'} onClick={() => setActiveTab('ingredients')}><a>ingredients</a></li>
+                    <li className={activeTab === 'steps' && 'is-active'} onClick={() => setActiveTab('steps')}><a>steps</a></li>
+                  </ul>
+                </div> */}
+
+
+                {activeTab === 'ingredients' &&
+                  <>
+                    <div className="content">
+                      <h4>Ingredients</h4>
+                    </div>
+
+                    <div>
+                      {ingredientFields.map((ingredientField, index) => (
+                        <div key={`${ingredientField}~${index}`} >
+                          <div className="ingredient-item">
+                            <div className="columns">
+                              <div className="column is-two-fifths">
+                                <input
+                                  className="input"
+                                  placeholder="Ingredient"
+                                  id="ingredientName"
+                                  name="ingredientName"
+                                  value={ingredientField.ingredientName}
+                                  onChange={event => handleIngredientChange(index, event)}
+                                />
+                              </div>
+                              <div className="column">
+                                <input
+                                  className="input"
+                                  placeholder="Amount / Quantity"
+                                  type="text"
+                                  id="ingredientQuantity"
+                                  name="ingredientQuantity"
+                                  value={ingredientField.ingredientQuantity}
+                                  onChange={event => handleIngredientChange(index, event)}
+                                />
+                                <div className="has-text-right">
+                                  <a className="has-text-danger" onClick={() => handleRemoveIngredientFields(index)}><b>x</b></a>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
 
-                  <div className="has-text-right">
-                    <div className="button add-ingredient-button is-primary" onClick={() => handleAddIngredientFields()}>Add Ingredient</div>
-                  </div>
-                </>
-              }
+                    <div className="has-text-right">
+                      <div className="button add-ingredient-button is-primary" onClick={() => handleAddIngredientFields()}>Add Ingredient</div>
+                    </div>
+                  </>
+                }
 
-              {activeTab === 'steps' &&
-                <>
-                  <div className="content">
-                    <h4>Steps</h4>
-                  </div>
-                  {/* <input
-                    onChange={handleChange}
-                    value={values.steps}
-                    name="steps"
-                    type="text"
-                    placeholder="Recipe Steps"
-                    className="input"
-                    autoComplete="off"
-                  /> */}
-                  {/* <textarea
-                    className="textarea"
-                    placeholder="e.g. Hello world"
-                    onChange={handleChange}
-                    value={values.steps}
-                    name="steps"
-                    type="text"
-                  >
-                  </textarea> */}
-
+                {activeTab === 'steps' &&
+                  <>
+                    <div className="content">
+                      <h4>Steps</h4>
+                    </div>
+                    {/* <input
+                      onChange={handleChange}
+                      value={values.steps}
+                      name="steps"
+                      type="text"
+                      placeholder="Recipe Steps"
+                      className="input"
+                      autoComplete="off"
+                    /> */}
+                    {/* <textarea
+                      className="textarea"
+                      placeholder="e.g. Hello world"
+                      onChange={handleChange}
+                      value={values.steps}
+                      name="steps"
+                      type="text"
+                    >
+                    </textarea> */}
 
 
 
-                  <div>
-                    <p>{stepFields.length}</p>
-                    {stepFields.map((stepField, index) => (
-                      <div key={`${stepField}~${index}`} >
-                        <div className="step-item">
-                          <div className="columns">
-                            <div className="column">
-                              <textarea
-                                className="textarea"
-                                placeholder="e.g. Hello world"
-                                onChange={handleChange}
-                                value={stepField.stepContent}
-                                id="stepContent"
-                                name="stepContent"
-                                onChange={event => handleStepChange(index, event)}
-                                type="text"
-                              >
-                              </textarea>
 
+                    <div>
+                      <p>{stepFields.length}</p>
+                      {stepFields.map((stepField, index) => (
+                        <div key={`${stepField}~${index}`} >
+                          <div className="step-item">
+                            <div className="columns">
+                              <div className="column">
+                                <textarea
+                                  className="textarea"
+                                  placeholder="e.g. Hello world"
+                                  onChange={handleChange}
+                                  value={stepField.stepContent}
+                                  id="stepContent"
+                                  name="stepContent"
+                                  onChange={event => handleStepChange(index, event)}
+                                  type="text"
+                                >
+                                </textarea>
+
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                  {/* {errors.steps && <p className="has-text-danger">{errors.steps}</p>} */}
-                  <div className="has-text-right">
-                    <div className="button add-ingredient-button is-primary" onClick={() => handleAddStepFields()}>Add Step</div>
-                  </div>
-                </>
-              }
+                      ))}
+                    </div>
+                    {/* {errors.steps && <p className="has-text-danger">{errors.steps}</p>} */}
+                    <div className="has-text-right">
+                      <div className="button add-ingredient-button is-primary" onClick={() => handleAddStepFields()}>Add Step</div>
+                    </div>
+                  </>
+                }
 
 
 
-              <br/>
+                <br/>
 
-              <hr />
+                <hr />
 
-              <div className="add-button">
-                {mode === 'edit' ? <button className="button">Edit Recipe</button> : <button className="button">Add Recipe</button>}
-              </div>
-            </form>
+                <div className="add-button">
+                  {mode === 'edit' ? <button className="button">Edit Recipe</button> : <button className="button">Add Recipe</button>}
+                </div>
+              </form>
+            </>
           }
         </div>
         <div className="column">

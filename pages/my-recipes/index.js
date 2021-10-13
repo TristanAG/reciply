@@ -106,6 +106,11 @@ export default function MyRecipes() {
             </>
         }
       </div>
+      <style jsx>{`
+        .tabs ul {
+          margin-left: 0px;
+        }
+      `}</style>
     </Layout>
   )
 }
