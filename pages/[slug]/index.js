@@ -83,25 +83,13 @@ export default function Recipe({ recipe }) {
           ? <p>log in or sign up to save recipes</p>
           : isLoading
             ? <div className="button is-white has-text-weight-normal is-loading">loading...</div>
-            : <div
-              onClick={() => handleSaveRecipe()}
-              className={buttonStatus === true
-                ? 'button is-success is-light has-text-weight-normal'
-                : 'button is-info is-light has-text-weight-normal'}>
+            : <div onClick={() => handleSaveRecipe()}
+                className={buttonStatus === true
+                  ? 'button is-success is-light has-text-weight-normal'
+                  : 'button is-info is-light has-text-weight-normal'}>
                 {buttonStatus === true ? 'saved recipe' : 'save recipe?'}
-            </div>
+              </div>
         }
-
-        {/* {user && isLoading
-          ? <div className="button is-white has-text-weight-normal is-loading">loading...</div>
-          : <div
-              onClick={() => handleSaveRecipe()}
-              className={buttonStatus === true
-                ? 'button is-success is-light has-text-weight-normal'
-                : 'button is-info is-light has-text-weight-normal'}>
-                {buttonStatus === true ? 'saved recipe' : 'save recipe?'}
-            </div>
-        } */}
 
         <br />
         <br />

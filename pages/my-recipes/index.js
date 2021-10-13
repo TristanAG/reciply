@@ -65,7 +65,7 @@ export default function MyRecipes() {
   return (
     <Layout>
       <div className="content">
-        <h3>My Recipes </h3>
+        {/* <h3>My Recipes </h3> */}
 
         <div className="tabs">
           <ul>
@@ -77,28 +77,32 @@ export default function MyRecipes() {
         {!user
           ? <p className="has-text-danger">must be logged in to post a recipe</p>
           : <>
-            {recipes.length > 0 && recipes.map(recipe => (
-              <p>
-                <Link href={'/' + recipe.slug} >
-                  <a className="has-text-grey">{recipe.name}</a>
-                </Link>
-                &nbsp;|&nbsp;
-                <Link href={'/' + recipe.slug + '/edit'}>
-                  <a className="has-text-grey link">edit</a>
-                </Link>
-                &nbsp;|&nbsp;
-                <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
-              </p>
-            ))}
+              {activeTab === 'my-recipes' &&
+                recipes.length > 0 && recipes.map(recipe => (
+                  <p>
+                    <Link href={'/' + recipe.slug} >
+                      <a className="has-text-grey">{recipe.name}</a>
+                    </Link>
+                    &nbsp;|&nbsp;
+                    <Link href={'/' + recipe.slug + '/edit'}>
+                      <a className="has-text-grey link">edit</a>
+                    </Link>
+                    &nbsp;|&nbsp;
+                    <span className="has-text-danger edit-button link" onClick={() => deleteRecipe(recipe)}>delete</span>
+                  </p>
+                ))
+              }
 
-            <h3>Saved Recipes </h3>
-            {savedRecipes && savedRecipes.map((u) => (
-              <p>
-                <Link href={'/' + u.slug} >
-                  <a className="has-text-grey">{u.name}</a>
-                </Link>
-              </p>
-            ))}
+              {/* <h3>Saved Recipes </h3> */}
+              {activeTab === 'ingredients' &&
+                savedRecipes && savedRecipes.map((u) => (
+                  <p>
+                    <Link href={'/' + u.slug} >
+                      <a className="has-text-grey">{u.name}</a>
+                    </Link>
+                  </p>
+                ))
+              }
           </>
         }
       </div>
