@@ -75,9 +75,9 @@ export default function Recipe({ recipe }) {
   return (
     <Layout>
       <div className="content">
-        {recipe && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
+        {(recipe && recipe.name) && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
 
-        {recipe && <p><small>recipe source: {recipe.source}</small></p>}
+        {(recipe && recipe.source) && <p><small>recipe source: {recipe.source}</small></p>}
 
         {!user
           ? <p>log in or sign up to save recipes</p>
@@ -93,9 +93,9 @@ export default function Recipe({ recipe }) {
 
         <br />
         <br />
-        {recipe && <img src={recipe.mainImage} alt={recipe.name} />}
-        {recipe && <small>image source: {recipe.imageSource}</small>}
-        {recipe && <p>{recipe.description}</p>}
+        {(recipe && recipe.mainImage) && <img src={recipe.mainImage} alt={recipe.name} />}
+        {(recipe && recipe.imageSource) && <small>image source: {recipe.imageSource}</small>}
+        {(recipe && recipe.description) && <p>{recipe.description}</p>}
         <h2>Instructions</h2>
 
 
