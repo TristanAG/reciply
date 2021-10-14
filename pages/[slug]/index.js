@@ -90,6 +90,7 @@ export default function Recipe({ recipe }) {
                     {buttonStatus === true ? 'saved recipe' : 'save recipe?'}
                   </div>
             }
+
             <br />
             <br />
             {(recipe && recipe.description) && <p>{recipe.description}</p>}
@@ -126,20 +127,21 @@ export default function Recipe({ recipe }) {
         {/* {(recipe && recipe.mainImage) && <img src={recipe.mainImage} alt={recipe.name} />} */}
         {/* {(recipe && recipe.imageSource) && <small>image source: {recipe.imageSource}</small>}
         {(recipe && recipe.description) && <p>{recipe.description}</p>} */}
-        <h2>Instructions</h2>
 
-
-        <ol>
-          {recipe && recipe.steps.map((step, i) => (
-            <li className="has-text-dark">{step.stepContent}</li>
-          ))}
-        </ol>
-        <h2>Ingredients</h2>
-        <ul>
-          {recipe && recipe.ingredients.map((ingredient) => (
-            <li>{ingredient.ingredientName} <small><i className="has-text-info">{ingredient.ingredientQuantity}</i></small></li>
-          ))}
-        </ul>
+        <div className="content">
+          <h2>Instructions</h2>
+          <ol>
+            {recipe && recipe.steps.map((step, i) => (
+              <li className="has-text-dark">{step.stepContent}</li>
+            ))}
+          </ol>
+          <h2>Ingredients</h2>
+          <ul>
+            {recipe && recipe.ingredients.map((ingredient) => (
+              <li>{ingredient.ingredientName} <small><i className="has-text-info">{ingredient.ingredientQuantity}</i></small></li>
+            ))}
+          </ul>
+        </div>
 
 
 

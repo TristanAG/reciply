@@ -358,7 +358,7 @@ export default function RecipeForm({ mode, recipe, id }) {
 
 
                     <div>
-                      <p>{stepFields.length}</p>
+                      <p><small>steps: {stepFields.length}</small></p>
                       {stepFields.map((stepField, index) => (
                         <div key={`${stepField}~${index}`} >
                           <div className="step-item">
@@ -366,7 +366,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                               <div className="column">
                                 <textarea
                                   className="textarea"
-                                  placeholder="e.g. Hello world"
+                                  placeholder="boil water..."
                                   onChange={handleChange}
                                   value={stepField.stepContent}
                                   id="stepContent"
