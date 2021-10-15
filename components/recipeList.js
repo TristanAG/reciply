@@ -12,7 +12,7 @@ export default function RecipeList(props) {
   }, [])
 
   function getRecipes() {
-    const theRecipes = firebase.db.collection('recipes').onSnapshot(handleSnapshot)
+    const theRecipes = firebase.db.collection('recipes').orderBy('created', 'desc').onSnapshot(handleSnapshot)
   }
 
   function handleSnapshot(snapshot) {
