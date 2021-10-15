@@ -41,7 +41,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
               <a className="link">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</a>
             </Link>
             {/* @{recipe.postedBy.name.split(' ').join('').toLowerCase()} */}
-            <br/><small><time datetime="2016-1-1">{format(recipe.created, 'MMMM Mo yyyy')}</time></small>
+            <br/><small><time datetime="2016-1-1">{format(recipe.created, 'MMMM do yyyy')}</time></small>
           </p>
 
         </div>
