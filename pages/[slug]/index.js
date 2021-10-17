@@ -7,6 +7,8 @@ import Link from 'next/link'
 export default function Recipe({ recipe }) {
   const { firebase, user } = React.useContext(FirebaseContext)
   const [ savedRecipes, setSavedRecipes ] = React.useState(null)
+  const [ recipeEditable, setRecipeEditable ] = React.useState(null)
+  const [ recipes, setRecipes ] = React.useState([])
   const [ savedRef, setSavedRef ] = React.useState('')
   const [ buttonStatus, setButtonStatus ] = React.useState(false)
   const [ isLoading, setIsLoading ] = React.useState(true)
@@ -24,6 +26,36 @@ export default function Recipe({ recipe }) {
   }, [savedRecipes])
 
   React.useEffect(() => {
+    if (recipes) {
+      recipes.map((r) => {
+        if(r.name === recipe.name) {
+          // setButtonStatus(true)
+          // setSavedRef(r.id)
+          setRecipeEditable(true)
+        }
+      })
+      // setIsLoading(false)
+    }
+  }, [recipes])
+
+  // function getRecipes() {
+  //
+  //   let myRecipes = []
+  //
+  //   firebase.db.collection('recipes').where("postedBy.id", "==", user.uid)
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       querySnapshot.forEach((doc) => {
+  //         myRecipes.push(doc.data())
+  //       });
+  //       setRecipes(myRecipes)
+  //     })
+  //     .catch((error) => {
+  //       console.log("Error getting documents: ", error);
+  //     });
+  // }
+
+  React.useEffect(() => {
     if (user) {
       firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
         .then(querySnapshot => {
@@ -36,6 +68,19 @@ export default function Recipe({ recipe }) {
           });
           setSavedRecipes(recipes)
         })
+
+      firebase.db.collection('recipes').where("postedBy.id", "==", user.uid)
+        .get()
+        .then((querySnapshot) => {
+          let myRecipes = []
+          querySnapshot.forEach((doc) => {
+            myRecipes.push(doc.data())
+          });
+          setRecipes(myRecipes)
+        })
+        .catch((error) => {
+          console.log("Error getting documents: ", error);
+        });
       }
   },[user])
 
@@ -77,7 +122,18 @@ export default function Recipe({ recipe }) {
       <div className="columns">
         <div className="column">
           <div className="content">
-            {(recipe && recipe.name) && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
+            {(recipe && recipe.name) &&
+              <h2 className="has-text-grey-dark">
+                <i>{recipe.name}</i>
+                {recipeEditable &&
+                  // <a className="edit-recipe has-text-link">edit recipe</a>
+                  <Link href={'/' + recipe.slug + '/edit'}>
+                    <a className="edit-recipe has-text-link">edit</a>
+                  </Link>
+                }
+              </h2>
+            }
+
             {(recipe && recipe.source) && <p><small>recipe source: {recipe.source}</small></p>}
             {!user
               ? <p>log in or sign up to save recipes</p>
@@ -146,7 +202,10 @@ export default function Recipe({ recipe }) {
 
 
       <style jsx>{`
-
+        .edit-recipe {
+          font-size: 16px;
+          margin-left: 20px;
+        }
       `}</style>
     </Layout>
   )
