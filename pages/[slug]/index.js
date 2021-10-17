@@ -29,31 +29,11 @@ export default function Recipe({ recipe }) {
     if (recipes) {
       recipes.map((r) => {
         if(r.name === recipe.name) {
-          // setButtonStatus(true)
-          // setSavedRef(r.id)
           setRecipeEditable(true)
         }
       })
-      // setIsLoading(false)
     }
   }, [recipes])
-
-  // function getRecipes() {
-  //
-  //   let myRecipes = []
-  //
-  //   firebase.db.collection('recipes').where("postedBy.id", "==", user.uid)
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       querySnapshot.forEach((doc) => {
-  //         myRecipes.push(doc.data())
-  //       });
-  //       setRecipes(myRecipes)
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error getting documents: ", error);
-  //     });
-  // }
 
   React.useEffect(() => {
     if (user) {
@@ -126,7 +106,6 @@ export default function Recipe({ recipe }) {
               <h2 className="has-text-grey-dark">
                 <i>{recipe.name}</i>
                 {recipeEditable &&
-                  // <a className="edit-recipe has-text-link">edit recipe</a>
                   <Link href={'/' + recipe.slug + '/edit'}>
                     <a className="edit-recipe has-text-link">edit</a>
                   </Link>
@@ -160,46 +139,21 @@ export default function Recipe({ recipe }) {
           </div>
         </div>
       </div>
-      {/* <div className="content"> */}
-        {/* {(recipe && recipe.name) && <h2 className="has-text-grey-dark"><i>{recipe.name}</i></h2>}
 
-        {(recipe && recipe.source) && <p><small>recipe source: {recipe.source}</small></p>} */}
-
-        {/* {!user
-          ? <p>log in or sign up to save recipes</p>
-          : isLoading
-            ? <div className="button is-white has-text-weight-normal is-loading">loading...</div>
-            : <div onClick={() => handleSaveRecipe()}
-                className={buttonStatus === true
-                  ? 'button is-success is-light has-text-weight-normal'
-                  : 'button is-info is-light has-text-weight-normal'}>
-                {buttonStatus === true ? 'saved recipe' : 'save recipe?'}
-              </div>
-        } */}
-
-        {/* <br />
-        <br /> */}
-
-        {/* {(recipe && recipe.mainImage) && <img src={recipe.mainImage} alt={recipe.name} />} */}
-        {/* {(recipe && recipe.imageSource) && <small>image source: {recipe.imageSource}</small>}
-        {(recipe && recipe.description) && <p>{recipe.description}</p>} */}
-
-        <div className="content">
-          <h2>Instructions</h2>
-          <ol>
-            {recipe && recipe.steps.map((step, i) => (
-              <li className="has-text-dark">{step.stepContent}</li>
-            ))}
-          </ol>
-          <h2>Ingredients</h2>
-          <ul>
-            {recipe && recipe.ingredients.map((ingredient) => (
-              <li>{ingredient.ingredientName} <small><i className="has-text-info">{ingredient.ingredientQuantity}</i></small></li>
-            ))}
-          </ul>
-        </div>
-
-
+      <div className="content">
+        <h2>Instructions</h2>
+        <ol>
+          {recipe && recipe.steps.map((step, i) => (
+            <li className="has-text-dark">{step.stepContent}</li>
+          ))}
+        </ol>
+        <h2>Ingredients</h2>
+        <ul>
+          {recipe && recipe.ingredients.map((ingredient) => (
+            <li>{ingredient.ingredientName} <small><i className="has-text-info">{ingredient.ingredientQuantity}</i></small></li>
+          ))}
+        </ul>
+      </div>
 
       <style jsx>{`
         .edit-recipe {
