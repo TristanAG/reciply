@@ -28,7 +28,10 @@ export default function RecipeForm({ mode, recipe, id }) {
   const [ mainImage, setMainImage ] = useState(null)
 
   useEffect(() => {
-    if (mode === 'edit') {
+
+    if (mode === 'edit' && recipe) {
+      console.log('edit mode')
+      console.log(recipe)
       values.name = recipe.name
       values.steps = recipe.steps
       values.source = recipe.source
@@ -41,12 +44,13 @@ export default function RecipeForm({ mode, recipe, id }) {
       setIngredientFields(recipe.ingredients)
       setStepFields(recipe.steps)
     }
-  }, [mode])
+  }, [mode, recipe])
 
   const handleAddIngredientFields = () => {
     const values = [...ingredientFields];
     values.push({ ingredientName: '', ingredientQuantity: '' });
     setIngredientFields(values);
+    console.log('added ingredient field')
   }
 
   const handleAddStepFields = () => {

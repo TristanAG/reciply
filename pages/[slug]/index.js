@@ -14,8 +14,14 @@ export default function Recipe({ recipe }) {
   const [ isLoading, setIsLoading ] = React.useState(true)
 
   React.useEffect(() => {
-    if (savedRecipes) {
+    console.log('i should be running here...')
+    if (savedRecipes && recipe) {
+      console.log('and here too....')
       savedRecipes.map((r) => {
+        console.log('r... ')
+        console.log(r)
+        console.log('recipe... ')
+        console.log(recipe)
         if(r.name === recipe.name) {
           setButtonStatus(true)
           setSavedRef(r.id)
@@ -23,29 +29,33 @@ export default function Recipe({ recipe }) {
       })
       setIsLoading(false)
     }
-  }, [savedRecipes])
+  }, [savedRecipes, recipe])
 
   React.useEffect(() => {
-    if (recipes) {
+    if (recipes && recipe) {
       recipes.map((r) => {
         if(r.name === recipe.name) {
           setRecipeEditable(true)
         }
       })
     }
-  }, [recipes])
+  }, [recipes, recipe])
 
   React.useEffect(() => {
+
     if (user) {
+
       firebase.db.collection('users').doc(user.uid).collection('savedRecipes').get()
         .then(querySnapshot => {
           let recipes = []
+
           querySnapshot.forEach(doc => {
             recipes.push({
               name: doc.data().name,
               id: doc.id
             })
           });
+
           setSavedRecipes(recipes)
         })
 
