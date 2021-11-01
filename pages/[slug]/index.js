@@ -200,9 +200,6 @@ export const getStaticProps = async (context) => {
       props: {
         recipe: recipe[0]
       },
-      unstable_revalidate: true
-      // revalidate: true
-
     }
   } else {
     return {
