@@ -151,6 +151,7 @@ export default function Recipe({ recipe }) {
       </div>
 
       <div className="content">
+        <p>test</p>
         <h2>Instructions</h2>
         <ol>
           {recipe && recipe.steps.map((step, i) => (
@@ -201,6 +202,7 @@ export const getStaticProps = async (context) => {
       },
       unstable_revalidate: true
       // revalidate: true
+
     }
   } else {
     return {
