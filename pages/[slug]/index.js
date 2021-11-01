@@ -192,12 +192,15 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async (context) => {
   const { slug } = context.params;
   const res = await Firebase.db.collection('recipes').where("slug", "==", slug).get()
+
   const recipe = res.docs.map(recipe => recipe.data());
   if (recipe.length) {
     return {
       props: {
         recipe: recipe[0]
-      }
+      },
+      unstable_revalidate: true
+      // revalidate: true
     }
   } else {
     return {
