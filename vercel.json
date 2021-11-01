@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/:slug",
       "headers" : [
         {
           "key" : "cache-control",
