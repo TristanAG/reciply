@@ -89,12 +89,14 @@ export default function ShoppingList() {
 
   function getRecipesInMealPlan(mealPlanWeekRef) {
     let ingredientsArray = []
-    var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
+
+    var docRef = firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
-        ingredientsArray.push(doc.data().ingredients)
+        ingredientsArray.push(doc.data())
       });
-      formatIngredientList(ingredientsArray)
+      // formatIngredientList(ingredientsArray)
+      setFormattedIngredients(ingredientsArray)
     })
     .catch((error) => {
       console.log("Error getting documents: ", error);
@@ -102,7 +104,7 @@ export default function ShoppingList() {
   }
 
   function formatIngredientList(ingredientsArray) {
-
+    console.log(ingredientsArray)
     let allIngredients = []
 
     ingredientsArray.forEach(dayIngredients => {
@@ -158,7 +160,7 @@ export default function ShoppingList() {
                 {!showList &&
                   <ul>
                     {formattedIngredients && formattedIngredients.map(ingredient => (
-                      <li>{ingredient.ingredientName}</li>
+                      <li>{ingredient.name} | {ingredient.checked ? 'checked' : 'not checked'}</li>
                     ))}
                   </ul>
                  }
