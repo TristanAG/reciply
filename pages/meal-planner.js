@@ -166,6 +166,17 @@ export default function MealPlanner() {
     });
   }
 
+  function addNewShoppingList() {
+    firebase.db.collection('users').doc(user.uid).collection('shoppingLists').doc(mealPlanWeekRef).set({
+      ref: mealPlanWeekRef
+    }).then(() => {
+      alert("created shoping list");
+      updateShoppingList('test')
+    }).catch((error) => {
+      console.error("Error writing document: ", error);
+    });
+  }
+
   function updateMealPlanRef(savedRecipe) {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes').add({
       name: savedRecipe.name,
@@ -179,10 +190,42 @@ export default function MealPlanner() {
       console.log(doc.id)
       getRecipesInMealPlan(mealPlanWeekRef)
       setDisplayModal(false)
+
+      updateShoppingList(savedRecipe.ingredients)
     })
     .catch((error) => {
       console.error("Error writing document: ", error);
     });
+  }
+
+  function updateShoppingList(list) {
+
+    console.log(list)
+
+    // var db = firebase.firestore();
+    var batch = firebase.db.batch()
+
+    const array = [{name: 'a'},{name: 'b'}]
+
+    list.forEach((doc) => {
+      // var docRef = db.collection("col").doc(); //automatically generate unique id
+      var docRef = firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems').doc(doc.ingredientName);
+      batch.set(docRef, doc);
+    });
+
+    batch.commit()
+
+    // firebase.db.collection('users').doc(user.uid).collection('shoppingLists').doc(mealPlanWeekRef).collection('listItems').add({
+    //   list
+    // })
+    // .then((doc) => {
+    //   console.log("Document successfully written!");
+    //   console.log('rerender ui')
+    //   console.log(doc.id)
+    // })
+    // .catch((error) => {
+    //   console.error("Error writing document: ", error);
+    // });
   }
 
   function getMealPlanWeekRef(mealPlanWeekRef) {
