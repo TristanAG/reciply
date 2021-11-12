@@ -160,7 +160,7 @@ export default function ShoppingList() {
                 {!showList &&
                   <ul>
                     {formattedIngredients && formattedIngredients.map(ingredient => (
-                      <li>{ingredient.name} | {ingredient.checked ? 'checked' : 'not checked'}</li>
+                      <li>{ingredient.ingredientName} | {ingredient.checked ? 'checked' : 'not checked'}</li>
                     ))}
                   </ul>
                  }
