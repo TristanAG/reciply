@@ -88,12 +88,28 @@ export default function MealPlanner() {
   }
 
   function removeMealFromDay(meal) {
+
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes');
-    docRef.doc(meal).delete().then(() => {
+    docRef.doc(meal.id).delete().then(() => {
       getRecipesInMealPlan(mealPlanWeekRef)
+      removeIngredientsFromShoppingList(meal.ingredients)
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
+  }
+
+  function removeIngredientsFromShoppingList(ingredients){
+
+    var batch = firebase.db.batch()
+    //
+    ingredients.forEach((doc) => {
+      var docRef = firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems').doc(doc.ingredientName);
+
+      batch.delete(docRef);
+    });
+
+    batch.commit()
+
   }
 
   //Modal -------------------------------------------------------------------------------------------------------------------
@@ -141,6 +157,7 @@ export default function MealPlanner() {
   }
 
   function addToMealPlanWeekRef(savedRecipe) {
+
     var docRef = firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef);
     docRef.get().then((doc) => {
       if (doc.exists) {
@@ -186,8 +203,7 @@ export default function MealPlanner() {
     })
     .then((doc) => {
       console.log("Document successfully written!");
-      console.log('rerender ui')
-      console.log(doc.id)
+
       getRecipesInMealPlan(mealPlanWeekRef)
       setDisplayModal(false)
 
@@ -255,6 +271,7 @@ export default function MealPlanner() {
         recipesInDay[index].push({
           name: doc.data().name,
           slug: doc.data().slug,
+          ingredients: doc.data().ingredients,
           id: doc.id
         })
 
@@ -317,7 +334,7 @@ export default function MealPlanner() {
                 <div className="content">
 
                   {meals[selected].map((meal, i) => {
-                    return <p>{meal.name} <b onClick={() => removeMealFromDay(meal.id)} className="remove-button">x</b></p>
+                    return <p>{meal.name} <b onClick={() => removeMealFromDay(meal)} className="remove-button">x</b></p>
                   })}
 
                   <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
