@@ -198,19 +198,21 @@ export default function MealPlanner() {
     });
   }
 
-  function updateShoppingList(list) {
+  function updateShoppingList(ingredients) {
 
-    console.log(list)
-
-    // var db = firebase.firestore();
     var batch = firebase.db.batch()
 
     const array = [{name: 'a'},{name: 'b'}]
 
-    list.forEach((doc) => {
-      // var docRef = db.collection("col").doc(); //automatically generate unique id
+    ingredients.forEach((doc) => {
+      var listItem = {
+        name: doc.ingredientName,
+        quantity: doc.ingredientQuantity,
+        checked: false
+      }
+
       var docRef = firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems').doc(doc.ingredientName);
-      batch.set(docRef, doc);
+      batch.set(docRef, listItem);
     });
 
     batch.commit()

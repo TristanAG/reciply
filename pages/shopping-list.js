@@ -46,12 +46,9 @@ export default function ShoppingList() {
       if (i === startWeekIndex) {
         beginningOfWeekRef = buildMealPlanWeekRef(indexRef)
         beginningOfWeekRefText = buildMealPlanWeekRefText(indexRef)
-        console.log(beginningOfWeekRefText)
       } else if (i === startWeekIndex + 6) {
         endOfWeekRef = buildMealPlanWeekRef(indexRef)
-        // console.log(indexRef)
         endOfWeekRefText = buildMealPlanWeekRefText(indexRef)
-        console.log(endOfWeekRefText)
       }
     }
 
@@ -78,9 +75,7 @@ export default function ShoppingList() {
       if (doc.exists) {
         //UPDATE IF EXISTS
         getRecipesInMealPlan(mealPlanWeekRef)
-        showList(true)
-      } else {
-        showList(false)
+        setShowList(true)
       }
     }).catch((error) => {
       console.log("Error getting document:", error);
@@ -138,8 +133,7 @@ export default function ShoppingList() {
         foundDuplicate = true;
         occurences++
       }
-    });
-
+    })
 
     if (foundDuplicate === true) {
       console.log('occurences')
@@ -157,14 +151,14 @@ export default function ShoppingList() {
           {!user
             ? <p className="has-text-danger">must be logged in to post a recipe</p>
             : <>
-                {!showList &&
+                {showList &&
                   <ul>
                     {formattedIngredients && formattedIngredients.map(ingredient => (
-                      <li>{ingredient.ingredientName} | {ingredient.checked ? 'checked' : 'not checked'}</li>
+                      <li>{ingredient.name} | {ingredient.quantity} | {ingredient.checked ? 'checked' : 'not checked'}</li>
                     ))}
                   </ul>
                  }
-                {showList &&
+                {!showList &&
                   <div>Add some recipes to your <Link href="/meal-planner"><a className="has-text-grey">Meal Planner</a></Link> to generate a shopping list</div>
                 }
             </>
