@@ -13,6 +13,7 @@ export default function ShoppingList() {
   const [ formattedIngredients, setFormattedIngredients ] = React.useState()
   const [ showList, setShowList ] = React.useState(false)
 
+
   React.useEffect(() => {
     if (mealPlanWeekRef && user) {
       getMealPlanWeekRef(mealPlanWeekRef)
@@ -142,6 +143,22 @@ export default function ShoppingList() {
     }
   }
 
+  function handleSelectIngredient(ingredient, listItem) {
+    // var db = firebase.firestore();
+    var itemRef = document.querySelector('#' + listItem)
+    if (ingredient.checked) {
+      itemRef.style.color = '#dbdbdb !important'
+    } else {
+      itemRef.style.color = '#4a4a4a !important'
+    }
+
+    firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems').doc(ingredient.name).update({checked: !ingredient.checked});
+// var docRef = firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems').doc(doc.ingredientName)
+
+
+
+  }
+
   return (
     <Layout>
       <>
@@ -153,8 +170,12 @@ export default function ShoppingList() {
             : <>
                 {showList &&
                   <ul>
-                    {formattedIngredients && formattedIngredients.map(ingredient => (
-                      <li>{ingredient.name} | {ingredient.quantity} | {ingredient.checked ? 'checked' : 'not checked'}</li>
+                    {formattedIngredients && formattedIngredients.map((ingredient, i) => (
+                      <li key={i} id={'list-item-' + i} onClick={() => handleSelectIngredient(ingredient, 'list-item-' + i)}
+                        className={ingredient.checked ? 'has-text-grey-lighter' : 'has-text-black'}
+                      >
+                        {ingredient.name} | {ingredient.quantity} | {ingredient.checked ? 'checked' : 'not checked'}
+                      </li>
                     ))}
                   </ul>
                  }

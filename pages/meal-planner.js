@@ -183,17 +183,6 @@ export default function MealPlanner() {
     });
   }
 
-  function addNewShoppingList() {
-    firebase.db.collection('users').doc(user.uid).collection('shoppingLists').doc(mealPlanWeekRef).set({
-      ref: mealPlanWeekRef
-    }).then(() => {
-      alert("created shoping list");
-      updateShoppingList('test')
-    }).catch((error) => {
-      console.error("Error writing document: ", error);
-    });
-  }
-
   function updateMealPlanRef(savedRecipe) {
     firebase.db.collection('users').doc(user.uid).collection('mealPlanWeek').doc(mealPlanWeekRef).collection('recipes').add({
       name: savedRecipe.name,
@@ -203,10 +192,8 @@ export default function MealPlanner() {
     })
     .then((doc) => {
       console.log("Document successfully written!");
-
       getRecipesInMealPlan(mealPlanWeekRef)
       setDisplayModal(false)
-
       updateShoppingList(savedRecipe.ingredients)
     })
     .catch((error) => {
@@ -215,10 +202,7 @@ export default function MealPlanner() {
   }
 
   function updateShoppingList(ingredients) {
-
     var batch = firebase.db.batch()
-
-    const array = [{name: 'a'},{name: 'b'}]
 
     ingredients.forEach((doc) => {
       var listItem = {
@@ -232,18 +216,6 @@ export default function MealPlanner() {
     });
 
     batch.commit()
-
-    // firebase.db.collection('users').doc(user.uid).collection('shoppingLists').doc(mealPlanWeekRef).collection('listItems').add({
-    //   list
-    // })
-    // .then((doc) => {
-    //   console.log("Document successfully written!");
-    //   console.log('rerender ui')
-    //   console.log(doc.id)
-    // })
-    // .catch((error) => {
-    //   console.error("Error writing document: ", error);
-    // });
   }
 
   function getMealPlanWeekRef(mealPlanWeekRef) {
@@ -274,7 +246,6 @@ export default function MealPlanner() {
           ingredients: doc.data().ingredients,
           id: doc.id
         })
-
       });
       setWeekPreview(weekPreviewArr)
       setMeals(recipesInDay)
@@ -284,20 +255,13 @@ export default function MealPlanner() {
     });
   }
 
-
-
   // End Modal -----------------------------------------------------------------------------------------------------------
-
-
-
-
 
   return (
     <Layout>
       <>
         <div className="content">
           <h3>Meal Planner</h3>
-
 
           {!user
             ? <p className="has-text-danger">must be logged in to post a recipe</p>
@@ -332,23 +296,15 @@ export default function MealPlanner() {
               <div className="day-view">
                 <h4>{dayOfWeekText}</h4>
                 <div className="content">
-
                   {meals[selected].map((meal, i) => {
                     return <p>{meal.name} <b onClick={() => removeMealFromDay(meal)} className="remove-button">x</b></p>
                   })}
-
                   <button className="button is-text" onClick={() => openAddModal(selected)}>+ add recipe for {WEEKDAYS[selected]}</button>
                 </div>
               </div>
             </>
           }
-
         </div>
-
-
-
-
-
 
         {/* //Modal ------------------------------------------------------------------------------------------------------------------- */}
 
