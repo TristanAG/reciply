@@ -12,6 +12,7 @@ export default function ShoppingList() {
   const [ mealPlanRefText, setMealPlanWeekRefText] = React.useState(null)
   const [ formattedIngredients, setFormattedIngredients ] = React.useState()
   const [ showList, setShowList ] = React.useState(false)
+  const [ selectedRef, setSelectedRef ] = React.useState('')
 
 
   React.useEffect(() => {
@@ -89,6 +90,14 @@ export default function ShoppingList() {
     var docRef = firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems');
     docRef.get().then(querySnapshot => {
       querySnapshot.forEach(doc => {
+        let data = doc.data()
+        // console.log(data.checked)
+        // console.log('selected ref: ')
+        console.log('selected ref: ' + selectedRef)
+        // if (selectedRef) {
+        //
+        // }
+
         ingredientsArray.push(doc.data())
       });
       // formatIngredientList(ingredientsArray)
@@ -145,13 +154,35 @@ export default function ShoppingList() {
 
   function handleSelectIngredient(ingredient, listItem) {
     // var db = firebase.firestore();
-    var itemRef = document.querySelector('#' + listItem)
-    if (ingredient.checked) {
-      itemRef.style.color = '#dbdbdb !important'
-    } else {
-      itemRef.style.color = '#4a4a4a !important'
-    }
+    // var itemRef = document.querySelector('#' + listItem)
+    // if (ingredient.checked) {
+    //   itemRef.style.color = '#dbdbdb !important'
+    // } else {
+    //   itemRef.style.color = '#4a4a4a !important'
+    // }
+    // setSelectedRef(ingredient.name)
+    // console.log(ingredient.name)
 
+    let arr = []
+    formattedIngredients.forEach(elem => {
+      if (elem.name === ingredient.name) {
+        console.log('hit')
+        arr.push({
+          name: elem.name,
+          quantity: elem.quantity,
+          checked: !elem.checked
+        })
+      } else {
+        arr.push({
+          name: elem.name,
+          quantity: elem.quantity,
+          checked: elem.checked
+        })
+      }
+    })
+
+
+    setFormattedIngredients(arr)
     firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems').doc(ingredient.name).update({checked: !ingredient.checked});
 // var docRef = firebase.db.collection('users').doc(user.uid).collection('shoppingList').doc(mealPlanWeekRef).collection('listItems').doc(doc.ingredientName)
 
