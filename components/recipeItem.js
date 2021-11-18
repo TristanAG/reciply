@@ -9,6 +9,11 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
   const router = useRouter()
   const { user } = React.useContext(FirebaseContext)
 
+  console.log('recipe item')
+  console.log(recipe)
+
+
+
   function deleteRecipe(recipe) {
     firebase.db.collection('recipes').doc(recipe.id).delete().then(() => {
       console.log("Document successfully deleted!");
@@ -47,7 +52,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
         </div>
         {recipe.mainImage &&
           <div class="card-image">
-            <figure class="image is-4by3">
+            <figure class="image is-4by3" style={{ 'textAlign' : 'center' }}>
                <img src={recipe.mainImage} alt="Placeholder image" />
             </figure>
           </div>
@@ -61,9 +66,12 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
                 </div>
               </div>
             }
-            <span className="tag has-background-link-light">#vegan</span>
+            {recipe.tags && recipe.tags.map(tag => (
+              <span className="tag has-background-link-light">{'#' + tag}</span>
+            ))}
+            {/* <span className="tag has-background-link-light">#vegan</span>
             <span className="tag has-background-link-light">#italian</span>
-            <span className="tag has-background-link-light">#pasta</span>
+            <span className="tag has-background-link-light">#pasta</span> */}
           </div>
         </div>
       </div>
