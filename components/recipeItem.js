@@ -5,7 +5,7 @@ import { FirebaseContext } from '../firebase'
 import { useRouter } from 'next/router'
 
 
-function RecipeItem({ recipe, index, showCount, firebase }) {
+function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
   const router = useRouter()
   const { user } = React.useContext(FirebaseContext)
 
@@ -20,6 +20,11 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
     }).catch((error) => {
       console.error("Error removing document: ", error);
     });
+  }
+
+  function goToTag(tag) {
+    // alert(tag)
+    updateRecipeList(tag)
   }
 
   return(
@@ -37,7 +42,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
 
 
 
-      <Link href={'/' + recipe.slug} >
+      {/* <Link href={'/' + recipe.slug} > */}
       <div className="card">
         <div className="card-content">
           <p className="title is-4">{recipe.name}</p>
@@ -67,7 +72,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
               </div>
             }
             {recipe.tags && recipe.tags.map(tag => (
-              <span className="tag has-background-link-light">{'#' + tag}</span>
+              <span className="tag has-background-link-light" onClick={() => goToTag(tag)}>{'#' + tag}</span>
             ))}
             {/* <span className="tag has-background-link-light">#vegan</span>
             <span className="tag has-background-link-light">#italian</span>
@@ -75,7 +80,7 @@ function RecipeItem({ recipe, index, showCount, firebase }) {
           </div>
         </div>
       </div>
-      </Link>
+      {/* </Link> */}
 
 
       <style jsx>{`

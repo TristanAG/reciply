@@ -22,6 +22,15 @@ export default function RecipeList(props) {
     setRecipes(recipes)
   }
 
+  function updateRecipeList(tag) {
+    alert(tag)
+      // const recipesWithTags = firebase.db.collection('recipes').orderBy('created', 'desc').onSnapshot(handleSnapshot)
+    const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains", tag).orderBy('created', 'desc').onSnapshot(handleSnapshot)
+
+        // query(citiesRef, where("regions", "array-contains", "west_coast"));
+
+  }
+
   return (
     <div>
       {recipes && recipes.map((recipe, index) => (
@@ -31,6 +40,7 @@ export default function RecipeList(props) {
           recipe={recipe}
           index={index + 1}
           firebase={firebase}
+          updateRecipeList={updateRecipeList}
         />
       ))}
     </div>
