@@ -9,9 +9,7 @@ function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
   const router = useRouter()
   const { user } = React.useContext(FirebaseContext)
 
-  console.log('recipe item')
-  console.log(recipe)
-
+   
 
 
   function deleteRecipe(recipe) {
