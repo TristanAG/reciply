@@ -56,6 +56,7 @@ export default function Header({ title }) {
                     <span>Shopping List</span>
                   </a>
                 </Link>
+                
               {/* </div> */}
           {/* </center> */}
 

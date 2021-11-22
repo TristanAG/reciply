@@ -7,7 +7,7 @@ import TagWidget from './tagWidget'
 export default function RecipeList(props) {
   const { firebase } = React.useContext(FirebaseContext)
   const [recipes, setRecipes] = React.useState([])
-  const [tag, setTag] = React.useState('hello')
+  const [tag, setTag] = React.useState('')
 
   React.useEffect(() => {
     getRecipes()

@@ -3,7 +3,6 @@ import React from 'react'
 function tagWidget({ tag }) {
 
   React.useEffect(() => {
-    console.log('hello')
     setActiveTag(tag)
   }, [tag])
 
@@ -11,25 +10,18 @@ function tagWidget({ tag }) {
 
   return(
     <>
-      {/* {activeTag && <p>{activeTag}</p>} */}
-      {/* <p>tag widget</p> */}
+      <div style={{"width": "220px"}}><input className="input is-primary" type="text" placeholder="Primary input" style={{"max-width":"100%"}}/></div>
 
       <span>
-        {activeTag !== 'hello' &&
-
-          // <span className="tag is-warning is-medium">
-          //   #{activeTag}
-          //   <button className="delete is-small"></button>
-          // </span>
-
-          <div className="tags are-medium has-addons">
-            <span className="tag is-info">#{activeTag}</span>
-            <a className="tag is-delete"></a>
-          </div>
+        {activeTag !== '' &&
+          <>
+            <div className="tags are-medium has-addons">
+              <span className="tag has-background-link-light">#{activeTag}</span>
+              <a className="tag is-delete"></a>
+            </div>
+          </>
         }
       </span>
-
-
 
       <style jsx>{`
         .tag {

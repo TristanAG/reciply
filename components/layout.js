@@ -4,8 +4,8 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import Header from './header'
 
-// const name = '🌱 plantbase'
-// export const siteTitle = '🌱 plantbase'
+// const name = 'Plantbase'
+// export const siteTitle = 'Plantbase'
 
 const name = 'Reciply'
 export const siteTitle = 'Reciply'
@@ -41,13 +41,13 @@ export default function Layout({ children, home }) {
 
       <main>{children}</main>
 
-      {!home && (
+      {/* {!home && (
         <div className={styles.backToHome}>
           <Link href="/">
             <a>← Back to home</a>
           </Link>
         </div>
-      )}
+      )} */}
 
       <style jsx>{`
         main {

@@ -9,7 +9,7 @@ function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
   const router = useRouter()
   const { user } = React.useContext(FirebaseContext)
 
-   
+
 
 
   function deleteRecipe(recipe) {
@@ -102,9 +102,9 @@ function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
         .tag {
           margin-right: 8px;
         }
-
-
-
+        .tag:hover {
+          cursor: pointer;
+        }
       `}</style>
     </div>
   )
