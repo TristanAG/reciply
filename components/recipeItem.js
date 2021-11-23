@@ -21,7 +21,6 @@ function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
   }
 
   function goToTag(tag) {
-    // alert(tag)
     updateRecipeList(tag)
   }
 

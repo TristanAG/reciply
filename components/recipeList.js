@@ -7,7 +7,7 @@ import TagWidget from './tagWidget'
 export default function RecipeList(props) {
   const { firebase } = React.useContext(FirebaseContext)
   const [recipes, setRecipes] = React.useState([])
-  const [tag, setTag] = React.useState(null)
+  const [tag, setTag] = React.useState('')
 
   React.useEffect(() => {
     getRecipes()
@@ -25,7 +25,7 @@ export default function RecipeList(props) {
   }
 
   function updateRecipeList(tag) {
-    const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains", tag).orderBy('created', 'desc').onSnapshot(handleSnapshot)
+    // const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains", tag).orderBy('created', 'desc').onSnapshot(handleSnapshot)
     window.scrollTo(0,0);
     setTag(tag)
   }

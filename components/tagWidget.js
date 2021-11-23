@@ -5,42 +5,31 @@ function tagWidget({ tag }) {
   const [ tags, setTags ] = React.useState([])
 
   React.useEffect(() => {
-    // setActiveTag(tag)
-
-    console.log('running...')
-    let newTags = tags
+    let newTags = []
     newTags.push(tag)
-    // console.log(newTags)
+    let fixedTags = newTags.concat(tags)
 
-    //ok i gotta filter out all the empty values... that's the issue here
-    //im pushing on a blank value, so nothing is outputting
-    newTags.forEach(elem => {
-      console.log('elem: ' + elem)
-    })
+    if (newTags.length >= 1) {
+      setTags(fixedTags)
+    }
 
-    // console.log('newTags: ' + newTags)
-
-    // newTags.push(tag)
-    setTags(newTags)
-    // setTags()
-    // console.log(newTags)
   }, [tag])
 
 
   return(
     <>
       <div style={{"width": "220px"}}><input className="input is-primary" type="text" placeholder="Primary input" style={{"max-width":"100%"}}/></div>
-
+      <b>{tags.length}</b>
       <span>
         <div className="tags are-medium has-addons">
-          {tags && tags.map(tag => {
+          {tags.length > 1 && tags.map(tag => (
             <>
-              {/* {console.log(tag)} */}
-              <p>{tag}</p>
-              <span className="tag has-background-link-light">#{tag}</span>
-              <a className="tag is-delete"></a>
+              <span className="tag has-background-link-light">{tag}</span>
+              <a className="tag is-delete"></a>&nbsp;&nbsp;
+              {/* <p>hello</p> */}
             </>
-          })}
+          ))}
+
         </div>
       </span>
 
