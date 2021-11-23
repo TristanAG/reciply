@@ -9,9 +9,17 @@ function tagWidget({ tag }) {
     newTags.push(tag)
     let fixedTags = newTags.concat(tags)
 
+    if (fixedTags[0] === 'default') {
+      console.log('thsi is the default element')
+      console.log(fixedTags)
+      fixedTags.shift()
+      console.log(fixedTags)
+    }
+
     if (newTags.length >= 1) {
       setTags(fixedTags)
     }
+
 
   }, [tag])
 
@@ -22,7 +30,7 @@ function tagWidget({ tag }) {
       <b>{tags.length}</b>
       <span>
         <div className="tags are-medium has-addons">
-          {tags.length > 1 && tags.map(tag => (
+          {tags && tags.map(tag => (
             <>
               <span className="tag has-background-link-light">{tag}</span>
               <a className="tag is-delete"></a>&nbsp;&nbsp;
