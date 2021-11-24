@@ -25,7 +25,7 @@ export default function RecipeList(props) {
   }
 
   function updateRecipeList(tag) {
-    // const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains", tag).orderBy('created', 'desc').onSnapshot(handleSnapshot)
+    const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains", tag).orderBy('created', 'desc').onSnapshot(handleSnapshot)
     window.scrollTo(0,0);
     setTag(tag)
   }
