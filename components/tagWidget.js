@@ -1,6 +1,6 @@
 import React from 'react'
 
-function tagWidget({ tag }) {
+function tagWidget({ tag, updateRecipeListMulti }) {
 
   const [ tags, setTags ] = React.useState([])
 
@@ -12,11 +12,16 @@ function tagWidget({ tag }) {
     //for initial element
     if (fixedTags[0] === 'default') {
       fixedTags.shift()
+    } else {
+      updateRecipeListMulti(fixedTags)
     }
 
     if (newTags.length >= 1) {
       setTags(fixedTags)
     }
+
+
+
 
   }, [tag])
 
