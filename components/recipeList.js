@@ -24,7 +24,8 @@ export default function RecipeList(props) {
     setRecipes(recipes)
   }
 
-  function updateRecipeList(tag) {
+  function updateTags(tag) {
+    alert('in update recipe list')
 
     //change to array-contains-any
     //limit of 10 tags then
@@ -35,14 +36,14 @@ export default function RecipeList(props) {
     setTag(tag)
   }
 
-  function updateRecipeListMulti(tags) {
+  function updateRecipeList(tags) {
     console.log('tags: ' + tags)
     const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains-any", tags).orderBy('created', 'desc').onSnapshot(handleSnapshot)
   }
 
   return (
     <>
-      <TagWidget tag={tag} updateRecipeListMulti={updateRecipeListMulti} />
+      <TagWidget tag={tag} updateRecipeList={updateRecipeList} />
       <div>
         {recipes && recipes.map((recipe, index) => (
           <RecipeItem
@@ -51,7 +52,7 @@ export default function RecipeList(props) {
             recipe={recipe}
             index={index + 1}
             firebase={firebase}
-            updateRecipeList={updateRecipeList}
+            updateTags={updateTags}
 
           />
         ))}

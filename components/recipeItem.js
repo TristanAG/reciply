@@ -5,7 +5,7 @@ import { FirebaseContext } from '../firebase'
 import { useRouter } from 'next/router'
 
 
-function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
+function RecipeItem({ recipe, index, showCount, firebase, updateTags }) {
   const router = useRouter()
   const { user } = React.useContext(FirebaseContext)
 
@@ -21,25 +21,11 @@ function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
   }
 
   function goToTag(tag) {
-    updateRecipeList(tag)
+    updateTags(tag)
   }
 
   return(
     <div className="test">
-
-      {/* <p className="has-text-dark">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</p>
-      <p>{recipe.mainImage && <img src={recipe.mainImage} alt={recipe.name} className="thumbnail" />}</p>
-      <p>
-        <Link href={'/' + recipe.slug} >
-          <a className="link">{recipe.name}</a>
-        </Link>
-      </p>
-
-      <small>{format(recipe.created, 'MMMM Mo yyyy')}</small> */}
-
-
-
-      {/* <Link href={'/' + recipe.slug} > */}
       <div className="card">
         <div className="card-content">
           <p className="title is-4">{recipe.name}</p>
@@ -47,7 +33,6 @@ function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
             <Link href={'/' + recipe.slug} >
               <a className="link">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</a>
             </Link>
-            {/* @{recipe.postedBy.name.split(' ').join('').toLowerCase()} */}
             <br/><small><time datetime="2016-1-1">{format(recipe.created, 'MMMM do yyyy')}</time></small>
           </p>
 
@@ -71,14 +56,9 @@ function RecipeItem({ recipe, index, showCount, firebase, updateRecipeList }) {
             {recipe.tags && recipe.tags.map(tag => (
               <span className="tag has-background-link-light" onClick={() => goToTag(tag)}>{'#' + tag}</span>
             ))}
-            {/* <span className="tag has-background-link-light">#vegan</span>
-            <span className="tag has-background-link-light">#italian</span>
-            <span className="tag has-background-link-light">#pasta</span> */}
           </div>
         </div>
       </div>
-      {/* </Link> */}
-
 
       <style jsx>{`
         .edit-button:hover {
