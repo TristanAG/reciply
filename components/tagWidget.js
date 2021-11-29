@@ -12,19 +12,22 @@ function tagWidget({ tag, updateRecipeList }) {
     if (newTags[0] === 'default') {
       newTags.shift()
     } else {
-      updateRecipeList(newTags)
-    }
 
-    if (newTags.length >= 1) {
+      //so here, for newTags.length i will be looping through
+      //i will potentially want to extrapolate this out into its own function for the sake of cleanliness
+      //well, i suppose i have that already with updateRecipeList, in a different component, the recipeList
+      //that's cool, i guess that makes sense to transform the data there
+
+      updateRecipeList(newTags)
       setTags(newTags)
     }
-    
+
   }, [tag])
 
 
   return(
     <>
-      <div style={{"width": "220px"}}><input className="input is-primary" type="text" placeholder="Primary input" style={{"max-width":"100%"}}/></div>
+      <div style={{"width": "220px"}}><input className="input is-primary" type="text" placeholder="Recipe, Cuisine, Ingredient" style={{"max-width":"100%"}}/></div>
       <span>
         <div className="tags are-medium has-addons">
           {tags && tags.map(tag => (
@@ -33,7 +36,6 @@ function tagWidget({ tag, updateRecipeList }) {
               <a className="tag is-delete"></a>&nbsp;&nbsp;
             </>
           ))}
-
         </div>
       </span>
 
