@@ -5,8 +5,8 @@ function tagWidget({ tags }) {
   const [ activeTags, setActiveTags ] = React.useState([])
 
   React.useEffect(() => {
-    console.log('in tag widget with tags: ')
-    console.log(tags)
+    // console.log('in tag widget with tags: ')
+    // console.log(tags)
     setActiveTags(tags)
   }, [tags])
 

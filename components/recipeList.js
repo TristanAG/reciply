@@ -26,18 +26,19 @@ export default function RecipeList(props) {
   }
 
   function updateTags(tag) {
-    console.log('in update tags:')
-    console.log(tag)
-    // var newArr = [tags]
+
+    // var newArr = tags
     // newArr.push(tag)
     // setProto(newArr)
+    
 
     setTags([...tags, tag])
+    updateRecipeList([...tags, tag])
 
   }
 
   function updateRecipeList(tags) {
-    setActiveTags(tags)
+    console.log(tags)
     // const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains-any", tags).orderBy('created', 'desc').onSnapshot(handleSnapshot)
     // firebase.db.collection('recipes').where("tags", "array-contains-any", tags).orderBy('created', 'desc').onSnapshot(handleSnapshot)
     console.log('🚨 🚨 🚨 pause query 🚨 🚨 🚨')
