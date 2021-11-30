@@ -9,9 +9,6 @@ function RecipeItem({ recipe, index, showCount, firebase, updateTags }) {
   const router = useRouter()
   const { user } = React.useContext(FirebaseContext)
 
-
-
-
   function deleteRecipe(recipe) {
     firebase.db.collection('recipes').doc(recipe.id).delete().then(() => {
       console.log("Document successfully deleted!");

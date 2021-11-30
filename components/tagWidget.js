@@ -5,31 +5,8 @@ function tagWidget({ tags }) {
   const [ activeTags, setActiveTags ] = React.useState([])
 
   React.useEffect(() => {
-    // console.log('in tag widget with tags: ')
-    // console.log(tags)
     setActiveTags(tags)
   }, [tags])
-
-  // React.useEffect(() => {
-  //   let newTags = tags
-  //   newTags.push(tag)
-  //
-  //   //for initial element
-  //   if (newTags[0] === 'default') {
-  //     newTags.shift()
-  //   } else {
-  //
-  //     //so here, for newTags.length i will be looping through
-  //     //i will potentially want to extrapolate this out into its own function for the sake of cleanliness
-  //     //well, i suppose i have that already with updateRecipeList, in a different component, the recipeList
-  //     //that's cool, i guess that makes sense to transform the data there
-  //
-  //     updateRecipeList(newTags)
-  //     setTags(newTags)
-  //   }
-  //
-  // }, [tag])
-
 
   return(
     <>
