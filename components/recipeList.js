@@ -7,41 +7,46 @@ import TagWidget from './tagWidget'
 export default function RecipeList(props) {
   const { firebase } = React.useContext(FirebaseContext)
   const [recipes, setRecipes] = React.useState([])
-  const [tag, setTag] = React.useState('default')
-  const [activeTags, setActiveTags] = React.useState([])
+  // const [tag, setTag] = React.useState('default')
+  const [tags, setTags] = React.useState([])
 
   React.useEffect(() => {
     getRecipes()
   }, [])
 
   function getRecipes() {
-    alert('cool')
     const theRecipes = firebase.db.collection('recipes').orderBy('created', 'desc').onSnapshot(handleSnapshot)
   }
 
   function handleSnapshot(snapshot) {
-
-    //so HERE it will need to all be worked out
-    //when creating the recipes array i gotta
-
     const recipes = snapshot.docs.map(doc => {
-      // console.log(doc.data().tags)
-      // if (doc.data().)
       return { id: doc.id, ...doc.data() }
     })
-
-
     setRecipes(recipes)
   }
 
   function updateTags(tag) {
-    setTag(tag)
+    console.log('in update tags:')
+    console.log(tag)
+    // var newArr = [tags]
+    // newArr.push(tag)
+    // setProto(newArr)
+
+    setTags([...tags, tag])
+
   }
 
   function updateRecipeList(tags) {
     setActiveTags(tags)
     // const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains-any", tags).orderBy('created', 'desc').onSnapshot(handleSnapshot)
-    const recipesWithTags = firebase.db.collection('recipes').where("tags", "array-contains-any", tags).orderBy('created', 'desc').onSnapshot(handleSnapshot)
+    // firebase.db.collection('recipes').where("tags", "array-contains-any", tags).orderBy('created', 'desc').onSnapshot(handleSnapshot)
+    console.log('🚨 🚨 🚨 pause query 🚨 🚨 🚨')
+    // firebase.db.collection('recipes').where("tags", "array-contains-any", tags).get().then((querySnapshot) => {
+    //   querySnapshot.forEach((doc) => {
+    //     console.log(doc.data())
+    //   })
+    // })
+
 
     //maybe i don't need to use the snapshot... that's an idea
 
@@ -50,7 +55,11 @@ export default function RecipeList(props) {
 
   return (
     <>
-      <TagWidget tag={tag} updateRecipeList={updateRecipeList} />
+      <TagWidget tags={tags} />
+      {/* {tags.map(tag => (
+        <p>{tag}</p>
+      ))} */}
+
       <div>
         {recipes && recipes.map((recipe, index) => (
           <RecipeItem
