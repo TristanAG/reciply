@@ -25,8 +25,13 @@ export default function RecipeList(props) {
   }
 
   function updateTags(tag) {
-    setTags([...tags, tag])
-    updateRecipeList([...tags, tag])
+    if (!tags.includes(tag)) {
+      setTags([...tags, tag])
+      updateRecipeList([...tags, tag])
+    } else {
+      alert('you already have that tag')
+    }
+
   }
 
   function updateRecipeList(tags) {
