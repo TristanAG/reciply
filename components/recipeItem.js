@@ -30,13 +30,13 @@ function RecipeItem({ recipe, index, showCount, firebase, updateTags }) {
             <Link href={'/' + recipe.slug} >
               <a className="link">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</a>
             </Link>
-            <br/><small><time datetime="2016-1-1">{format(recipe.created, 'MMMM do yyyy')}</time></small>
+            <br/><small><time dateTime="2016-1-1">{format(recipe.created, 'MMMM do yyyy')}</time></small>
           </p>
 
         </div>
         {recipe.mainImage &&
-          <div class="card-image">
-            <figure class="image is-4by3" style={{ 'textAlign' : 'center' }}>
+          <div className="card-image">
+            <figure className="is-4by3" style={{ 'textAlign' : 'center' }}>
                <img src={recipe.mainImage} alt="Placeholder image" />
             </figure>
           </div>
@@ -51,7 +51,7 @@ function RecipeItem({ recipe, index, showCount, firebase, updateTags }) {
               </div>
             }
             {recipe.tags && recipe.tags.map(tag => (
-              <span className="tag has-background-link-light" onClick={() => goToTag(tag)}>{'#' + tag}</span>
+              <span key={tag} className="tag has-background-link-light" onClick={() => goToTag(tag)}>{'#' + tag}</span>
             ))}
           </div>
         </div>

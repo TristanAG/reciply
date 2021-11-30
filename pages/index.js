@@ -44,19 +44,12 @@ export default function Home({ allPostsData }) {
       </Head>
 
       <div className="container">
-
-        <section class="section all-recipes">
-          <div class="container">
-              {/* <p class="subtitle">
-                All Recipes
-
-              </p> */}
+        <section className="section all-recipes">
+          <div className="container">
             <RecipeList listContext={"all"}/>
           </div>
         </section>
-
       </div>
-
     </Layout>
   )
 }
