@@ -12,7 +12,6 @@ export default function RecipeList(props) {
   const [baseQuery, setBaseQuery] = React.useState(null)
   const [modal, setModal] = React.useState(false)
 
-
   React.useEffect(() => {
     getRecipes()
   }, [])
@@ -26,20 +25,10 @@ export default function RecipeList(props) {
       return { id: doc.id, ...doc.data() }
     })
     setRecipes(recipes)
-    console.log('handleSnapshot')
-    console.log('baseResults: ')
-    console.log(baseResults.length)
 
     if (baseResults.length === 0) {
-      console.log('executed')
       setBaseResults(recipes)
     }
-    //will this work? need to test
-    // if (baseResults === []) {
-    //   console.log('setting base results')
-    //   setBaseResults(recipes)
-    // }
-
   }
 
   function updateTags(tag) {
@@ -52,23 +41,17 @@ export default function RecipeList(props) {
   }
 
   function updateRecipeList(activeTags) {
-    // console.log('in updaterecipelist, activeTags: ')
-    // console.log(activeTags)
     if (activeTags.length === 1) {
       if (baseQuery === null) {
         //set baseQuery
         setBaseQuery(activeTags[0])
-      } else if (activeTags[0] === baseQuery) {
-        //its the same ... so don't do anything
       }
       firebase.db.collection('recipes').where("tags", "array-contains", activeTags[0]).orderBy('created', 'desc').onSnapshot(handleSnapshot)
     } else if (activeTags.length === 0) {
-      alert('no tags dawg')
       setRecipes([...baseResults])
       setBaseQuery(null)
       setRecipes(baseResults)
     } else {
-      alert('im running right?')
       let filteredRecipes = []
       recipes.forEach(recipe => {
         if (recipe.tags.includes(activeTags[activeTags.length - 1])) {
@@ -81,7 +64,6 @@ export default function RecipeList(props) {
   }
 
   function handleRemoveTag(tag) {
-    // console.log(tags)
 
     let filteredTags = []
     tags.forEach((t) => {
@@ -90,12 +72,8 @@ export default function RecipeList(props) {
       }
     })
 
-    // console.log(filteredTags)
-
     setTags(filteredTags)
     updateRecipeList(filteredTags)
-
-
   }
 
   return (
@@ -119,8 +97,6 @@ export default function RecipeList(props) {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
         </div>
       </article> */}
-      {/* {console.log('baseResults: ')}
-      {console.log(baseResults)} */}
       <TagWidget tags={tags} handleRemoveTag={handleRemoveTag} />
       <div>
         {recipes && recipes.map((recipe, index) => (
