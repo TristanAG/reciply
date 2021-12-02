@@ -1,12 +1,13 @@
 import React from 'react'
 
-function tagWidget({ tags }) {
+function tagWidget({ tags, handleRemoveTag }) {
 
   const [ activeTags, setActiveTags ] = React.useState([])
 
   React.useEffect(() => {
     setActiveTags(tags)
   }, [tags])
+
 
   return(
     <div className="tag-widget">
@@ -16,7 +17,7 @@ function tagWidget({ tags }) {
           {activeTags && activeTags.map(tag => (
             <React.Fragment key={tag}>
               <span className="tag has-background-link-light">{tag}</span>
-              <a className="tag is-delete"></a>&nbsp;&nbsp;
+              <a className="tag is-delete" onClick={() => handleRemoveTag(tag)}></a>&nbsp;&nbsp;
             </React.Fragment>
           ))}
         </div>
