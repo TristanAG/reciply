@@ -12,6 +12,7 @@ export default function RecipeList(props) {
   const [baseQuery, setBaseQuery] = React.useState(null)
   const [modal, setModal] = React.useState(false)
 
+
   React.useEffect(() => {
     getRecipes()
   }, [])
@@ -21,12 +22,24 @@ export default function RecipeList(props) {
   }
 
   function handleSnapshot(snapshot) {
-    alert('snapshot executes')
     const recipes = snapshot.docs.map(doc => {
       return { id: doc.id, ...doc.data() }
     })
     setRecipes(recipes)
-    setBaseResults(recipes)
+    console.log('handleSnapshot')
+    console.log('baseResults: ')
+    console.log(baseResults.length)
+
+    if (baseResults.length === 0) {
+      console.log('executed')
+      setBaseResults(recipes)
+    }
+    //will this work? need to test
+    // if (baseResults === []) {
+    //   console.log('setting base results')
+    //   setBaseResults(recipes)
+    // }
+
   }
 
   function updateTags(tag) {
@@ -53,10 +66,11 @@ export default function RecipeList(props) {
       alert('no tags dawg')
       setRecipes([...baseResults])
       setBaseQuery(null)
+      setRecipes(baseResults)
     } else {
       alert('im running right?')
       let filteredRecipes = []
-      baseResults.forEach(recipe => {
+      recipes.forEach(recipe => {
         if (recipe.tags.includes(activeTags[activeTags.length - 1])) {
           filteredRecipes.push(recipe)
         }
@@ -105,8 +119,8 @@ export default function RecipeList(props) {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
         </div>
       </article> */}
-      {console.log('baseResults: ')}
-      {console.log(baseResults)}
+      {/* {console.log('baseResults: ')}
+      {console.log(baseResults)} */}
       <TagWidget tags={tags} handleRemoveTag={handleRemoveTag} />
       <div>
         {recipes && recipes.map((recipe, index) => (
