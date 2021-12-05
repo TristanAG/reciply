@@ -41,27 +41,30 @@ export default function RecipeList(props) {
   }
 
   function updateRecipeList(activeTags) {
-    if (activeTags.length === 1) {
-      if (baseQuery === null) {
-        //set baseQuery
-        setBaseQuery(activeTags[0])
-      }
-      firebase.db.collection('recipes').where("tags", "array-contains", activeTags[0]).orderBy('created', 'desc').onSnapshot(handleSnapshot)
-    } else if (activeTags.length === 0) {
-      setRecipes([...baseResults])
-      setBaseQuery(null)
-      setRecipes(baseResults)
-    } else {
-      let filteredRecipes = []
-      recipes.forEach(recipe => {
-        if (recipe.tags.includes(activeTags[activeTags.length - 1])) {
-          filteredRecipes.push(recipe)
+    switch (activeTags.length) {
+      case 0:
+        setRecipes(baseResults)
+        setBaseQuery(null)
+        setRecipes(baseResults)
+        break;
+      case 1:
+        if (baseQuery === null) {
+          setBaseQuery(activeTags[0])
         }
-      })
-      setRecipes(filteredRecipes)
+        firebase.db.collection('recipes').where("tags", "array-contains", activeTags[0]).orderBy('created', 'desc').onSnapshot(handleSnapshot)
+        break;
+      default:
+        let filteredRecipes = []
+        recipes.forEach(recipe => {
+          if (recipe.tags.includes(activeTags[activeTags.length - 1])) {
+            filteredRecipes.push(recipe)
+          }
+        })
+        setRecipes(filteredRecipes)
     }
     window.scrollTo(0,0)
   }
+
 
   function handleRemoveTag(tag) {
 
