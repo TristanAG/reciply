@@ -1,6 +1,6 @@
 import React from 'react'
 
-function tagWidget({ tags, handleRemoveTag }) {
+function tagWidget({ tags, handleRemoveTag, updateTags }) {
 
   const [ activeTags, setActiveTags ] = React.useState([])
   const [ hasInput, setHasInput ] = React.useState(false)
@@ -11,40 +11,32 @@ function tagWidget({ tags, handleRemoveTag }) {
   }, [tags])
 
   function handleInput(event) {
-    // event.persist()
-
-
-
     setInputText(event.target.value)
+  }
 
-
-    // setValues(previousValues => ({
-    //   ...previousValues,
-    //   [event.target.name]: event.target.value
-    // }))
+  function handleQuery() {
+    updateTags(inputText)
+    setInputText('')
   }
 
 
   return(
     <div className="tag-widget">
       <div className="text-input control has-icons-right">
-        <input className="input is-primary" type="text" onChange={handleInput} value={inputText} placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient" style={{"maxWidth":"100%"}}/>
+        <input
+          className="input is-primary"
+          type="text"
+          onChange={handleInput}
+          value={inputText}
+          placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
+          style={{"maxWidth":"100%"}}
+        />
         <span className="icon is-small is-right">
           <i className="fas fa-check"></i>
         </span>
       </div>
 
-      {/* alright, so search can work as follows: when text input is empty state is noText === true or something like that
-        and as soon as you enter some text, set noText to false (whatever i call it) and then we will add the class is-primary to make the button appear to be searchable
-
-        and also building that sorta text slider that shows examples of queries... cycles through them
-        how can i truly do that in a clever way that makes it really stand out?
-
-         */}
-
-      {/* <button className="button is-primary">Search</button> */}
-      <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true}>Search</button>
-
+      <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true} onClick={() => handleQuery()}>Search</button>
 
       <div className="tags are-medium has-addons">
         {activeTags && activeTags.map(tag => (
