@@ -3,16 +3,32 @@ import React from 'react'
 function tagWidget({ tags, handleRemoveTag }) {
 
   const [ activeTags, setActiveTags ] = React.useState([])
+  const [ hasInput, setHasInput ] = React.useState(false)
+  const [ inputText, setInputText ] = React.useState('')
 
   React.useEffect(() => {
     setActiveTags(tags)
   }, [tags])
 
+  function handleInput(event) {
+    // event.persist()
+
+
+
+    setInputText(event.target.value)
+
+
+    // setValues(previousValues => ({
+    //   ...previousValues,
+    //   [event.target.name]: event.target.value
+    // }))
+  }
+
 
   return(
     <div className="tag-widget">
       <div className="text-input control has-icons-right">
-        <input className="input is-primary" type="text" placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient" style={{"maxWidth":"100%"}}/>
+        <input className="input is-primary" type="text" onChange={handleInput} value={inputText} placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient" style={{"maxWidth":"100%"}}/>
         <span className="icon is-small is-right">
           <i className="fas fa-check"></i>
         </span>
@@ -26,7 +42,8 @@ function tagWidget({ tags, handleRemoveTag }) {
 
          */}
 
-      <button className="button is-primary">Search</button>
+      {/* <button className="button is-primary">Search</button> */}
+      <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true}>Search</button>
 
 
       <div className="tags are-medium has-addons">

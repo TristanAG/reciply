@@ -42,18 +42,18 @@ export default function RecipeList(props) {
 
   function updateRecipeList(activeTags) {
     switch (activeTags.length) {
-      case 0:
+      case 0: //init
         setRecipes(baseResults)
         setBaseQuery(null)
         setRecipes(baseResults)
         break;
-      case 1:
+      case 1: //initial query
         if (baseQuery === null) {
           setBaseQuery(activeTags[0])
         }
         firebase.db.collection('recipes').where("tags", "array-contains", activeTags[0]).orderBy('created', 'desc').onSnapshot(handleSnapshot)
         break;
-      default:
+      default: //every other query > 1
         let filteredRecipes = []
         recipes.forEach(recipe => {
           if (recipe.tags.includes(activeTags[activeTags.length - 1])) {
