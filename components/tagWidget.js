@@ -15,7 +15,14 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
   }
 
   function handleQuery() {
-    updateTags(inputText)
+
+    let tagGroup = inputText.split(' ')
+    if (tagGroup.length >= 2) {
+      updateTags(null, tagGroup)
+    } else {
+      updateTags(inputText)
+    }
+
     setInputText('')
   }
 
