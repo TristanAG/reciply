@@ -14,7 +14,8 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
     setInputText(event.target.value)
   }
 
-  function handleQuery() {
+  function handleSubmit(e) {
+    e.preventDefault()
 
     let tagGroup = inputText.split(' ')
     if (tagGroup.length >= 2) {
@@ -29,21 +30,25 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
 
   return(
     <div className="tag-widget">
-      <div className="text-input control has-icons-right">
-        <input
-          className="input is-primary"
-          type="text"
-          onChange={handleInput}
-          value={inputText}
-          placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
-          style={{"maxWidth":"100%"}}
-        />
-        <span className="icon is-small is-right">
-          <i className="fas fa-check"></i>
-        </span>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <div className="text-input control has-icons-right">
+          <input
+            className="input is-primary"
+            type="text"
+            onChange={handleInput}
+            value={inputText}
+            placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
+            style={{"maxWidth":"100%"}}
+          />
+          <span className="icon is-small is-right">
+            <i className="fas fa-check"></i>
+          </span>
+        </div>
 
-      <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true} onClick={() => handleQuery()}>Search</button>
+        <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true} >Search</button>
+      </form>
+
+
 
       <div className="tags are-medium has-addons">
         {activeTags && activeTags.map(tag => (
