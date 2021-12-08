@@ -32,8 +32,6 @@ export default function RecipeList(props) {
   }
 
   function updateTags(tag, tagGroup) {
-
-
     if (tagGroup === undefined) {
       if (!tags.includes(tag)) {
         setTags([...tags, tag])
@@ -42,30 +40,17 @@ export default function RecipeList(props) {
         alert('you already have that tag')
       }
     } else {
-      alert('dealing with a group here')
 
       let currentTags = tags
       const result = currentTags.concat(tagGroup)
-
-      console.log(result)
       setTags(result)
-
-      //hmmmm
       updateRecipeList(result)
     }
-
-
-
   }
 
   function updateRecipeList(activeTags) {
-    console.log('update recipe list')
-    console.log(activeTags)
     switch (activeTags.length) {
       case 0: //init
-
-        //need to create some control flow here to
-
         setRecipes(baseResults)
         setBaseQuery(null)
         setRecipes(baseResults)
@@ -77,17 +62,7 @@ export default function RecipeList(props) {
         firebase.db.collection('recipes').where("tags", "array-contains", activeTags[0]).orderBy('created', 'desc').onSnapshot(handleSnapshot)
         break;
       default: //every other query > 1
-
-        // console.log('in default case')
-        // console.log(activeTags)
-        // console.log('recipes')
-        // console.log(recipes)
-        // i think it's something in here that i need to handle for multiple tags
-        // it's like, its cotta loop through specifically the new tags, and something im doing here isn't allowing that to happen
-        //ok!
-
         if (baseQuery === null) {
-          alert('new base query in default case')
           setBaseQuery(activeTags[0])
           firebase.db.collection('recipes').where("tags", "array-contains-any", activeTags).orderBy('created', 'desc').onSnapshot(handleSnapshot)
         } else {
@@ -99,8 +74,6 @@ export default function RecipeList(props) {
           })
           setRecipes(filteredRecipes)
         }
-
-
     }
     window.scrollTo(0,0)
   }
