@@ -24,6 +24,9 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   const [ ingredientFields, setIngredientFields ] = useState([{ ingredientName: '', ingredientQuantity: '' }])
   const [ stepFields, setStepFields ] = useState([{ stepContent: '' }])
+  const [ tags, setTags ] = useState([])
+  const [ hasInput, setHasInput ] = React.useState(false)
+  const [ inputText, setInputText ] = React.useState('')
 
   const [ mainImage, setMainImage ] = useState(null)
 
@@ -87,6 +90,11 @@ export default function RecipeForm({ mode, recipe, id }) {
     setStepFields(values);
   };
 
+  function handleAddTag() {
+
+
+  }
+
   function handleCreateRecipe() {
     const { name, source, sourceUrl, imageSource, imageSourceUrl, description, steps } = values
 
@@ -99,6 +107,7 @@ export default function RecipeForm({ mode, recipe, id }) {
       description,
       steps: stepFields,
       ingredients: ingredientFields,
+      tags: tags,
       postedBy: {
         id: user.uid,
         name: user.displayName
@@ -144,6 +153,10 @@ export default function RecipeForm({ mode, recipe, id }) {
     // })
   }
 
+  function handleInput(event) {
+    setInputText(event.target.value)
+  }
+
   return (
     <>
       {/* <div className="columns">
@@ -179,6 +192,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                   <li className={activeTab === 'recipe' && 'is-active'} onClick={() => setActiveTab('recipe')}><a>recipe</a></li>
                   <li className={activeTab === 'ingredients' && 'is-active'} onClick={() => setActiveTab('ingredients')}><a>ingredients</a></li>
                   <li className={activeTab === 'steps' && 'is-active'} onClick={() => setActiveTab('steps')}><a>steps</a></li>
+                  <li className={activeTab === 'steps' && 'is-active'} onClick={() => setActiveTab('tags')}><a>tags</a></li>
                 </ul>
               </div>
 
@@ -390,6 +404,45 @@ export default function RecipeForm({ mode, recipe, id }) {
                     <div className="has-text-right">
                       <div className="button add-ingredient-button is-primary" onClick={() => handleAddStepFields()}>Add Step</div>
                     </div>
+                  </>
+                }
+
+                {activeTab === 'tags' &&
+                  <>
+                    <div className="content">
+                      <h4>Tags</h4>
+                    </div>
+                    <p><i>Note: Add relevant tags to help your recipe get discovered</i></p>
+
+
+                      <div className="text-input control has-icons-right">
+                        <input
+                          className="input is-primary"
+                          type="text"
+                          onChange={handleInput}
+                          value={inputText}
+                          placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
+                          style={{"width":"220px"}}
+                        />
+                        <span className="icon is-small is-right">
+                          <i className="fas fa-check"></i>
+                        </span>
+                      </div>
+
+                      <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true} >Add Tag</button>
+
+
+                    <div>
+                      {tags.map(tag => (
+                        <div key={`${tag}`} >
+                          <p>{tag}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* <div className="has-text-right">
+                      <div className="button add-tag-button is-primary" onClick={() => handleAddTag()}>Add Tag</div>
+                    </div> */}
                   </>
                 }
 
