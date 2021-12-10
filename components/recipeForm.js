@@ -90,11 +90,6 @@ export default function RecipeForm({ mode, recipe, id }) {
     setStepFields(values);
   };
 
-  function handleAddTag() {
-
-
-  }
-
   function handleCreateRecipe() {
     const { name, source, sourceUrl, imageSource, imageSourceUrl, description, steps } = values
 
@@ -157,6 +152,51 @@ export default function RecipeForm({ mode, recipe, id }) {
     setInputText(event.target.value)
   }
 
+  function handleAddTag() {
+    // alert(inputText)
+    // let currentTags = tags
+    // // const result = currentTags.concat(tagGroup)
+    // // console.log(result)
+
+    let tagGroup = inputText.split(' ')
+    if (tagGroup.length >= 2) {
+      updateTags(null, tagGroup)
+    } else {
+      updateTags(inputText)
+    }
+
+    setInputText('')
+  }
+
+  function updateTags(tag, tagGroup) {
+    if (tagGroup === undefined) {
+      if (!tags.includes(tag)) {
+        setTags([...tags, tag])
+        // updateRecipeList([...tags, tag])
+      } else {
+        alert('you already have that tag')
+      }
+    } else {
+
+      let currentTags = tags
+      const result = currentTags.concat(tagGroup)
+      setTags(result)
+      // updateRecipeList(result)
+    }
+  }
+
+  function handleRemoveTag(tag) {
+
+    let filteredTags = []
+    tags.forEach((t) => {
+      if (t !== tag) {
+        filteredTags.push(t)
+      }
+    })
+
+    setTags(filteredTags)
+  }
+
   return (
     <>
       {/* <div className="columns">
@@ -192,7 +232,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                   <li className={activeTab === 'recipe' && 'is-active'} onClick={() => setActiveTab('recipe')}><a>recipe</a></li>
                   <li className={activeTab === 'ingredients' && 'is-active'} onClick={() => setActiveTab('ingredients')}><a>ingredients</a></li>
                   <li className={activeTab === 'steps' && 'is-active'} onClick={() => setActiveTab('steps')}><a>steps</a></li>
-                  <li className={activeTab === 'steps' && 'is-active'} onClick={() => setActiveTab('tags')}><a>tags</a></li>
+                  <li className={activeTab === 'tags' && 'is-active'} onClick={() => setActiveTab('tags')}><a>tags</a></li>
                 </ul>
               </div>
 
@@ -413,30 +453,42 @@ export default function RecipeForm({ mode, recipe, id }) {
                       <h4>Tags</h4>
                     </div>
                     <p><i>Note: Add relevant tags to help your recipe get discovered</i></p>
+                    <div style={{"color":"purple"}}>{tags.length}</div>
+                    <div className="text-input control has-icons-right" style={{"width":"300px"}}>
+                      <input
+                        className="input is-primary"
+                        type="text"
+                        onChange={handleInput}
+                        value={inputText}
+                        placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
+                      />
+                      <span className="icon is-small is-right">
+                        <i className="fas fa-check"></i>
+                      </span>
+                    </div>
 
+                    <button
+                      className={inputText.length >= 1 ? "button is-primary" : "button disabled" }
+                      disabled={inputText.length >= 1 ? false : true}
+                      onClick={handleAddTag}
+                      style={{"marginLeft":"27px"}}>
+                        Add Tag
+                    </button>
 
-                      <div className="text-input control has-icons-right">
-                        <input
-                          className="input is-primary"
-                          type="text"
-                          onChange={handleInput}
-                          value={inputText}
-                          placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
-                          style={{"width":"220px"}}
-                        />
-                        <span className="icon is-small is-right">
-                          <i className="fas fa-check"></i>
-                        </span>
-                      </div>
-
-                      <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true} >Add Tag</button>
-
-
-                    <div>
+                    {/* <div>
                       {tags.map(tag => (
                         <div key={`${tag}`} >
                           <p>{tag}</p>
                         </div>
+                      ))}
+                    </div> */}
+
+                    <div className="tags are-medium has-addons">
+                      {tags && tags.map(tag => (
+                        <React.Fragment key={tag}>
+                          <span className="tag has-background-link-light">{tag}</span>
+                          <a className="tag is-delete" onClick={() => handleRemoveTag(tag)}></a>&nbsp;&nbsp;
+                        </React.Fragment>
                       ))}
                     </div>
 
@@ -480,6 +532,11 @@ export default function RecipeForm({ mode, recipe, id }) {
         .main-image {
           width: 300px;
           max-width: 100%;
+        }
+
+        .text-input {
+          width: 343px;
+          display: inline-block;
         }
       `}</style>
     </>
