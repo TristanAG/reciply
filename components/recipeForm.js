@@ -46,6 +46,7 @@ export default function RecipeForm({ mode, recipe, id }) {
       setMainImage(recipe.mainImage)
       setIngredientFields(recipe.ingredients)
       setStepFields(recipe.steps)
+      setTags(recipe.tags)
     }
   }, [mode, recipe])
 
@@ -91,7 +92,7 @@ export default function RecipeForm({ mode, recipe, id }) {
   };
 
   function handleCreateRecipe() {
-    const { name, source, sourceUrl, imageSource, imageSourceUrl, description, steps } = values
+    const { name, source, sourceUrl, imageSource, imageSourceUrl, description } = values
 
     const recipe = {
       name,
