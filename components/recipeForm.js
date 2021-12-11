@@ -185,7 +185,7 @@ export default function RecipeForm({ mode, recipe, id }) {
 
       tagGroup.forEach((t) => {
         if (t.length !== 0) {
-          formattedTags.push(t)
+          formattedTags.push(t.toLowerCase())
         }
       })
 
