@@ -172,7 +172,7 @@ export default function RecipeForm({ mode, recipe, id }) {
   function updateTags(tag, tagGroup) {
     if (tagGroup === undefined) {
       if (!tags.includes(tag)) {
-        setTags([...tags, tag])
+        setTags([...tags, tag.toLowerCase()])
         // updateRecipeList([...tags, tag])
       } else {
         alert('you already have that tag')
@@ -180,7 +180,18 @@ export default function RecipeForm({ mode, recipe, id }) {
     } else {
 
       let currentTags = tags
-      const result = currentTags.concat(tagGroup)
+
+      let formattedTags = []
+
+      tagGroup.forEach((t) => {
+        if (t.length !== 0) {
+          formattedTags.push(t)
+        }
+      })
+
+      console.log(formattedTags)
+
+      const result = currentTags.concat(formattedTags)
       setTags(result)
       // updateRecipeList(result)
     }
