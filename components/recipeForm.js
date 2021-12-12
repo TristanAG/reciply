@@ -153,11 +153,12 @@ export default function RecipeForm({ mode, recipe, id }) {
     setInputText(event.target.value)
   }
 
-  function handleAddTag() {
+  function handleAddTag(x) {
     // alert(inputText)
     // let currentTags = tags
     // // const result = currentTags.concat(tagGroup)
     // // console.log(result)
+
 
     let tagGroup = inputText.split(' ')
     if (tagGroup.length >= 2) {
@@ -209,6 +210,15 @@ export default function RecipeForm({ mode, recipe, id }) {
     setTags(filteredTags)
   }
 
+  function convertToTags(e) {
+    let tagGroup = e.target.value.split(' ')
+    if (tagGroup.length >= 2) {
+      updateTags(null, tagGroup)
+    } else {
+      e.target.value.length !== 0 && updateTags(inputText)
+    }
+  }
+
   return (
     <>
       {/* <div className="columns">
@@ -254,6 +264,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                   <label className="label">Recipe Name</label>
                   <input
                     onChange={handleChange}
+                    onBlur={convertToTags}
                     value={values.name}
                     name="name"
                     type="text"
@@ -297,7 +308,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                           {/* <i className="fas fa-upload"></i> */}
                           📷
                         </span>
-                        <span clasNames="file-label">
+                        <span className="file-label">
                           Upload Image
                         </span>
                       </span>
