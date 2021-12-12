@@ -171,6 +171,10 @@ export default function RecipeForm({ mode, recipe, id }) {
   }
 
   function updateTags(tag, tagGroup) {
+    console.log('here is the tag in updateTags:')
+    console.log(tag)
+    console.log('here is the taggroup in updateTags:')
+    console.log(tagGroup)
     if (tagGroup === undefined) {
       if (!tags.includes(tag)) {
         setTags([...tags, tag.toLowerCase()])
@@ -212,10 +216,14 @@ export default function RecipeForm({ mode, recipe, id }) {
 
   function convertToTags(e) {
     let tagGroup = e.target.value.split(' ')
+    console.log('in convert tags')
+    console.log(tagGroup)
     if (tagGroup.length >= 2) {
       updateTags(null, tagGroup)
     } else {
-      e.target.value.length !== 0 && updateTags(inputText)
+      console.log('single update')
+      console.log(tagGroup.length)
+      e.target.value.length !== 0 && updateTags(e.target.value)
     }
   }
 
@@ -383,6 +391,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                                   name="ingredientName"
                                   value={ingredientField.ingredientName}
                                   onChange={event => handleIngredientChange(index, event)}
+                                  onBlur={convertToTags}
                                 />
                               </div>
                               <div className="column">
