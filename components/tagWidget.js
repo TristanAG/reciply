@@ -11,7 +11,7 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
   }, [tags])
 
   function handleInput(event) {
-    setInputText(event.target.value)
+    setInputText(event.target.value.toLowerCase())
   }
 
   function handleSubmit(e) {
