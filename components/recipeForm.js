@@ -171,6 +171,7 @@ export default function RecipeForm({ mode, recipe, id }) {
   }
 
   function updateTags(tag, tagGroup) {
+    console.log('TEST')
     console.log('here is the tag in updateTags:')
     console.log(tag)
     console.log('here is the taggroup in updateTags:')
