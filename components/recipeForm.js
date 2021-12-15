@@ -465,7 +465,6 @@ export default function RecipeForm({ mode, recipe, id }) {
                       <h4>Tags</h4>
                     </div>
                     <p><i>Note: Add relevant tags to help your recipe get discovered</i></p>
-                    <div style={{"color":"purple"}}>{tags.length}</div>
                     <div className="text-input control has-icons-right" style={{"width":"300px"}}>
                       <input
                         className="input is-primary"

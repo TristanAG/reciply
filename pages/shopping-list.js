@@ -205,7 +205,9 @@ export default function ShoppingList() {
                       <li key={i} id={'list-item-' + i} onClick={() => handleSelectIngredient(ingredient, 'list-item-' + i)}
                         className={ingredient.checked ? 'has-text-grey-lighter' : 'has-text-black'}
                       >
-                        {ingredient.name} | {ingredient.quantity} | {ingredient.checked ? 'checked' : 'not checked'}
+
+                        {ingredient.name}
+                        {/* | {ingredient.quantity} | {ingredient.checked ? 'checked' : 'not checked'} */}
                       </li>
                     ))}
                   </ul>
@@ -219,6 +221,9 @@ export default function ShoppingList() {
       </>
 
       <style jsx>{`
+        li {
+          cursor:pointer;
+        }
       `}</style>
     </Layout>
   )
