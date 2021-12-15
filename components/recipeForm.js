@@ -153,11 +153,12 @@ export default function RecipeForm({ mode, recipe, id }) {
     setInputText(event.target.value)
   }
 
-  function handleAddTag() {
+  function handleAddTag(x) {
     // alert(inputText)
     // let currentTags = tags
     // // const result = currentTags.concat(tagGroup)
     // // console.log(result)
+
 
     let tagGroup = inputText.split(' ')
     if (tagGroup.length >= 2) {
@@ -170,6 +171,10 @@ export default function RecipeForm({ mode, recipe, id }) {
   }
 
   function updateTags(tag, tagGroup) {
+    console.log('here is the tag in updateTags:')
+    console.log(tag)
+    console.log('here is the taggroup in updateTags:')
+    console.log(tagGroup)
     if (tagGroup === undefined) {
       if (!tags.includes(tag)) {
         setTags([...tags, tag.toLowerCase()])
@@ -207,6 +212,19 @@ export default function RecipeForm({ mode, recipe, id }) {
     })
 
     setTags(filteredTags)
+  }
+
+  function convertToTags(e) {
+    let tagGroup = e.target.value.split(' ')
+    console.log('in convert tags')
+    console.log(tagGroup)
+    if (tagGroup.length >= 2) {
+      updateTags(null, tagGroup)
+    } else {
+      console.log('single update')
+      console.log(tagGroup.length)
+      e.target.value.length !== 0 && updateTags(e.target.value)
+    }
   }
 
   return (
@@ -254,6 +272,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                   <label className="label">Recipe Name</label>
                   <input
                     onChange={handleChange}
+                    onBlur={convertToTags}
                     value={values.name}
                     name="name"
                     type="text"
@@ -297,7 +316,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                           {/* <i className="fas fa-upload"></i> */}
                           📷
                         </span>
-                        <span clasNames="file-label">
+                        <span className="file-label">
                           Upload Image
                         </span>
                       </span>
@@ -372,6 +391,7 @@ export default function RecipeForm({ mode, recipe, id }) {
                                   name="ingredientName"
                                   value={ingredientField.ingredientName}
                                   onChange={event => handleIngredientChange(index, event)}
+                                  onBlur={convertToTags}
                                 />
                               </div>
                               <div className="column">
