@@ -31,18 +31,15 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
   return(
     <div className="tag-widget">
       <form onSubmit={handleSubmit}>
-        <div className="text-input control has-icons-right">
+        <div className="text-input control">
           <input
             className="input is-primary"
             type="text"
             onChange={handleInput}
             value={inputText}
             placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
-            style={{"maxWidth":"100%"}}
+
           />
-          <span className="icon is-small is-right">
-            <i className="fas fa-check"></i>
-          </span>
         </div>
 
         <button className={inputText.length >= 1 ? "button is-primary" : "button disabled" } disabled={inputText.length >= 1 ? false : true} >Search</button>
@@ -64,17 +61,19 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
         .tag-widget {
 
           width: 464px;
+          max-width: 100%;
           margin-left: auto;
           margin-right: auto;
         }
 
         .text-input {
-          width: 343px;
+          width: 270px;
+          max-width: 100%;
           display: inline-block;
         }
 
         button {
-          margin-left: 27px;
+          margin-left: 12px;
         }
       `}</style>
     </div>
