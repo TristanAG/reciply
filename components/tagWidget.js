@@ -37,7 +37,7 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
             type="text"
             onChange={handleInput}
             value={inputText}
-            placeholder="Add Tag, Recipe Name, Type of Cuisine or Ingredient"
+            placeholder="Search"
 
           />
         </div>
@@ -60,20 +60,27 @@ function tagWidget({ tags, handleRemoveTag, updateTags }) {
 
         .tag-widget {
 
-          width: 464px;
+          width: 524px;
           max-width: 100%;
           margin-left: auto;
           margin-right: auto;
         }
 
         .text-input {
-          width: 270px;
-          max-width: 100%;
+          // min-width: 230px;
+          // max-width: 100%;
+          width: 64%;
           display: inline-block;
         }
 
         button {
           margin-left: 12px;
+        }
+
+        @media and screen (min-width: 524px) {
+          .tag-widget {
+
+          }
         }
       `}</style>
     </div>
