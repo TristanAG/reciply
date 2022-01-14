@@ -25,7 +25,9 @@ function RecipeItem({ recipe, index, showCount, firebase, updateTags }) {
     <div className="test">
       <div className="card">
         <div className="card-content">
-          <p className="title is-4">{recipe.name}</p>
+          <Link href={'/' + recipe.slug} >
+            <a><p className="title is-4">{recipe.name}</p></a>
+          </Link>
           <p className="subtitle is-6">
             <Link href={'/' + recipe.slug} >
               <a className="link">@{recipe.postedBy.name.split(' ').join('').toLowerCase()}</a>
@@ -35,11 +37,15 @@ function RecipeItem({ recipe, index, showCount, firebase, updateTags }) {
 
         </div>
         {recipe.mainImage &&
-          <div className="card-image">
-            <figure className="is-4by3" style={{ 'textAlign' : 'center' }}>
-               <img src={recipe.mainImage} alt="Placeholder image" />
-            </figure>
-          </div>
+          <Link href={'/' + recipe.slug} >
+            <a>
+              <div className="card-image">
+                <figure className="is-4by3" style={{ 'textAlign' : 'center' }}>
+                   <img src={recipe.mainImage} alt="Placeholder image" />
+                </figure>
+              </div>
+            </a>
+          </Link>
         }
         <div className="card-content">
           <div className="content">
